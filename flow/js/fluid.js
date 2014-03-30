@@ -2,14 +2,10 @@
 
  // Check if we have access to contexts
 if ( this.CanvasRenderingContext2D && !CanvasRenderingContext2D.createImageData ) {
-    
     // Grabber helper function
     CanvasRenderingContext2D.prototype.createImageData = function ( w, h ) {
-        
         return this.getImageData( 0, 0, w, h);
-        
     }
-    
 }
 
 function Fluid(canvas) {
