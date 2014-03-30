@@ -22,7 +22,7 @@ function Fluid(canvas) {
 			x[ i ] =  (b==2?-1:1) * x[ i + rowSize ];
             x[ i + ( height + 1 ) * rowSize] = (b==2?-1:1) * x[ i + height * rowSize ];
 		}
-		for (var j = 1; i <= height; i++) {
+		for (var j=1;j<=height;j++) {
 			x[j * rowSize] = (b==1?-1:1) * x[1 + j * rowSize];
 			x[(width + 1) + j * rowSize] = (b==1?-1:1) * x[width + j * rowSize];
 		}
