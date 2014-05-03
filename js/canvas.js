@@ -76,8 +76,7 @@ for(var i = 0; i < 16; i++) {
 }
 
 terrainTank = new Tank(randomInteger(andomInteger(0,40) + randomInteger(20,750), randomInteger(20,500), randomInteger(20,60),
- 					   randomInteger(20,60), randomColor(), randomColor(), context));
-terrainTank.draw();
+ 					   randomInteger(20,60), randomColor(), randomColor(), context))
 
 
 
