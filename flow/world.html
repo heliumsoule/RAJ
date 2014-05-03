@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Quicksand">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title></title>
+		<script src="js/vendor/jmin.js"></script>
+		<script src="js/fluid.js"></script>
+		<script src="js/all.js"></script>
+		<script src="js/world.js"></script>
+		<script src="js/maps.js"></script>
+    </head>
+    <body>
+    	<div id="container">
+			<canvas id="hid" width="120" height="80"></canvas>
+			<canvas id="cv" width="720" height="480"></canvas>
+		</div>
+		<div id="d" style="position:absolute;bottom:5px;left:5px;"></div>
+		<script>
+			$(document).ready(function() {
+				
+				var F = new Fluid();
+				F.setResolution(120,80);
+				F.setFade(0.971);
+				
+				F.setUICallback(function(field) {
+					field.setBlockVRGB(110,77,1,1,-20,-30,[0,0,255]);
+					field.setBlockVRGB(60,10,2,2,0,10,[0,255,0]);
+					field.setBlockVRGB(10,49,2,2,20,0,[255,0,0]);
+					field.setBlockVRGB(75,74,1,2,0,-20,[255,255,0]);
+				});
+				
+				var hid = $("#hid")[0],
+					hidg = hid.getContext("2d"),
+					cv = $("#cv")[0],
+					g = cv.getContext("2d");
+				
+				
+				
+				setInterval(function() {
+					var fcv = F.update();
+					hidg.drawImage(fcv,0,0);
+					g.save();
+					g.scale(6,6);
+					g.drawImage(hid,0,0);
+					g.restore();
+					
+					
+					
+				}, 25);
+				
+			});
+		</script>
+    </body>
+</html>
