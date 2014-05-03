@@ -34,9 +34,12 @@
 					cv = $("#cv")[0],
 					g = cv.getContext("2d");
 				
-				T = new NormalTank();
-				T.init(keyBindP1);
-				T.setup(new Vector(30,30));
+				T1 = new NormalTank();
+				T1.init(keyBindP1);
+				T1.setup(new Vector(30,30), 0);
+				T2 = new NormalTank();
+				T2.init(keyBindP2);
+				T2.setup(new Vector(660,420), Math.PI);
 				
 				setInterval(function() {
 					var fcv = F.update();
@@ -46,8 +49,10 @@
 					g.drawImage(hid,0,0);
 					g.restore();
 					
-					T.step();
-					T.draw(g);
+					T1.step();
+					T1.draw(g);
+					T2.step();
+					T2.draw(g);
 					
 				}, 25);
 				

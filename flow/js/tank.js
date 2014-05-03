@@ -22,9 +22,10 @@ var Tank = function() {
 					this.keyb[i] = j;
 		}
 	}
-	this.setup = function(startPos) {
+	this.setup = function(startPos, angle) {
 		this.hp = this.MAXHP;
 		this.p = startPos;
+		this.angle = angle;
 	}
 	this.steps = [function() {
 		if (keyv[this.keyb.left]) this.angle -= TANKS.TURNSPEED;
