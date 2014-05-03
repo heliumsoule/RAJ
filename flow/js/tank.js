@@ -36,6 +36,9 @@ var Tank = function() {
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
+			var r = calculate(this.p, 30, 30, this.v);
+			this.p.setC(r.x, r.y);
+			this.v.setC(r.vx, r.vy);
 		}
 	}];
 	this.step = function() {
