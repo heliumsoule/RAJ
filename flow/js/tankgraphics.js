@@ -1,8 +1,3 @@
-
-function randomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function randomColor() {
 	var letters = "0123456789ABCDEF";
 	var color = "#";
@@ -12,34 +7,15 @@ function randomColor() {
 	return color
 }
 
-function randomNumber(min,max) {
-	return Math.random() * (max - min) + min;
-}
-
-var tankSize = 20;
-var maps =  [
-	{
-		fluid : [230,220],
-		lasers : [40,70],
-		mines : [20,60],
-		mud : [40,50],
-		startP1 : [20,20],
-		startP2 : [680,440],
-		walls : [[60,60,40,120],[60,260,200,40],[60,380,40,40],[150,380,40,40],[240,380,40,40],
-	             [400,240,40,140],[540,240,40,140],[260,40,140,40],[330,140,140,40],[620,40,40,140]]
-	    
+var TANKS = {
+	NORMAL : {
+		hp : 100,
+		friction : 0.85,
+		speed : 10,
+		size : 20
 	},
-	{
-		fluid : [200,250],
-		lasers : [60,100],
-		mines : [20,40],
-		mud : [50,50],
-		startP1 : [30,20],
-		startP2 : [640,440],
-		walls : [[60,60,40,120],[60,260,200,40],[60,380,40,40],[150,380,40,40],[240,380,40,40],
-	             [400,240,40,140],[540,240,40,140],[260,40,140,40],[330,140,140,40],[620,40,40,140]]
-	}
-];
+	TURNSPEED : 5 * Math.PI / 180
+}
 
 function Rectangle(x,y,width,height,colorCode,colorStyle) {
 	this.x = x;
@@ -141,8 +117,8 @@ World.prototype.draw = function(context) {
 		for(var count = 0; count < this.worldWalls[0].length; count++) {
 			context.fillRect(this.worldWalls[0][count][0],this.worldWalls[0][count][1],this.worldWalls[0][count][2],this.worldWalls[0][count][3]);
 		}
-		var flowTanksP1 = new Tank(this.worldStartP1[0][0],this.worldStartP1[0][1],tankSize,tankSize,randomColor(),randomColor(),context);
-		var flowTanksP2 = new Tank(this.worldStartP2[0][0],this.worldStartP2[0][1],tankSize,tankSize,randomColor(),randomColor(),context);
+		var flowTanksP1 = new Tank(this.worldStartP1[0][0],this.worldStartP1[0][1],TANKS.NORMAL.size,TANKS.NORMAL.size,randomColor(),randomColor(),context);
+		var flowTanksP2 = new Tank(this.worldStartP2[0][0],this.worldStartP2[0][1],TANKS.NORMAL.size,TANKS.NORMAL.size,randomColor(),randomColor(),context);
 		flowTanksP1.draw(context);
 		flowTanksP2.draw(context);
 	}
