@@ -29,13 +29,14 @@
 				
 				T1 = new NormalTank();
 				T1.init(keyBindP1);
-				T1.setup(new Vector(30,30), 0);
+				T1.setup(new Vector(30,20), 0);
 				T2 = new NormalTank();
 				T2.init(keyBindP2);
 				T2.setup(new Vector(660,420), Math.PI);
 				flowWorld = new World();
-				flowWorld.init(0,randomColor);
+				flowWorld.init(0,randomColor());
 				setInterval(function() {
+					g.clearRect(0,0,g.width,g.height);
 					var fcv = F.update();
 					hidg.drawImage(fcv,0,0);
 					g.save();

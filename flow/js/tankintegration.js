@@ -11,7 +11,8 @@ var TANKS = {
 	NORMAL : {
 		hp : 100,
 		friction : 0.85,
-		speed : 10
+		speed : 10,
+		size : 24,
 	},
 	TURNSPEED : 5 * Math.PI / 180
 }
@@ -59,27 +60,17 @@ var Tank = function() {
 			g.rotate(this.angle);
 				g.fillStyle = "rgb(50,50,50)";
 				g.strokeStyle = "rgb(255,255,255)";
-				g.fillRect(-15,-15,30,30);
-				g.strokeRect(-15,-15,30,30);
+				g.fillRect(-12,-12,TANKS.NORMAL.size,TANKS.NORMAL.size);
+				g.strokeRect(-12,-12,TANKS.NORMAL.size,TANKS.NORMAL.size);
+				g.fillRect(-16,-18,32,8);
+				g.fillRect(-16,10,32,8);
+				g.strokeRect(-16,-18,32,8);
+				g.strokeRect(-16,10,32,8);
+				var flowTurret = new Turret(this.p.x-12,this.p.y-12,"rgb(30,200,140)");
+				flowTurret.draw(g);
 			g.rotate(-this.angle);
 		g.translate(-this.p.x-15, -this.p.y-15);
 	}
-	// this.draw = function(g) {
-	// 	g.translate(this.p.x+15, this.p.y+15);
-	// 		g.rotate(this.angle);
-	// 			g.fillStyle = "rgb(50,50,50)";
-	// 			g.strokeStyle = "rgb(255,255,255)"
-	// 			g.fillRect(this.x-3,this.y-6,6,32);
-	// 			g.fillRect(this.x+18,this.y-6,6,32);
-	// 			g.strokeRect(this.x-3,this.y-6,6,32);
-	// 			g.strokeRect(this.x+18,this.y-6,6,32);
-	// 			g.fillRect(this.x,this.y,this.width,this.height);
-	// 			g.strokeRect(this.x,this.y,this.width,this.height);
-	// 			var flowTurret = new Turret(this.x+10,this.y+10,"rgb(70,200,140)");
-	// 			flowTurret.draw(g);
-	// 		g.rotate(-this.angle);
-	// 	g.translate(-this.p.x-15, -this.p.y-15);
-	// }
 }
 
 var Turret = function(x,y,colorCode) {
@@ -87,7 +78,7 @@ var Turret = function(x,y,colorCode) {
 	this.y = y;
 	this.color = colorCode;
 	this.draw = function(g) {
-		var r = 8;
+		var r = 10;
 		var coverPoints = [[r,0],
 					  [r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
 					  [-r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
@@ -95,18 +86,16 @@ var Turret = function(x,y,colorCode) {
 					  [-r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
 					  [r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
 					  [r,0]];
-		g.moveTo(this.x+coverPoints[0][0],this.y+coverPoints[0][1]);
+		g.moveTo(coverPoints[0][0],coverPoints[0][1]);
 		for(var count = 1; count < 6; count++) {
-			g.lineTo(this.x+coverPoints[count][0],this.y+coverPoints[count][1]);
+			g.lineTo(coverPoints[count][0],coverPoints[count][1]);
 		}
 		g.closePath();
 		g.fillStyle = this.color;
+		g.strokeStyle = this.color;
 		g.fill();
-		g.strokeStyle = randomColor();
-		g.stroke();
-		g.fillStyle = randomColor();
-		g.fillRect(this.x-3,this.y-18,6,18);
-		g.strokeRect(this.x-3,this.y-18,6,18);
+		g.fillRect(2,-3,18,6);
+		g.strokeRect(2,-3,18,6);
 	}
 }
 
@@ -146,16 +135,14 @@ var World = function() {
 		this.worldStartP2 = worldStartP2;
 		this.worldWalls = worldWalls;
 		this.numberCode = numberCode;
-		this.color = colorCode;
+		this.color = "rgb(80,160,240)";
 	}
 	
 	this.draw = function(g) {
-		g.fillStyle = this.colorCode;
+		g.fillStyle = "rgb(80,160,240)";
 		if(this.numberCode == 0) {
 			for(var count = 0; count < this.worldWalls[0].length; count++)
 				g.fillRect(this.worldWalls[0][count][0],this.worldWalls[0][count][1],this.worldWalls[0][count][2],this.worldWalls[0][count][3]);
-					console.log(10);
-
 		}
 	}
 }
