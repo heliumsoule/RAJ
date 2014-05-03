@@ -1,6 +1,14 @@
 
 
 var keyBindP1 = {
+	primary : 190,
+	secondary : 191,
+	up : 38,
+	right : 39,
+	down : 40,
+	left : 37
+}
+var keyBindP2 = {
 	primary : 49,
 	secondary : 50,
 	up : 87,
@@ -15,16 +23,19 @@ for(var i=0;i<keys.length;i++) keyv[i] = false;
 
 $(function() {
 	
-	function checkKey(char, val) {
+	function checkKey(e, char, val) {
 		for(var i=0;i<keys.length;i++)
-			if (keys[i] == char) keyv[i] = val;
+			if (keys[i] == char) {
+				e.preventDefault();
+				keyv[i] = val;
+			}
 	}
 	
 	$(window).keydown(function(e) {
-		checkKey(e.keyCode, true);
+		checkKey(e, e.keyCode, true);
 	});
 	$(window).keyup(function(e) {
-		checkKey(e.keyCode, false);
+		checkKey(e, e.keyCode, false);
 	});
 	
 });

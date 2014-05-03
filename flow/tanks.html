@@ -34,7 +34,9 @@
 					cv = $("#cv")[0],
 					g = cv.getContext("2d");
 				
-				var T = new Tank();
+				T = new NormalTank();
+				T.init(keyBindP1);
+				T.setup(30,30);
 				
 				setInterval(function() {
 					var fcv = F.update();
@@ -44,7 +46,8 @@
 					g.drawImage(hid,0,0);
 					g.restore();
 					
-					
+					T.step();
+					T.draw(g);
 					
 				}, 25);
 				
