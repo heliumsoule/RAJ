@@ -51,32 +51,17 @@ Tank.prototype.draw = function() {
 	context.fill();
 	context.lineWidth = 2;
 }
-var tank = function(x,y,width,height,colorCode,colorStyle,context) {
-	return {
-		x:x,
-		y:y,
-		width:widty,
-		height:height,
-		color:colorCode,
-		context:context,
-		draw: function() {
-			context.rect(this.x,this.y,this.width,this.height);
-			console.log(this.color);
-			console.fillStyle = this.color;
-			context.fill();
-		},
-	}
-}
 
 var terrainBoxes = [];
-for(var i = 0; i < 16; i++) {
+for(var i = 0; i < 2; i++) {
 	terrainBoxes[i] = new Rectangle(randomInteger(0,40) + randomInteger(20,750), randomInteger(20,500), randomInteger(20,100), 
 									randomInteger(20,200), randomColor(), randomColor(), context);
 	terrainBoxes[i].draw();
 }
 
-terrainTank = new Tank(randomInteger(andomInteger(0,40) + randomInteger(20,750), randomInteger(20,500), randomInteger(20,60),
- 					   randomInteger(20,60), randomColor(), randomColor(), context))
+var terrainTank = new Tank(randomInteger(0,40) + randomInteger(20,750), randomInteger(20,500), randomInteger(20,60),
+ 					   	   randomInteger(20,60), randomColor(), randomColor(), context);
+terrainTank.draw();
 
 
 
