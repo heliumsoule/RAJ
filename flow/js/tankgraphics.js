@@ -19,25 +19,25 @@ function randomNumber(min,max) {
 var tankSize = 20;
 var maps =  [
 	{
-		fluid : [(200,250)],
-		lasers : [(60,100)],
-		mines : [(20,40)],
-		mud : [(50,50)],
+		fluid : [230,220],
+		lasers : [40,70],
+		mines : [20,60],
+		mud : [40,50],
 		startP1 : [20,20],
 		startP2 : [680,440],
 		walls : [[60,60,40,120],[60,260,200,40],[60,380,40,40],[150,380,40,40],[240,380,40,40],
-	             [400,240,40,140],[540,240,40,140],[260,40,140,40],[330,140,140,40],[620,40,40,140],]
+	             [400,240,40,140],[540,240,40,140],[260,40,140,40],[330,140,140,40],[620,40,40,140]]
 	    
 	},
 	{
-		fluid : [(200,250)],
-		lasers : [(60,100)],
-		mines : [(20,40)],
-		mud : [(50,50)],
-		startP1 : [20,20],
-		startP2 : [680,440],
+		fluid : [200,250],
+		lasers : [60,100],
+		mines : [20,40],
+		mud : [50,50],
+		startP1 : [30,20],
+		startP2 : [640,440],
 		walls : [[60,60,40,120],[60,260,200,40],[60,380,40,40],[150,380,40,40],[240,380,40,40],
-	             [400,240,40,140],[540,240,40,140],[260,40,140,40],[330,140,140,40],[620,40,40,140],]
+	             [400,240,40,140],[540,240,40,140],[260,40,140,40],[330,140,140,40],[620,40,40,140]]
 	}
 ];
 
@@ -130,39 +130,24 @@ function World(numberCode,colorCode) {
 	this.worldStartP1 = worldStartP1;
 	this.worldStartP2 = worldStartP2;
 	this.worldWalls = worldWalls;
-	this.number = numberCode;
+	this.numberCode = numberCode;
 	this.color = colorCode;
 }
 
 World.prototype.draw = function(context) {
 	context.fillStyle = this.colorCode;
+	console.log(this.numberCode);
 	if(this.numberCode == 0) {
-		for(var count = 0; count < this.worldWalls.length; count++) {
-			context.fillRect(this.worldWalls[count][0],this.worldWalls[count][1],this.worldWalls[count][2],this.worldWalls[count][3]);
+		for(var count = 0; count < this.worldWalls[0].length; count++) {
+			context.fillRect(this.worldWalls[0][count][0],this.worldWalls[0][count][1],this.worldWalls[0][count][2],this.worldWalls[0][count][3]);
 		}
-		var flowTanksP1 = new Tank(this.worldStartP1[0][0],thius.worldStartP1[0][1],tankSize,tankSize,randomColor(),randomColor(),context);
-		var flowTanksP2 = new Tank(this.worldStartP2[0][0],thius.worldStartP2[0][1],tankSize,tankSize,randomColor(),randomColor(),context);
-
+		var flowTanksP1 = new Tank(this.worldStartP1[0][0],this.worldStartP1[0][1],tankSize,tankSize,randomColor(),randomColor(),context);
+		var flowTanksP2 = new Tank(this.worldStartP2[0][0],this.worldStartP2[0][1],tankSize,tankSize,randomColor(),randomColor(),context);
+		flowTanksP1.draw(context);
+		flowTanksP2.draw(context);
 	}
 }
 
-// function World(numberCode,colorCode,context) {
-// 	context.fillStyle = this.colorCode;
-// 	if(numberCode == 0) {
-// 		context.fillStyle = randomColor();
-// 		for(var count = 0; count < maps[0]["walls"].length; count++) {
-// 			context.fillRect(maps[0]["walls"][count][0],
-// 							 maps[0]["walls"][count][1],
-// 							 maps[0]["walls"][count][2],
-// 							 maps[0]["walls"][count][3]);
-// 		}
-// 		var flowTankP1 = new Tank(maps[0]["startP1"][0],maps[0]["startP1"][1],tankSize,tankSize,randomColor(),randomColor(),context);
-// 		var flowTankP2 = new Tank(maps[0]["startP2"][0],maps[0]["startP2"][1],tankSize,tankSize,randomColor(),randomColor(),context);
-// 		flowTankP1.draw(context);
-// 		flowTankP2.draw(context);
-// 	}
-
-// }
 
 
 

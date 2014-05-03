@@ -33,7 +33,8 @@
 				T2 = new NormalTank();
 				T2.init(keyBindP2);
 				T2.setup(new Vector(660,420), Math.PI);
-				var flowWorld = new World(0,randomColor(),g);
+				flowWorld = new World(0,randomColor(),g);
+
 				setInterval(function() {
 					var fcv = F.update();
 					hidg.drawImage(fcv,0,0);
@@ -47,7 +48,6 @@
 					T2.step();
 					T2.draw(g);
 					flowWorld.draw(g);
-					
 				}, 25);
 
 
