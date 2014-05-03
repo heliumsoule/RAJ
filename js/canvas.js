@@ -28,10 +28,9 @@ function Rectangle(x,y,width,height,colorCode,colorStyle,context) {
 }
 
 Rectangle.prototype.draw = function() {
-	context.rect(this.x,this.y,this.width,this.height);
 	console.log(this.color);
 	context.fillStyle = this.color;
-	context.fill();
+	context.fillRect(this.x,this.y,this.width,this.height);
 	context.lineWidth = 2;
 };
 
