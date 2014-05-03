@@ -29,7 +29,6 @@ function Rectangle(x,y,width,height,colorCode,colorStyle,context) {
 }
 
 Rectangle.prototype.draw = function() {
-	console.log(this.color);
 	context.fillStyle = this.color;
 	context.fillRect(this.x,this.y,this.width,this.height);
 	context.lineWidth = 2;
@@ -46,15 +45,15 @@ function Tank(x,y,width,height,colorCode,colorStyle,context) {
 
 Tank.prototype.draw = function() {
 	context.fillStyle = this.color;
-	context.fillRect(this.x-5,this.y-7,10,44);
-	context.fillRect(this.x+25,this.y-7,10,44);
-	context.strokeRect(this.x-5,this.y-7,10,44);
-	context.strokeRect(this.x+25,this.y-7,10,44);
+	context.fillRect(this.x-3,this.y-6,6,32);
+	context.fillRect(this.x+18,this.y-6,6,32);
+	context.strokeRect(this.x-3,this.y-6,6,32);
+	context.strokeRect(this.x+18,this.y-6,6,32);
 	context.fillStyle = randomColor();
 	context.fillRect(this.x,this.y,this.width,this.height);
 	context.strokeRect(this.x,this.y,this.width,this.height);
-	var terrainTurret = new Turret(this.x+15,this.y+15,randomColor(),this.context);
-	terrainTurret.draw();
+	var flowTurret = new Turret(this.x+10,this.y+10,randomColor(),this.context);
+	flowTurret.draw();
 
 };
 
@@ -66,7 +65,7 @@ function Turret(x,y,colorCode,context) {
 };
 
 Turret.prototype.draw = function() {
-	var r = 12;
+	var r = 8;
 	var coverPoints = [[r,0],
 				  [r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
 				  [-r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
@@ -84,13 +83,32 @@ Turret.prototype.draw = function() {
 	context.strokeStyle = randomColor();
 	context.stroke();
 	context.fillStyle = randomColor();
-	context.fillRect(this.x-5,this.y-27,10,24);
-	context.strokeRect(this.x-5,this.y-27,10,24);
+	context.fillRect(this.x-3,this.y-18,6,18);
+	context.strokeRect(this.x-3,this.y-18,6,18);
 };
 
+function World(numberCode,colorCode,context) {
+	context.fillStyle = this.color;
+	var worldPoints = [[60,60,40,120],
+	               [60,260,200,40],
+	               [60,380,40,40],
+	               [150,380,40,40],
+	               [240,380,40,40],
+	               [400,240,40,140],
+	               [540,240,40,140],
+	               [260,40,140,40],
+	               [330,140,140,40],
+	               [620,40,40,140],]
+	if(numberCode == 0) {
+		for(var count = 0; count < worldPoints.length; count++) 
+			context.fillRect(worldPoints[count][0],worldPoints[count][1],worldPoints[count][2],worldPoints[count][3]);
+	}
 
-var terrainTank = new Tank(randomInteger(20,700), randomInteger(20,460), 30, 30, randomColor(), randomColor(), context);
-terrainTank.draw();
+}
+
+var flowWorld = new World(0,randomColor(),context);
+var flowTank = new Tank(randomInteger(20,700), randomInteger(20,460), 20, 20, randomColor(), randomColor(), context);
+flowTank.draw();
 
 
 
