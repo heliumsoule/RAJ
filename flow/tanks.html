@@ -5,6 +5,7 @@
 		<title></title>
 		<script src="js/vendor/jmin.js"></script>
 		<script src="js/fluid.js"></script>
+		<script src="js/all.js"></script>
 		<script src="js/tank.js"></script>
     </head>
     <body>
@@ -25,7 +26,6 @@
 					field.setBlockVRGB(60,10,2,2,0,10,[0,255,0]);
 					field.setBlockVRGB(10,49,2,2,20,0,[255,0,0]);
 					field.setBlockVRGB(75,74,1,2,0,-20,[255,255,0]);
-					// x, y, w, h, vx, vy, velocity
 				});
 				
 				var hid = $("#hid")[0],
@@ -40,6 +40,9 @@
 					g.scale(6,6);
 					g.drawImage(hid,0,0);
 					g.restore();
+					
+					
+					
 				}, 25);
 				
 			});
