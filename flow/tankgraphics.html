@@ -1,0 +1,29 @@
+<html>
+    <head>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title></title>
+		<script src="js/vendor/jmin.js"></script>
+		<script src="js/fluid.js"></script>
+		<script src="js/all.js"></script>
+		<script src="js/tank.js"></script>
+		<script src="js/events.js"></script>
+		<script src="js/tankgraphics.js"></script>
+		<script>
+			$(document).ready(function() {
+				var c = document.getElementById("cv");
+				context = c.getContext("2d");
+				var flowWorld = new World(0,randomColor(),context);
+
+
+			});
+		</script>
+    </head>
+    <body>
+    	<div id="container">
+			<canvas id="hid" width="120" height="80"></canvas>
+			<canvas id="cv" width="720" height="480" style="border:2px solid black;"></canvas>
+		</div>
+		<div id="d" style="position:absolute;bottom:5px;left:5px;"></div>
+
+    </body>
+</html>

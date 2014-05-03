@@ -16,8 +16,6 @@ function randomNumber(min,max) {
 	return Math.random() * (max - min) + min;
 }
 
-var c = document.getElementById("c");
-var context = c.getContext("2d");
 var tankSize = 20;
 var maps =  [
 	{
@@ -33,31 +31,29 @@ var maps =  [
 	}
 ];
 
-function Rectangle(x,y,width,height,colorCode,colorStyle,context) {
+function Rectangle(x,y,width,height,colorCode,colorStyle) {
 	this.x = x;
 	this.y = y;
 	this.width = width;
 	this.height = height;
 	this.color = colorCode;
-	this.context = context;
 }
 
-Rectangle.prototype.draw = function() {
+Rectangle.prototype.draw = function(context) {
 	context.fillStyle = this.color;
 	context.fillRect(this.x,this.y,this.width,this.height);
 	context.lineWidth = 2;
 };
 
-function Tank(x,y,width,height,colorCode,colorStyle,context) {
+function Tank(x,y,width,height,colorCode,colorStyle) {
 	this.x = x;
 	this.y = y;
 	this.width = width;
 	this.height = height;
 	this.color = colorCode;
-	this.context = context;
 };
 
-Tank.prototype.draw = function() {
+Tank.prototype.draw = function(context) {
 	context.fillStyle = this.color;
 	context.fillRect(this.x-3,this.y-6,6,32);
 	context.fillRect(this.x+18,this.y-6,6,32);
@@ -66,19 +62,18 @@ Tank.prototype.draw = function() {
 	context.fillStyle = randomColor();
 	context.fillRect(this.x,this.y,this.width,this.height);
 	context.strokeRect(this.x,this.y,this.width,this.height);
-	var flowTurret = new Turret(this.x+10,this.y+10,randomColor(),this.context);
-	flowTurret.draw();
+	var flowTurret = new Turret(this.x+10,this.y+10,randomColor());
+	flowTurret.draw(context);
 
 };
 
-function Turret(x,y,colorCode,context) {
+function Turret(x,y,colorCode) {
 	this.x = x; 
 	this.y = y;
 	this.color = colorCode;
-	this.context = context;
 };
 
-Turret.prototype.draw = function() {
+Turret.prototype.draw = function(context) {
 	var r = 8;
 	var coverPoints = [[r,0],
 				  [r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
@@ -102,22 +97,22 @@ Turret.prototype.draw = function() {
 };
 
 function World(numberCode,colorCode,context) {
-	context.fillStyle = this.color;
+	context.fillStyle = this.colorCode;
 	if(numberCode == 0) {
-		for(var count = 0; count < maps[0]["walls"].length; count++) 
+		context.fillStyle = randomColor();
+		for(var count = 0; count < maps[0]["walls"].length; count++) {
 			context.fillRect(maps[0]["walls"][count][0],
 							 maps[0]["walls"][count][1],
 							 maps[0]["walls"][count][2],
 							 maps[0]["walls"][count][3]);
+		}
 		var flowTankP1 = new Tank(maps[0]["startP1"][0],maps[0]["startP1"][1],tankSize,tankSize,randomColor(),randomColor(),context);
 		var flowTankP2 = new Tank(maps[0]["startP2"][0],maps[0]["startP2"][1],tankSize,tankSize,randomColor(),randomColor(),context);
-		flowTankP1.draw();
-		flowTankP2.draw();
+		flowTankP1.draw(context);
+		flowTankP2.draw(context);
 	}
 
 }
-
-var flowWorld = new World(0,randomColor(),context);
 
 
 
