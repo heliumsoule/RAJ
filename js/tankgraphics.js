@@ -18,6 +18,20 @@ function randomNumber(min,max) {
 
 var c = document.getElementById("c");
 var context = c.getContext("2d");
+var tankSize = 20;
+var maps =  [
+	{
+		startP1 : [20,20],
+		startP2 : [680,440],
+		walls : [[60,60,40,120],[60,260,200,40],[60,380,40,40],[150,380,40,40],[240,380,40,40],
+	             [400,240,40,140],[540,240,40,140],[260,40,140,40],[330,140,140,40],[620,40,40,140],]
+	},
+	{
+		startP1 : [30,30],
+		startP2 : [660,420],
+		walls : [[0,0,50,50],[500,300,30,30]]
+	}
+];
 
 function Rectangle(x,y,width,height,colorCode,colorStyle,context) {
 	this.x = x;
@@ -89,26 +103,21 @@ Turret.prototype.draw = function() {
 
 function World(numberCode,colorCode,context) {
 	context.fillStyle = this.color;
-	var worldPoints = [[60,60,40,120],
-	               [60,260,200,40],
-	               [60,380,40,40],
-	               [150,380,40,40],
-	               [240,380,40,40],
-	               [400,240,40,140],
-	               [540,240,40,140],
-	               [260,40,140,40],
-	               [330,140,140,40],
-	               [620,40,40,140],]
 	if(numberCode == 0) {
-		for(var count = 0; count < worldPoints.length; count++) 
-			context.fillRect(worldPoints[count][0],worldPoints[count][1],worldPoints[count][2],worldPoints[count][3]);
+		for(var count = 0; count < maps[0]["walls"].length; count++) 
+			context.fillRect(maps[0]["walls"][count][0],
+							 maps[0]["walls"][count][1],
+							 maps[0]["walls"][count][2],
+							 maps[0]["walls"][count][3]);
+		var flowTankP1 = new Tank(maps[0]["startP1"][0],maps[0]["startP1"][1],tankSize,tankSize,randomColor(),randomColor(),context);
+		var flowTankP2 = new Tank(maps[0]["startP2"][0],maps[0]["startP2"][1],tankSize,tankSize,randomColor(),randomColor(),context);
+		flowTankP1.draw();
+		flowTankP2.draw();
 	}
 
 }
 
 var flowWorld = new World(0,randomColor(),context);
-var flowTank = new Tank(randomInteger(20,700), randomInteger(20,460), 20, 20, randomColor(), randomColor(), context);
-flowTank.draw();
 
 
 
