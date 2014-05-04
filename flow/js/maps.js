@@ -1,5 +1,6 @@
 var maps =  [
 	{
+		color : '#00E6E6',
 		fluid : [230,220],
 		lasers : [40,70],
 		mines : [20,60],
@@ -11,6 +12,7 @@ var maps =  [
 	    
 	},
 	{
+		color : '#ABCABC',
 		fluid : [200,250],
 		lasers : [60,100],
 		mines : [20,40],

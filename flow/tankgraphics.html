@@ -36,19 +36,19 @@
 				flowWorld = new World();
 				flowWorld.init(0,randomColor());
 				setInterval(function() {
-					g.clearRect(0,0,g.width,g.height);
+					g.clearRect(0,0,cv.width,cv.height);
 					var fcv = F.update();
 					hidg.drawImage(fcv,0,0);
 					g.save();
 					g.scale(6,6);
 					g.drawImage(hid,0,0);
 					g.restore();
-					
 					T1.step();
 					T1.draw(g);
 					T2.step();
 					T2.draw(g);
 					flowWorld.draw(g);
+
 				}, 25);
 
 

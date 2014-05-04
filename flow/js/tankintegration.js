@@ -13,6 +13,10 @@ var TANKS = {
 		friction : 0.85,
 		speed : 10,
 		size : 24,
+		color : {'body' : '#000000', 
+				 'wheels' : "#336699", 
+				 'turret' : '#0066CC', 
+				 'cover' : '#3385D6' }
 	},
 	TURNSPEED : 5 * Math.PI / 180
 }
@@ -58,44 +62,55 @@ var Tank = function() {
 	this.draw = function(g) {
 		g.translate(this.p.x+15, this.p.y+15);
 			g.rotate(this.angle);
-				g.fillStyle = "rgb(50,50,50)";
-				g.strokeStyle = "rgb(255,255,255)";
+				g.fillStyle = TANKS.NORMAL.color['body'];
+				g.strokeStyle = TANKS.NORMAL.color['body'];
 				g.fillRect(-12,-12,TANKS.NORMAL.size,TANKS.NORMAL.size);
 				g.strokeRect(-12,-12,TANKS.NORMAL.size,TANKS.NORMAL.size);
+				g.fillStyle = TANKS.NORMAL.color['wheels'];
+				g.strokeStyle = TANKS.NORMAL.color['wheels'];
 				g.fillRect(-16,-18,32,8);
 				g.fillRect(-16,10,32,8);
 				g.strokeRect(-16,-18,32,8);
 				g.strokeRect(-16,10,32,8);
-				var flowTurret = new Turret(this.p.x-12,this.p.y-12,"rgb(30,200,140)");
+				var flowTurret = new Turret(this.p.x-12,this.p.y-12,TANKS.NORMAL.color['cover'],TANKS.NORMAL.color['turret']);
 				flowTurret.draw(g);
 			g.rotate(-this.angle);
 		g.translate(-this.p.x-15, -this.p.y-15);
 	}
 }
 
-var Turret = function(x,y,colorCode) {
+var Turret = function(x,y,fillCode,strokeCode) {
 	this.x = x; 
 	this.y = y;
-	this.color = colorCode;
+	this.fillCode = fillCode;
+	this.strokeCode = strokeCode;
 	this.draw = function(g) {
-		var r = 10;
-		var coverPoints = [[r,0],
-					  [r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
-					  [-r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
-					  [-r,0],
-					  [-r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
-					  [r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
-					  [r,0]];
-		g.moveTo(coverPoints[0][0],coverPoints[0][1]);
-		for(var count = 1; count < 6; count++) {
-			g.lineTo(coverPoints[count][0],coverPoints[count][1]);
-		}
-		g.closePath();
-		g.fillStyle = this.color;
-		g.strokeStyle = this.color;
-		g.fill();
+		// var r = 10;
+		// var coverPoints = [[r,0],
+		// 			  [r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
+		// 			  [-r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
+		// 			  [-r,0],
+		// 			  [-r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
+		// 			  [r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
+		// 			  [r,0]];
+		// g.moveTo(coverPoints[0][0],coverPoints[0][1]);
+		// for(var count = 1; count < 6; count++) {
+		// 	g.lineTo(coverPoints[count][0],coverPoints[count][1]);
+		// }
+		// g.closePath();
+		// g.fillStyle = this.color;
+		// g.strokeStyle = this.color;
+		// g.fill();
+		// g.stroke();
+		// g.fillRect(2,-3,18,6);
+		// g.strokeRect(2,-3,18,6);
+		g.fillStyle = this.fillCode;
+		g.strokeStyle = this.strokeCode;
 		g.fillRect(2,-3,18,6);
 		g.strokeRect(2,-3,18,6);
+		g.beginPath();
+		g.arc(0,0,10,0,Math.PI*2,true);
+		g.fill();
 	}
 }
 
@@ -110,6 +125,7 @@ var NormalTank = Tank.extend(function() {
 });
 
 var World = function() {
+	var worldColor = [];
 	var worldFluid = [];
 	var worldLasers = [];
 	var worldMines = [];
@@ -119,14 +135,16 @@ var World = function() {
 	var worldWalls = [];
 	this.init = function(numberCode,colorCode) {
 		for(var count = 0; count < maps.length; count++) {
-		worldFluid.push(maps[count]["fluid"]);
-		worldLasers.push(maps[count]["lasers"]);
-		worldMines.push(maps[count]["mines"]);
-		worldMud.push(maps[count]["mud"]);
-		worldStartP1.push(maps[count]["startP1"]);
-		worldStartP2.push(maps[count]["startP2"]);
-		worldWalls.push(maps[count]["walls"]);
+		worldColor.push(maps[count]['color']);
+		worldFluid.push(maps[count]['fluid']);
+		worldLasers.push(maps[count]['lasers']);
+		worldMines.push(maps[count]['mines']);
+		worldMud.push(maps[count]['mud']);
+		worldStartP1.push(maps[count]['startP1']);
+		worldStartP2.push(maps[count]['startP2']);
+		worldWalls.push(maps[count]['walls']);
 		}
+		this.worldColor = worldColor;
 		this.worldFluid = worldFluid;
 		this.worldLasers = worldLasers;
 		this.worldMines = worldMines;
@@ -135,12 +153,11 @@ var World = function() {
 		this.worldStartP2 = worldStartP2;
 		this.worldWalls = worldWalls;
 		this.numberCode = numberCode;
-		this.color = "rgb(80,160,240)";
 	}
 	
 	this.draw = function(g) {
-		g.fillStyle = "rgb(80,160,240)";
 		if(this.numberCode == 0) {
+			g.fillStyle = this.worldColor[0];
 			for(var count = 0; count < this.worldWalls[0].length; count++)
 				g.fillRect(this.worldWalls[0][count][0],this.worldWalls[0][count][1],this.worldWalls[0][count][2],this.worldWalls[0][count][3]);
 		}
