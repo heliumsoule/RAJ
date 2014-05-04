@@ -114,6 +114,21 @@ var Turret = function(x,y,fillCode,strokeCode) {
 	}
 }
 
+var Laser = function(x,y,width,height) {
+	this.x = x;
+	this.y = y;
+	this.width = width;
+	this.height = height;
+	this.fillCode = '#B20000';
+	this.strokeCode = '#B20000';
+	this.draw = function(g) {
+		g.fillStyle = this.fillCode;
+		g.strokeStyle = this.strokeStyle;
+		g.fillRect(x,y,width,height);
+		g.strokeRect(x,y,width,height);
+		// this.fadeOut(Math.floor(10*Math.random()));
+	}
+}
 
 var NormalTank = Tank.extend(function() {
 	this.MAXHP = TANKS.NORMAL.hp;
@@ -156,10 +171,19 @@ var World = function() {
 	}
 	
 	this.draw = function(g) {
+		var Lasers = [];
 		if(this.numberCode == 0) {
 			g.fillStyle = this.worldColor[0];
-			for(var count = 0; count < this.worldWalls[0].length; count++)
+			for(var count = 0, tick = this.worldWalls[0].length; count < tick; count++) {
 				g.fillRect(this.worldWalls[0][count][0],this.worldWalls[0][count][1],this.worldWalls[0][count][2],this.worldWalls[0][count][3]);
+			}
+			for(var count = 0, tick = this.worldLasers[0].length; count < tick; count++) {
+				Lasers[count] = new Laser(this.worldLasers[0][count][0],this.worldLasers[0][count][1],this.worldLasers[0][count][2],this.worldLasers[0][count][3]);
+			}
+			for(var count = 0, tick = Lasers.length; count < tick; count++) {
+				if(count % 2 == 0) 
+					Lasers[Math.floor(tick * Math.random())].draw(g);	
+			}
 		}
 	}
 }

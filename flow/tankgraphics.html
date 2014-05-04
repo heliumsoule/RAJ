@@ -35,7 +35,7 @@
 				T2.setup(new Vector(660,420), Math.PI);
 				flowWorld = new World();
 				flowWorld.init(0,randomColor());
-				setInterval(function() {
+				// setInterval(function() {
 					g.clearRect(0,0,cv.width,cv.height);
 					var fcv = F.update();
 					hidg.drawImage(fcv,0,0);
@@ -49,7 +49,7 @@
 					T2.draw(g);
 					flowWorld.draw(g);
 
-				}, 25);
+				// }, 25);
 
 
 
