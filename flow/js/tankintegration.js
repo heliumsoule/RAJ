@@ -13,7 +13,7 @@ var TANKS = {
 		friction : 0.85,
 		speed : 10,
 		size : 24,
-		color : {'body' : '#000000', 
+		color : {'body' : '#527A7A', 
 				 'wheels' : "#336699", 
 				 'turret' : '#0066CC', 
 				 'cover' : '#3385D6' }
