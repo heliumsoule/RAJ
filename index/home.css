@@ -1,0 +1,44 @@
+@import url(http://fonts.googleapis.com/css?family=Cardo:400,700);
+
+@import url(http://fonts.googleapis.com/css?family=Pontano+Sans);
+
+*{
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:black;
+}
+
+.logo{
+  text-transform:uppercase;
+  text-align:center;
+  width:575px;
+  margin:0 auto;
+}
+
+.title{
+   font-family: 'Cardo', serif;
+   letter-spacing:10px;
+   font-size:5.525em;
+   color:white;
+   opacity:.85;
+}
+
+.border{
+  border-top:3px solid #6d101a;
+  display:block;
+  margin-top:-25px;
+  width:560px;
+  -webkit-filter:blur(1px);
+}
+
+.sub{
+  font-family: 'Pontano Sans', serif;
+  letter-spacing:29px;
+  font-size:1.85em;
+  margin-left:9px;
+  color:#6d101a;
+  -webkit-filter:blur(1px);
+}
