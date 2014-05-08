@@ -1,5 +1,3 @@
-
-
 Function.prototype.extend = function(func) {
 	return (function(f1, f2) {
 		return function() {
@@ -38,17 +36,22 @@ var Vector = function(x,y) {
 	}
 }
 
-
+function col(x1,y1,w1,h1,x2,y2,w2,h2) {
+	return x1<=x2+w2&&x1+w1>=x2&&y1<=y2+h2&&y1+h1>=y2;
+}
+function DBP(x1,y1,x2,y2) {
+	return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+}
 function calculate(p,w,h,v,W) {
 	var x = p.x, y = p.y, vx = v.x, vy = v.y, we = 0;
 	if (x < 0) {x = 0; vx = Math.abs(vx) *we;}
 	if (x > 720-w) {x = 720-w; vx = -Math.abs(vx) *we;}
 	if (y > 480-h) {y = 480-h; vy = -Math.abs(vy) *we;}
 	if (y < 0) {y = 0; vy = Math.abs(vy) *we;}
-	/*for(j in land) {
-		var r = getResult(land[j][0],land[j][1],land[j][2],land[j][3],x,y,w,h,vx,vy);
+	for(j in maps[0]["walls"]) {
+		var r = getResult(maps[0].walls[j][0],maps[0].walls[j][1],maps[0].walls[j][2],maps[0].walls[j][3],x,y,w,h,vx,vy);
 		x = r[0]; y = r[1]; vx = r[2]; vy = r[3];
-	}*/
+	}
 	return {x:x,y:y,vx:vx,vy:vy};
 }
 function getResult(lx,ly,lw,lh,ox,oy,w,h,ovx,ovy) {

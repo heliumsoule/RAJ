@@ -7,6 +7,24 @@ function randomColor() {
 	return color
 }
 
+function fadeOutRectangle(x, y, w, h, context, r, g, b) {
+    var steps = 50,
+        dr = (255 - r) / steps,
+        dg = (255 - g) / steps,
+        db = (255 - b) / steps,
+        i = 0,
+        interval = setInterval(function() {
+            context.fillStyle = 'rgb(' + Math.round(r + dr * i) + ','
+                                   + Math.round(g + dg * i) + ','
+                                   + Math.round(b + db * i) + ')';
+            context.fillRect(x, y, w, h);
+            i++;
+            if(i === steps) {
+                clearInterval(interval);
+            }
+        }, 30);
+}
+
 var TANKS = {
 	NORMAL : {
 		hp : 100,
@@ -126,7 +144,7 @@ var Laser = function(x,y,width,height) {
 		g.strokeStyle = this.strokeStyle;
 		g.fillRect(x,y,width,height);
 		g.strokeRect(x,y,width,height);
-		// this.fadeOut(Math.floor(10*Math.random()));
+		// fadeOutRectangle(x,y,width,height, context, 123,213,312);
 	}
 }
 
