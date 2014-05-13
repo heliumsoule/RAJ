@@ -39,6 +39,30 @@ var TANKS = {
 	TURNSPEED : 5 * Math.PI / 180
 }
 
+var BULLETS = {
+	velocity : 15,
+	friction : .70,
+	color : '#000000',
+	width : 6,
+	height : 3
+}
+
+var arrBullets = [];
+
+var Bullets = function(position,angle) {
+	this.p = new Vector(position.x,position.y);
+	this.v = new Vector(BULLETS.speed * Math.cos(angle),BULLETS.speed * BULLETS.speed * Math.sin(angle));
+	this.angle = angle;
+	this.draw = function(g) {
+		g.fillStyle = BULLETS.color;
+		g.strokeStyle = BULLETS.color;
+		this.p.x = this.p.x + BULLETS.velocity * Math.cos(this.angle);
+		this.p.y = this.p.y + BULLETS.velocity * Math.sin(this.angle);
+		g.fillRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
+		g.strokeRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
+	}
+}
+
 var Tank = function() {
 	this.p = new Vector();
 	this.v = new Vector();
@@ -76,6 +100,9 @@ var Tank = function() {
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].call(this);
+	}
+	this.fire = function() {
+		if(keyv[this.keyb.shoot]) arrBullets.push(new Bullets(this.p,this.angle));
 	}
 	this.draw = function(g) {
 		g.translate(this.p.x+15, this.p.y+15);
@@ -198,10 +225,15 @@ var World = function() {
 			for(var count = 0, tick = this.worldLasers[0].length; count < tick; count++) {
 				Lasers[count] = new Laser(this.worldLasers[0][count][0],this.worldLasers[0][count][1],this.worldLasers[0][count][2],this.worldLasers[0][count][3]);
 			}
-			for(var count = 0, tick = Lasers.length; count < tick; count++) {
-				if(count % 2 == 0) 
-					Lasers[Math.floor(tick * Math.random())].draw(g);	
-			}
+			// for(var count = 0, tick = Lasers.length; count < tick; count++) {
+			// 	if(count % 2 == 0) 
+			// 		Lasers[Math.floor(tick * Math.random())].draw(g);	
+			// }
+			// if(arrBullets.length > 0) {
+			// 	for(var count = 0, tick = arrBullets.length; count < ticks; count++) {
+			// 		arrBullets[count].draw(g);
+			// 	}
+			// }
 		}
 	}
 }

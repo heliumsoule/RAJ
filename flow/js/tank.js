@@ -8,6 +8,28 @@ var TANKS = {
 	TURNSPEED : 5 * Math.PI / 180
 }
 
+var BULLETS = {
+	speed : 20
+	friction : .70
+	color : #CCFFFF
+	width : 6
+	height : 3
+}
+
+var arrBullets = [];
+
+var Bullets = function(position,angle) {
+	this.p = new Vector(position.x,position.y);
+	this.v = new Vector(BULLETS.speed * Math.cos(angle),BULLETS.speed * BULLETS.speed * Math.sin(angle));
+	this.angle = angle;
+	this.draw = function(g) {
+		g.fillStyle = BULLETS.color;
+		g.strokeStyle = BULLETS.color;
+		g.fillRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
+		g.strokeRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
+	}
+}
+
 var Tank = function() {
 	this.p = new Vector();
 	this.v = new Vector();
@@ -45,6 +67,9 @@ var Tank = function() {
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].call(this);
+	}
+	this.fire = function() {
+		if(keyv[this.keyb.shoot]) arrBullets.push(new Bullets(this.p,this.angle));
 	}
 	this.draw = function(g) {
 		g.translate(this.p.x+15, this.p.y+15);
