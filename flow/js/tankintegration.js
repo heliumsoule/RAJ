@@ -40,9 +40,9 @@ var TANKS = {
 }
 
 var BULLETS = {
-	velocity : 15,
+	velocity : 10,
 	friction : .70,
-	color : '#000000',
+	color : '#FFFFFF',
 	width : 6,
 	height : 3
 }
@@ -50,6 +50,7 @@ var BULLETS = {
 var arrBullets = [];
 
 var Bullets = function(position,angle) {
+	// this.p = new Vector(position.x - TANKS.NORMAL.size / 2 * Math.sin(angle),position.y - TANKS.NORMAL.size / 2 * Math.cos(angle));
 	this.p = new Vector(position.x,position.y);
 	this.v = new Vector(BULLETS.speed * Math.cos(angle),BULLETS.speed * BULLETS.speed * Math.sin(angle));
 	this.angle = angle;
@@ -229,11 +230,18 @@ var World = function() {
 			// 	if(count % 2 == 0) 
 			// 		Lasers[Math.floor(tick * Math.random())].draw(g);	
 			// }
-			// if(arrBullets.length > 0) {
-			// 	for(var count = 0, tick = arrBullets.length; count < ticks; count++) {
-			// 		arrBullets[count].draw(g);
-			// 	}
-			// }
+			if(arrBullets.length > 0) {
+				for(var count = 0, tick = arrBullets.length; count < tick; count++) {
+					if(arrBullets[count].p.x > 0 && arrBullets[count].p.x < 720 && 
+					   arrBullets[count].p.y > 0 && arrBullets[count].p.y < 480) 
+					arrBullets[count].draw(g);
+					// else {
+					// 	arrBullets.splice(count,1);
+					// 	tick = tick - 1;
+					// 	count = count - 1;
+					// }
+				}
+			}
 		}
 	}
 }
