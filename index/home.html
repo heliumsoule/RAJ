@@ -2,16 +2,78 @@
 
   <head>
     <link rel="stylesheet" type="text/css" href="home.css" />
+    <link rel="stylesheet" type="text/css" href="../flow/css/style.css" />
+    <title></title>
+    <script src="../flow/js/vendor/jmin.js"></script>
+    <script src="../flow/js/fluid.js"></script>
+    <script src="../flow/js/maps.js"></script>
+    <script src="../flow/js/all.js"></script>
+    <script src="../flow/js/tankintegration.js"></script>
+    <script src="../flow/js/events.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        
+        var F = new Fluid();
+        F.setResolution(120,80);
+        F.setFade(0.971);
+        
+        F.setUICallback(function(field) {
+          field.setBlockVRGB(80,78,3,1,-40,-70,[0,0,255]);
+          field.setBlockVRGB(90,0,2,2,5,100,[0,255,0]);
+          field.setBlockVRGB(0,37,2,2,80,10,[255,0,0]);
+          field.setBlockVRGB(30,0,3,2,10,90,[255,255,0]);
+        });
+        
+        var hid = $("#hid")[0],
+          hidg = hid.getContext("2d"),
+          cv = $("#cv")[0],
+          g = cv.getContext("2d");
+        
+        T1 = new NormalTank();
+        T1.init(keyBindP1);
+        T1.setup(new Vector(30,20), 0);
+        T2 = new NormalTank();
+        T2.init(keyBindP2);
+        T2.setup(new Vector(660,420), Math.PI);
+        flowWorld = new World();
+        flowWorld.init(0,randomColor());
+        setInterval(function() {
+          g.clearRect(0,0,cv.width,cv.height);
+          var fcv = F.update();
+          hidg.drawImage(fcv,0,0);
+          g.save();
+          g.scale(6,6);
+          g.drawImage(hid,0,0);
+          g.restore();
+          T1.step();
+          T1.draw(g);
+          T2.step();
+          T2.draw(g);
+          T1.fire();
+          T2.fire();
+          flowWorld.draw(g);
+
+        }, 25);
+
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+        ("#container").hide();
+      });
+      $(function() {
+        $(".wrapperloading").fadeOut(2000, function() {
+          $('#container').fadeIn(3000);
+        });
+      });
+    </script>
+
   </head>
 
   <body>
-
-    <div class="logo">
-      <div class="title">TANKS</div>
-      <span class="border"></span>
-      <div class="sub">Fluid Flow</div>
-    </div>
 
     <div class="wrapperloading">
       <div class="text">LOADING</div>
@@ -21,14 +83,17 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-      $(function() {
-        $(".wrapperloading").fadeOut(2500, function() {
-          $(".logo").fadeIn(1000);
-        });
-      });
-    </script>
-    
+    <div class="logo">
+      <div class="title">TANKS</div>
+      <span class="border"></span>
+      <div class="sub">Fluid Flow</div>
+    </div>
+
+    <div id="container">
+      <canvas id="hid" width="120" height="80"></canvas>
+      <canvas id="cv" width="720" height="480" style="border:2px solid black;"></canvas>
+    </div>
+        
   </body>
 
 </html>
