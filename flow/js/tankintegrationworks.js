@@ -50,17 +50,22 @@ var BULLETS = {
 var arrBullets = [];
 
 var Bullets = function(position,angle) {
+	// this.p = new Vector(position.x - TANKS.NORMAL.size / 2 * Math.sin(angle),position.y - TANKS.NORMAL.size / 2 * Math.cos(angle));
 	this.p = new Vector(position.x,position.y);
-	this.p = new Vector(position.x + TANKS.NORMAL.size / 2 * Math.sin(angle),position.y + TANKS.NORMAL.size / 2 * Math.cos(angle));
-	this.v = new Vector(BULLETS.speed * Math.cos(angle),BULLETS.speed * BULLETS.speed * Math.sin(angle));
-	this.angle = angle;
+	this.v = (new Vector()).addA(angle, BULLETS.velocity);
+	this.step = function(g) {
+
+	}
 	this.draw = function(g) {
 		g.fillStyle = BULLETS.color;
 		g.strokeStyle = BULLETS.color;
-		this.p.x = this.p.x + BULLETS.velocity * Math.cos(this.angle);
-		this.p.y = this.p.y + BULLETS.velocity * Math.sin(this.angle);
-		g.fillRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
-		g.strokeRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
+		this.p.add(this.v);
+		var angle = Math.atan2(this.v.y, this.v.x);
+		g.translate(this.p.x, this.p.y);
+			g.rotate(angle);
+				g.strokeRect(-2,-2,8,4);
+			g.rotate(-angle);
+		g.translate(-this.p.x,-this.p.y);
 	}
 }
 
@@ -70,6 +75,7 @@ var Tank = function() {
 	this.angle = 0;
 	this.MAXHP, this.FRICTION, this.SPEED;
 	this.keyb;
+	this.bulletTimer = 0;
 	this.init = function(keyBinding) {
 		this.keyb = {};
 		for(i in keyBinding) {
@@ -93,7 +99,7 @@ var Tank = function() {
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
-			var r = calculate(this.p, 30, 30, this.v);
+			var r = calculate(this.p, 32, 32, this.v);
 			this.p.setC(r.x, r.y);
 			this.v.setC(r.vx, r.vy);
 		}
@@ -103,10 +109,10 @@ var Tank = function() {
 			this.steps[i].call(this);
 	}
 	this.fire = function() {
-		// var bulletArr = new Vector();
-		// bulletArr.p.x = this.p.x + Math.cos(this.angle - Math.PI) * TANKS.NORMAL.size;
-		// bulletArr.p.y = this.p.y + Math.sin(this.angle) * TANKS.NORMAL.size;
-		if(keyv[this.keyb.shoot]) arrBullets.push(new Bullets(bulletArr.p,this.angle));
+		if(keyv[this.keyb.shoot]) {
+			if (this.bulletTimer-- <= 0 && (this.bulletTimer = 3))
+				arrBullets.push(new Bullets(this.p.clone().addC(16,16).addA(this.angle,15),this.angle));
+		}
 	}
 	this.draw = function(g) {
 		g.translate(this.p.x+15, this.p.y+15);
@@ -184,7 +190,7 @@ var NormalTank = Tank.extend(function() {
 	this.FRICTION = TANKS.NORMAL.friction;
 	this.SPEED = TANKS.NORMAL.speed;
 	this.steps.push(function() {
-		
+
 	});
 });
 
@@ -199,14 +205,14 @@ var World = function() {
 	var worldWalls = [];
 	this.init = function(numberCode,colorCode) {
 		for(var count = 0; count < maps.length; count++) {
-		worldColor.push(maps[count]['color']);
-		worldFluid.push(maps[count]['fluid']);
-		worldLasers.push(maps[count]['lasers']);
-		worldMines.push(maps[count]['mines']);
-		worldMud.push(maps[count]['mud']);
-		worldStartP1.push(maps[count]['startP1']);
-		worldStartP2.push(maps[count]['startP2']);
-		worldWalls.push(maps[count]['walls']);
+			worldColor.push(maps[count]['color']);
+			worldFluid.push(maps[count]['fluid']);
+			worldLasers.push(maps[count]['lasers']);
+			worldMines.push(maps[count]['mines']);
+			worldMud.push(maps[count]['mud']);
+			worldStartP1.push(maps[count]['startP1']);
+			worldStartP2.push(maps[count]['startP2']);
+			worldWalls.push(maps[count]['walls']);
 		}
 		this.worldColor = worldColor;
 		this.worldFluid = worldFluid;
@@ -218,7 +224,7 @@ var World = function() {
 		this.worldWalls = worldWalls;
 		this.numberCode = numberCode;
 	}
-	
+
 	this.draw = function(g) {
 		var Lasers = [];
 		if (this.numberCode != 0) return;
@@ -234,20 +240,13 @@ var World = function() {
 		// 		Lasers[Math.floor(tick * Math.random())].draw(g);	
 		// }
 		if (!arrBullets.length) return;
-		for(var count = 0, tick = arrBullets.length; count < tick; count++)
+		for(var count = 0; count < arrBullets.length; count++)
 			if(arrBullets[count].p.x > 0 && arrBullets[count].p.x < 720 && 
 			   arrBullets[count].p.y > 0 && arrBullets[count].p.y < 480) 
 				arrBullets[count].draw(g);
 			else {
-				arrBullets.splice(count,1);
-				tick = tick - 1;
-				count = count - 1;
+				arrBullets.splice(count--,1);
 			}
 	}
-
 }
-
-
-
-
 
