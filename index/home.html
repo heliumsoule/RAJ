@@ -1,17 +1,33 @@
 <html>
 
   <head>
+    <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="home.css" />
+    <link rel="stylesheet" type="text/css" href="../flow/css/style.css" />
+    <title></title>
+    <script src="../flow/js/vendor/jmin.js"></script>
+    <script src="../flow/js/fluid.js"></script>
+    <script src="../flow/js/maps.js"></script>
+    <script src="../flow/js/all.js"></script>
+    <script src="../flow/js/tankintegration.js"></script>
+    <script src="../flow/js/events.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+ 
+    <script type="text/javascript">
+      $(function() {
+        $( "div.logo" ).hide().delay(2000).fadeIn(400);
+        $( "div.menu" ).hide().delay(2000).fadeIn(400);
+      }); 
+
+      $(function() {
+        $(".wrapperloading").fadeOut(2000, function() {
+        });
+      });
+    </script>
   </head>
 
   <body>
-
-    <div class="logo">
-      <div class="title">TANKS</div>
-      <span class="border"></span>
-      <div class="sub">Fluid Flow</div>
-    </div>
 
     <div class="wrapperloading">
       <div class="text">LOADING</div>
@@ -21,14 +37,18 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-      $(function() {
-        $(".wrapperloading").fadeOut(2500, function() {
-          $(".logo").fadeIn(1000);
-        });
-      });
-    </script>
-    
+    <div class="logo">
+      <div class="title">TANKS</div>
+      <span class="border"></span>
+      <div class="sub">Fluid Flow</div>
+    </div>
+
+    <div class="menu">
+      <div class="menuItem one">1<span>Main Menu</span></div>
+      <div class="menuItem two">2<span>New Game</span></div>
+      <div class="menuItem three">3<span>How to Play</span></div>
+    </div>
+
   </body>
 
 </html>
