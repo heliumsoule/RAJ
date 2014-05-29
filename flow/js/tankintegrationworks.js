@@ -27,10 +27,10 @@ function fadeOutRectangle(x, y, w, h, context, r, g, b) {
 
 var TANKS = {
 	NORMAL : {
+		size : 32,
 		hp : 100,
 		friction : 0.85,
-		speed : 10,
-		size : 24,
+		speed : 20,
 		color : {'body' : '#527A7A', 
 				 'wheels' : "#336699", 
 				 'turret' : '#0066CC', 
@@ -49,10 +49,22 @@ var BULLETS = {
 
 var arrBullets = [];
 
-var Bullets = function(position,angle) {
+var Projectile = function() {
+	this.p = new Point();
+	this.v = new Vector();
+
+	this.hasCollision = function(x,y,w,h) {
+
+	}
+	this.init = function(p) {
+		this.p = p.clone();
+	}
+	this.step;
+	this.draw;
+
+}
+var Bullet = Projectile.extend(function() {
 	// this.p = new Vector(position.x - TANKS.NORMAL.size / 2 * Math.sin(angle),position.y - TANKS.NORMAL.size / 2 * Math.cos(angle));
-	this.p = new Vector(position.x,position.y);
-	this.v = (new Vector()).addA(angle, BULLETS.velocity);
 	this.step = function(g) {
 
 	}
@@ -67,11 +79,13 @@ var Bullets = function(position,angle) {
 			g.rotate(-angle);
 		g.translate(-this.p.x,-this.p.y);
 	}
-}
+});
 
 var Tank = function() {
-	this.p = new Vector();
+	this.p = new Point();
 	this.v = new Vector();
+	this.s = new Dimension(TANKS.NORMAL.size,TANKS.NORMAL.size);
+	this.cp;
 	this.angle = 0;
 	this.MAXHP, this.FRICTION, this.SPEED;
 	this.keyb;
@@ -99,10 +113,11 @@ var Tank = function() {
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
-			var r = calculate(this.p, 32, 32, this.v);
-			this.p.setC(r.x, r.y);
-			this.v.setC(r.vx, r.vy);
+			var r = calculate(this.p, this.s, this.v);
+			this.p.set(r.p);
+			this.v.set(r.v);
 		}
+		this.cp = this.p.plus(this.s.times(0.5));
 	}];
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
@@ -110,27 +125,32 @@ var Tank = function() {
 	}
 	this.fire = function() {
 		if(keyv[this.keyb.shoot]) {
-			if (this.bulletTimer-- <= 0 && (this.bulletTimer = 3))
-				arrBullets.push(new Bullets(this.p.clone().addC(16,16).addA(this.angle,15),this.angle));
+			if (this.bulletTimer-- <= 0 && (this.bulletTimer = 3)) {
+				var newb = new Bullet();
+				newb.init(this.p.clone().addC(16,16).addA(this.angle,15));
+				newb.v = (new Vector()).addA(this.angle, BULLETS.velocity);
+				arrBullets.push(newb);
+			}
 		}
 	}
 	this.draw = function(g) {
-		g.translate(this.p.x+15, this.p.y+15);
+		g.save();
+		g.translate(this.cp.x, this.cp.y);
 			g.rotate(this.angle);
-				g.fillStyle = TANKS.NORMAL.color['body'];
-				g.strokeStyle = TANKS.NORMAL.color['body'];
-				g.fillRect(-12,-12,TANKS.NORMAL.size,TANKS.NORMAL.size);
-				g.strokeRect(-12,-12,TANKS.NORMAL.size,TANKS.NORMAL.size);
-				g.fillStyle = TANKS.NORMAL.color['wheels'];
-				g.strokeStyle = TANKS.NORMAL.color['wheels'];
-				g.fillRect(-16,-18,32,8);
-				g.fillRect(-16,10,32,8);
-				g.strokeRect(-16,-18,32,8);
-				g.strokeRect(-16,10,32,8);
-				var flowTurret = new Turret(this.p.x-12,this.p.y-12,TANKS.NORMAL.color['cover'],TANKS.NORMAL.color['turret']);
-				flowTurret.draw(g);
-			g.rotate(-this.angle);
-		g.translate(-this.p.x-15, -this.p.y-15);
+				g.scale(this.s.x/32,this.s.y/32);
+					g.fillStyle = TANKS.NORMAL.color['body'];
+					g.strokeStyle = TANKS.NORMAL.color['body'];
+					g.fillRect(-12,-12,24,24);
+					g.strokeRect(-12,-12,24,24);
+					g.fillStyle = TANKS.NORMAL.color['wheels'];
+					g.strokeStyle = TANKS.NORMAL.color['wheels'];
+					g.fillRect(-16,-18,32,8);
+					g.fillRect(-16,10,32,8);
+					g.strokeRect(-16,-18,32,8);
+					g.strokeRect(-16,10,32,8);
+					var flowTurret = new Turret(this.p.x-12,this.p.y-12,TANKS.NORMAL.color['cover'],TANKS.NORMAL.color['turret']);
+					flowTurret.draw(g);
+		g.restore();
 	}
 }
 

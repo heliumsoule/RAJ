@@ -8,7 +8,7 @@ Function.prototype.extend = function(func) {
 }
 
 
-var Vector = function(x,y) {
+var Vector = Point = Dimension = function(x,y) {
 	this.x = isNaN(x)?0:x;
 	this.y = isNaN(y)?0:y;
 	this.clone = function() {
@@ -36,6 +36,13 @@ var Vector = function(x,y) {
 		this.x *= d;
 		this.y *= d;
 	}
+	this.times = function(d) {
+		return new Vector(this.x * d, this.y * d);
+	}
+	this.set = function(v) {
+		this.x = v.x;
+		this.y = v.y;
+	}
 	this.setC = function(x,y) {
 		this.x = x;
 		this.y = y;
@@ -48,8 +55,8 @@ function col(x1,y1,w1,h1,x2,y2,w2,h2) {
 function DBP(x1,y1,x2,y2) {
 	return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
-function calculate(p,w,h,v,W) {
-	var x = p.x, y = p.y, vx = v.x, vy = v.y, we = 0;
+function calculate(p,s,v,W) {
+	var x = p.x, y = p.y, vx = v.x, vy = v.y, w = s.x, h = s.y, we = 0, pp, vv;
 	if (x < 0) {x = 0; vx = Math.abs(vx) *we;}
 	if (x > 720-w) {x = 720-w; vx = -Math.abs(vx) *we;}
 	if (y > 480-h) {y = 480-h; vy = -Math.abs(vy) *we;}
@@ -58,7 +65,7 @@ function calculate(p,w,h,v,W) {
 		var r = getResult(maps[0].walls[j][0],maps[0].walls[j][1],maps[0].walls[j][2],maps[0].walls[j][3],x,y,w,h,vx,vy);
 		x = r[0]; y = r[1]; vx = r[2]; vy = r[3];
 	}
-	return {x:x,y:y,vx:vx,vy:vy};
+	return {p:new Point(x,y),v:new Vector(vx,vy)};
 }
 function getResult(lx,ly,lw,lh,ox,oy,w,h,ovx,ovy) {
 	var x=ox,y=oy,vx=ovx,vy=ovy, we = 0;
