@@ -7,10 +7,6 @@
   padding:0;
 }
 
-body{
-  background: white;
-}
-
 .logo{
   text-transform:uppercase;
   text-align:center;
@@ -22,12 +18,12 @@ body{
    font-family: 'Cardo', serif;
    letter-spacing:10px;
    font-size:5.525em;
-   color:white;
+   color:black;
    opacity:.85;
 }
 
 .border{
-  border-top:3px solid #6d101a;
+  border-top:3px solid #FF0033;
   display:block;
   margin-top:-25px;
   width:560px;
@@ -39,12 +35,12 @@ body{
   letter-spacing:29px;
   font-size:1.85em;
   margin-left:9px;
-  color:#6d101a;
+  color:#FF0033;
   -webkit-filter:blur(1px);
 }
 
 body {
-  background-color: #272727;
+  background-color: #707070;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
