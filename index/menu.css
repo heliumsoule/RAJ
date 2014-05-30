@@ -1,0 +1,175 @@
+html { background: #111 }
+
+body {
+  background: #111;
+  animation: openpage 2s .5s;
+  -webkit-animation: openpage 2s .5s;
+  padding: 4% 12.5%;
+}
+
+/* ================================
+  IMPORT
+================================ */
+
+// Open Sans Google Web Font import
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+/* ================================
+  KEYFRAMES
+================================ */
+// HOVERMENU
+@keyframes hovermenu {
+  0% {opacity: .3;}
+  50% {opacity: 1;}
+  100% {opacity: .3;}
+}
+
+@-webkit-keyframes hovermenu {
+  0% {opacity: .3;}
+  50% {opacity: 1;}
+  100% {opacity: .3;}
+}
+
+// OPENPAGE
+@keyframes openpage {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes openpage {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+/* ================================
+  GENERAL CLASS
+================================ */
+.hidden { display: none; }
+.selected { display: block; }
+
+/* ================================
+  TYPEFACE
+================================ */
+h1, p, li, a { font-family: 'Open sans', sans-serif; }
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 40px;
+  color: #87e7ec;
+  margin-left: 38px;
+}
+
+/* ================================
+  NAVIGATION
+================================ */
+.block-list { width: 75%; }
+
+.block-list ul {
+  list-style-type: none;
+  line-height: 34px;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  li {
+    cursor: pointer;
+    color: #87e7ec;
+    
+    &:hover {
+      color: #1b1b1b;
+      background: -moz-linear-gradient(left,  rgba(136,231,235,1) 0%, rgba(136,231,235,0.01) 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(136,231,235,1)), color-stop(100%,rgba(136,231,235,0.01))); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(left,  rgba(136,231,235,1) 0%,rgba(136,231,235,0.01) 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(left,  rgba(136,231,235,1) 0%,rgba(136,231,235,0.01) 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(left,  rgba(136,231,235,1) 0%,rgba(136,231,235,0.01) 100%); /* IE10+ */
+      background: linear-gradient(to right,  rgba(136,231,235,1) 0%,rgba(136,231,235,0.01) 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88e7eb', endColorstr='#0388e7eb',GradientType=1 ); /* IE6-9 */
+    }
+    
+    // before
+    &::before {
+      content: "";
+      float: left;
+      width: 18px; height: 24px;
+      border-left: 6px solid #9e3854;
+      background-color: #88e7eb;
+      margin: 5px 15px 5px -40px;
+
+      // propriete pour animation
+      transition: all .3s ease-in-out;
+      opacity: 0;
+    }
+    
+    // hover du before au survol de li
+    &:hover::before {
+      animation: hovermenu 1s infinite;
+      -webkit-animation: hovermenu 1s infinite;
+      margin: 5px 15px 5px -30px;
+    }
+  }
+}
+
+/* ================================
+  BLOCK INFORMATION
+================================ */
+.block-information {
+  padding: 10px;
+  margin: 10px 38px;
+  width: 75%;
+  min-height: 100px;
+  background-color: rgba(62,80,93,.7);
+  
+  p {
+    color: #FFF;
+    margin: 0; padding: 0;
+    display: none;
+  }
+}
+
+/* ================================
+  BLOCK BUTTON
+================================ */
+.block-bouton {
+  
+  margin: 20px 0 0 38px;
+  padding-bottom: 40px;
+  
+  a.button {
+    text-decoration: none;
+    color: #FFF;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0 10px;
+    float: left;
+    
+    &::before {
+      float: left;
+      border-radius: 100%;
+      height: 20px; width: 20px;
+      text-align: center;
+      line-height: 20px;
+      margin-right: 10px;
+    }
+    
+    &:hover {
+      animation: hovermenu 1s infinite;
+      -webkit-animation: hovermenu 1s infinite;
+    }
+
+  &:nth-child(1)::before {
+      content:"B";     
+      background-color: #311013;
+      color: #890a21;
+      border: 3px solid #890a21;
+    }
+    
+    &:nth-child(2)::before {
+      content:"A";
+      background-color: #18260c;
+      color: #758766;
+      border: 3px solid #758766;
+    }
+  }
+  
+  
+}
