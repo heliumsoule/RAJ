@@ -18,6 +18,7 @@
       $(function() {
         $( "div.logo" ).hide().delay(2000).fadeIn(400);
         $( "div.menu" ).hide().delay(2000).fadeIn(400);
+        $("#settings").load("menu.html"); 
       }); 
 
       $(function() {
@@ -42,6 +43,8 @@
       <span class="border"></span>
       <div class="sub">Fluid Flow</div>
     </div>
+
+    <div id="settings" style="display:none;"></div>
 
   </body>
 
