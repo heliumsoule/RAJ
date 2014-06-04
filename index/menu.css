@@ -3,36 +3,27 @@
 @import url(http://fonts.googleapis.com/css?family=Orbitron:400,900,700);
 
 * {
-  font-size:64px;
-  font-family:"Cardo";
-  color:#fff;
   margin:0;
   padding:0;
 }
-html,body { 
+
+#main { 
   width:100%;
   height:100%;
   overflow:hidden;
-}
-
-body {
-  background-color: #707070;
+  background: url(http://roselltattoo.com/web/wp-content/uploads/2013/04/tinta.jpg);
   background-repeat:no-repeat;
-  background-size:contain, cover;
-  background-position:right center, center bottom;
-}
-
-#ingame {
-  display:none;
+  background-size: 120%;
+  background-position: left center;
 }
 
 /* --- NAV --- */
 #main section {
   position:absolute;
-  top:5%;
-  left:50%;
+  top:18%;
+  left:75%;
   width:80%;
-  height:85%;
+  height:15%;
   margin-left:-40%;
 }
 
@@ -45,12 +36,15 @@ nav {
   box-shadow:inset 0 0 5px rgba(255,255,255,0.2), 0 -2px #8d7f6f;
 }
 nav *, footer * { 
-  font-size:28px;
-  font-family:"build";
+  font-size:24px;
+  font-family:"Orbitron";
 }
 nav h2 {
   margin-bottom:10px;
-  margin-left:10px;
+  margin-left:10px; 
+  font-size:24px;
+  font-family:"Cardo";
+  color:#fff;
 }
 
 button {
@@ -61,8 +55,7 @@ button {
   width:100%;
   margin:15px 0;
   padding:10px 5px 5px 10px;
-  background:#9b8d6f;
-  background: linear-gradient(to bottom, #dad0b8 0%,#9b8d6f 100%);
+  background:#FFFFFF;
   color:#2a2725;
   text-align:left;
   border-radius:3px;
@@ -173,26 +166,9 @@ footer .icon {
   color:#fff;
 }
 
-.logo {
-  font-family:"icons"; 
-  font-size:40px;
-  color:#211d1e;
-  position:relative;
-  top:-20px;
-  margin:0 -8px;
-  text-shadow:none;
-}
-
-#ingame header {
-  width:100%;
-}
-#ingame header p {
-  margin:0 auto;
-}
-
 @font-face {
   font-family: 'build';
-  src:url('fonts/build.eot');
+  src:url('build.eot');
 }
 @font-face {
   font-family: 'build';

@@ -17,8 +17,7 @@
     <script type="text/javascript">
       $(function() {
         $( "div.logo" ).hide().delay(2000).fadeIn(400);
-        $( "div.menu" ).hide().delay(2000).fadeIn(400);
-        $("#settings").load("menu.html"); 
+        $( "#main" ).hide().delay(2000).fadeIn(400);
       }); 
 
       $(function() {
@@ -42,10 +41,44 @@
       <div class="title">TANKS</div>
       <span class="border"></span>
       <div class="sub">Fluid Flow</div>
-    </div>
+    </div>      
 
-    <div id="settings" style="display:none;"></div>
+    <section id="main">
+    
+    <section>
+      <nav>
+         <h2>PLAY</h2>
+        <button><span class="icon">&#57366;</span>New Game</button>
+        <button><span class="icon mvm">&#57362;</span>How to Play</button>
+        <div>
+          <button><span class="icon">&#57361;</span>Multiplayer</button>
+          <button><span class="icon">&#57363;</span>High Scores</button>
+        </div>
+      </nav>
+      <nav>
+        <h2>CUSTOMIZE</h2>
+        <div>
+          <button><span class="icon">&#57364;</span>Items</button>
+          <button><span class="icon">&#57345;</span>Shop</button>
+        </div>
+      </nav>
+    </section>
 
+    <footer>
+      <div>
+        <button><span class="icon float">&#57347;</span>QUIT</button>
+        <div class="multibtn">
+          <button><span class="icon">&#57360;</span></button>
+          <button><span class="icon">&#57351;</span></button>
+          <button><span class="icon">&#57352;</span></button>
+        </div>
+        <button><span class="icon">&#57348;</span>OPTIONS</button>
+        <button><span class="icon">&#57348;</span>ADV. OPTIONS</button>
+      </div>
+    </footer>
+
+  </section>
+  
   </body>
 
 </html>
