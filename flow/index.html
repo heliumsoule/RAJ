@@ -10,14 +10,22 @@
 		<script src="js/events.js"></script>
 		<script>
 			$(document).ready(function() {
-				
 				var hid = $("#hid")[0],
 					hidg = hid.getContext("2d"),
 					cv = $("#cv")[0],
 					g = cv.getContext("2d");
 				
 				flowWorld = new World();
-				flowWorld.init(0,randomColor());
+				flowWorld.initMap(maps);
+				var F = new Fluid();
+				F.setResolution(120,80);
+				F.setFade(0.971);
+
+				// for(i in flowWorld.fluids)
+				// F.setUICallback(function(field) {
+				// 	field.setBlockVRGB(flowWorld.fluids[i].x,flowWorld.fluids[i].y,flowWorld.fluids[i].w,flowWorld.fluids[i].h,
+				// 					   flowWorld.fluids[i].vx,flowWorld.fluids[i].vy,flowWorld.fluids[i].c);
+				// });
 				setInterval(function() {					
 					g.clearRect(0,0,cv.width,cv.height);
 					var fcv = F.update();

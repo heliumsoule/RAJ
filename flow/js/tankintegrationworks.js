@@ -206,65 +206,55 @@ var World = function() {
 		this.mud = [];
 		this.t = [];
 		this.p = [];
-		for(i in map.walls) {
+		for(i in map[0].walls) {
 			this.walls.push({
-				x : map.walls[i][0],
-				y : map.walls[i][1],
-				w : map.walls[i][2],
-				h : map.walls[i][3]
+				x : map[0].walls[i][0],
+				y : map[0].walls[i][1],
+				w : map[0].walls[i][2],
+				h : map[0].walls[i][3]
 			})
 		}
-		for(i in map.lasers) {
+		for(i in map[0].lasers) {
 			this.lasers.push({
-				x : map.lasers[i][0],
-				y : map.lasers[i][1],
-				w : map.lasers[i][2],
-				h : map.lasers[i][3]
+				x : map[0].lasers[i][0],
+				y : map[0].lasers[i][1],
+				w : map[0].lasers[i][2],
+				h : map[0].lasers[i][3]
 			})
 		}
-		for(i in map.tanks) {
+		for(i in map[0].tanks) {
 			this.tanks.push({
-				x : map.tanks[i][0],
-				y : map.tanks[i][1],
-				angle : map.tanks[i][2]
+				x : map[0].tanks[i][0],
+				y : map[0].tanks[i][1],
+				angle : map[0].tanks[i][2]
 			})
 		}
-		for(i in map.fluids) {
+		for(i in map[0].fluids) {
 			this.fluids.push({
-				x : map.fluids[i][0],
-				y : map.fluids[i][1],
-				w : map.fluids[i][2],
-				h : map.fluids[i][3],
-				vx : map.fluids[i][4],
-				vy : map.fluids[i][5],
-				c : map.fluids[i][6]
+				x : map[0].fluids[i][0],
+				y : map[0].fluids[i][1],
+				w : map[0].fluids[i][2],
+				h : map[0].fluids[i][3],
+				vx : map[0].fluids[i][4],
+				vy : map[0].fluids[i][5],
+				c : map[0].fluids[i][6]
 			})
 		}
-		for(i in map.mud) {
+		for(i in map[0].mud) {
 			this.fluids.push({
-				x : map.mud[i][0],
-				y : map.mud[i][1],
-				w : map.mud[i][2],
-				h : map.mud[i][3]
+				x : map[0].mud[i][0],
+				y : map[0].mud[i][1],
+				w : map[0].mud[i][2],
+				h : map[0].mud[i][3]
 			})
 		}
 	}
 	this.init = function() {
-		var F = new Fluid();
-		F.setResolution(120,80);
-		F.setFade(0.971);
-
-		for(i in this.fluids)
-		F.setUICallback(function(field) {
-			field.setBlockVRGB(this.fluids[i].x,this.fluids[i].y,this.fluids[[i].w,this.fluids[i].h,
-							   this.fluids[i].vx,this.fluids[i].vy,this.fluids[i].c);
-		});
-		
 		for(i in this.tanks) {
 			this.t.push((new NormalTank()).setup(new Vector(this.tanks[i].x,this.tanks[i].y), this.tanks[i].angle));
 		}
-		this.t[0].init(keyBindP1);
-		this.t[1].init(keyBindP2);
+		// this.t[0].init(keyBindP1);
+		// this.t[1].init(keyBindP2);
 	}
 
 	this.draw = function(g) {
@@ -277,7 +267,7 @@ var World = function() {
 			this.tanks[count].fire();
 		}
 		for(var count = 0; count < this.walls.length; count++) {
-			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls.[count].h);
+			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls[count].h);
 		}
 		if (!arrBullets.length) return;
 		for(var count = 0; count < arrBullets.length; count++)
