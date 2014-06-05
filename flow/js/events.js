@@ -1,4 +1,4 @@
-var keyBindP0 = {
+var keyBindP1 = {
 	primary : 190,
 	secondary : 191,
 	up : 38,
@@ -7,7 +7,7 @@ var keyBindP0 = {
 	left : 37,
 	shoot : 16
 }
-var keyBindP1 = {
+var keyBindP2 = {
 	primary : 49,
 	secondary : 50,
 	up : 87,

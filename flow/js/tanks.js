@@ -39,6 +39,7 @@ var Tank = function() {
 	this.setup = function(startPos, angle) {
 		this.p = startPos;
 		this.angle = angle;
+		return this;
 	}
 	this.steps = [];
 	this.steps.push(function() {

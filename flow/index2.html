@@ -33,7 +33,9 @@
 					g = cv.getContext("2d");
 				
 				window.W = new World();
+				W.init();
 				W.initMap(maps[0]);
+<<<<<<< HEAD
 				var F = new Fluid();
 				F.setResolution(120,80);
 				F.setFade(0.971);
@@ -58,6 +60,13 @@
 					g.drawImage(hid,0,0);
 					g.restore();
 					W.draw(g);
+=======
+				
+				
+				setInterval(function() {	
+					W.step();
+					W.draw(cv, g, hid, hidg);
+>>>>>>> 04dccff5dc8fa2dcdd12c20bceaa78e7dc94d216
 
 				}, 25);
 
