@@ -16,12 +16,13 @@
  
     <script type="text/javascript">
       $(function() {
-        $( "div.logo" ).hide().delay(2000).fadeIn(400);
-        $( "#main" ).hide().delay(2000).fadeIn(400);
+        $( "div.logo" ).hide().delay(2500).fadeIn(500);
+        $( "#main" ).hide().delay(2500).fadeIn(500);
+        $( "div.back" ).hide().delay(2500).fadeIn(500);
       }); 
 
       $(function() {
-        $(".wrapperloading").fadeOut(2000, function() {
+        $(".wrapperloading").fadeOut(2500, function() {
         });
       });
     </script>
@@ -41,14 +42,16 @@
       <div class="title">TANKS</div>
       <span class="border"></span>
       <div class="sub">Fluid Flow</div>
-    </div>      
+    </div>    
+
+    <div class="back"></div>  
 
     <section id="main">
     
     <section>
       <nav>
          <h2>PLAY</h2>
-        <button><span class="icon">&#57366;</span>New Game</button>
+        <button><a href="../flow/index.html" style="text-decoration:none;"><span class="icon">&#57366;</span>New Game</a></button>
         <button><span class="icon mvm">&#57362;</span>How to Play</button>
         <div>
           <button><span class="icon">&#57361;</span>Multiplayer</button>

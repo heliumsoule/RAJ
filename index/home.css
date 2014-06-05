@@ -23,7 +23,7 @@
 }
 
 .border{
-  border-top:3px solid #FF0033;
+  border-top:3px solid #0066FF;
   display:block;
   margin-top:-25px;
   width:560px;
@@ -35,7 +35,7 @@
   letter-spacing:29px;
   font-size:1.85em;
   margin-left:9px;
-  color:#FF0033;
+  color:#0066FF;
   -webkit-filter:blur(1px);
 }
 
@@ -53,7 +53,7 @@
 .wrapperloading .text { 
   width:100%;
   text-align:center;
-  color:white;
+  color:black;
   font-size:2em;
   font-family: 'Orbitron', sans-serif;
   text-shadow: -3px 3px 0 rgba(150,150,150,0.1);
@@ -80,11 +80,11 @@
   height: 100%;
   width: 100%;
   border-radius: 150px;
-  border: 5px solid #fff;
-  border-top-color: #fff;
-  border-left-color: #555;
-  border-right-color: #555;
-  border-bottom-color: #fff;
+  border: 5px solid #000000;
+  border-top-color: #000000;
+  border-left-color: #fff;
+  border-right-color: #fff;
+  border-bottom-color: #000000;
   -webkit-animation: rotation 2s ease infinite;
   -moz-animation: rotation 2s ease infinite;
   -o-animation: rotation 2s ease infinite;
@@ -100,11 +100,11 @@
   left: 50%;
   margin-left: -50px;
   border-radius: 150px;
-  border: 3px solid #fff;
-  border-left-color: #fff;
-  border-top-color: #555;
-  border-bottom-color: #555;
-  border-right-color: #fff;
+  border: 3px solid #000000;
+  border-left-color: #000000;
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  border-right-color: #000000;
   -webkit-animation: rotation 2s ease infinite reverse;
   -moz-animation: rotation 2s ease infinite reverse;
   -o-animation: rotation 2s ease infinite reverse;
@@ -264,17 +264,13 @@
 }
 s
 
-#main { 
-  width:100%;
-  height:100%;
-  overflow:hidden;
+.back { 
   background: url(http://roselltattoo.com/web/wp-content/uploads/2013/04/tinta.jpg);
   background-repeat:no-repeat;
   background-size: 120%;
   background-position: left center;
 }
 
-/* --- NAV --- */
 #main section {
   position:absolute;
   top:18%;
@@ -292,10 +288,12 @@ nav {
   border-radius:5px;
   box-shadow:inset 0 0 5px rgba(255,255,255,0.2), 0 -2px #8d7f6f;
 }
+
 nav *, footer * { 
   font-size:24px;
   font-family:"Orbitron";
 }
+
 nav h2 {
   margin-bottom:10px;
   margin-left:10px; 
@@ -305,7 +303,6 @@ nav h2 {
 }
 
 button {
-  /* menu buttons */
   -webkit-appearance:none;
   position:relative;
   display:block;
@@ -324,18 +321,22 @@ button {
   border:none;
   cursor:pointer;
 }
+
 nav div { 
   position:relative;
   margin-top:15px;
 }
+
 nav div:before,
 nav div:after {
     content:"";
     display:table;
 }
+
 nav div:after {
     clear:both;
 }
+
 nav div button {
   width:49%;
   display:inline;
@@ -343,15 +344,19 @@ nav div button {
   float:left;
   margin:0;
 }
+
 nav div button:last-child {
   float:right;
 }
+
 nav button:first-of-type {
   margin-top:0;
 }
+
 nav button:last-of-type {
   margin-bottom:0;
 }
+
 button:hover {
   background:linear-gradient(to bottom, #91493b 0%, #4f2920 100%);
   color:white;
@@ -361,14 +366,14 @@ button:hover {
   font-family:"icons";
   position:relative;
   top:-2px;
-  color:#766c5e;
+  color:#0066FF;
 }
+
 .mvm {
   font-size:12px;
   top:-10px;
 }
 
-/* --- FOOTER --- */
 footer {
   position:absolute;
   bottom:0;
@@ -385,24 +390,28 @@ footer > div {
 }
 
 footer button {
-  background:#766b5e;
+  background:#fff;
   display:inline-block;
-  color:#fff;
+  color:#000000;
   box-shadow:none;
   width:22%;
   padding-left:30px;
   margin-left:4%;
 }
+
 footer button:hover {
   background:#924738;
 }
+
 footer button:first-child {
   margin-left:0;
 }
+
 .multibtn {
   display:inline;
   margin-left:4%;
 }
+
 .multibtn button {
   width:55px;
   text-align:center;
@@ -411,16 +420,18 @@ footer button:first-child {
   padding-right:10px;
   padding-left:10px;
 }
+
 .multibtn button:first-child {
   border-radius:3px 0 0 3px;
   margin-left:0;
 }
+
 .multibtn button:last-child {
   border-radius:0 3px 3px 0;
 }
 
 footer .icon {
-  color:#fff;
+  color:#0066FF;
 }
 
 @font-face {
