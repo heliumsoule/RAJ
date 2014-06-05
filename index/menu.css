@@ -2,308 +2,43 @@
 @import url(http://fonts.googleapis.com/css?family=Pontano+Sans);
 @import url(http://fonts.googleapis.com/css?family=Orbitron:400,900,700);
 
-*{
+* {
   margin:0;
   padding:0;
 }
 
-html {
+#main { 
   width:100%;
   height:100%;
   overflow:hidden;
-  background: url(http://www.jondavisphoto.com/wp-content/uploads/2650x1600_wake-024.jpg);
-  background-repeat:no-repeat;
-  background-size: 120%;
-  background-position: left center;
-}
-
-.logo{
-  text-transform:uppercase;
-  text-align:center;
-  width:575px;
-  margin:0 auto;
-}
-
-.title{
-   font-family: 'Cardo', serif;
-   letter-spacing:10px;
-   font-size:5.525em;
-   color:black;
-   opacity:.85;
-}
-
-.border{
-  border-top:3px solid #0066FF;
-  display:block;
-  margin-top:-25px;
-  width:560px;
-  -webkit-filter:blur(1px);
-}
-
-.sub{
-  font-family: 'Pontano Sans', serif;
-  letter-spacing:29px;
-  font-size:1.85em;
-  margin-left:9px;
-  color:#0066FF;
-  -webkit-filter:blur(1px);
-}
-
-.wrapperloading {
-  position: absolute;
-  height: 200px;
-  width: 210px;
-  top: 50%;
-  margin-top: -100px;
-  left: 50%;
-  margin-left: -100px;
-  
-}
-
-.wrapperloading .text { 
-  width:100%;
-  text-align:center;
-  color:#0066FF;
-  font-size:2em;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: -3px 3px 0 rgba(150,150,150,0.1);
-  -webkit-transform: rotateX(20deg);
-  
-  -webkit-animation: hide 1s linear infinite;
-  -moz-animation: hide 1s linear infinite;
-  -o-animation: hide 1s linear infinite;
-  animation: hide 1s linear infinite;
-}
-
-.wrapperloading .inner {
-  width:200px;
-  height:100%;
-  -webkit-transform: rotateX(60deg);
-  -moz-transform: rotateX(60deg);
-  -o-transform: rotateX(60deg);
-  transform: rotateX(60deg);
-  margin-top:-30px;
-}
-
-.wrapperloading .loading.up {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  border-radius: 150px;
-  border: 5px solid #000000;
-  border-top-color: #000000;
-  border-left-color: #0066FF;
-  border-right-color: #0066FF;
-  border-bottom-color: #000000;
-  -webkit-animation: rotation 2s ease infinite;
-  -moz-animation: rotation 2s ease infinite;
-  -o-animation: rotation 2s ease infinite;
-  animation: rotation 2s ease infinite;
-}
-
-.wrapperloading .loading.down {
-  position: absolute;
-  height: 50%;
-  width: 50%;
-  top: 50%;
-  margin-top: -50px;
-  left: 50%;
-  margin-left: -50px;
-  border-radius: 150px;
-  border: 3px solid #000000;
-  border-left-color: #000000;
-  border-top-color: #0066FF;
-  border-bottom-color: #0066FF;
-  border-right-color: #000000;
-  -webkit-animation: rotation 2s ease infinite reverse;
-  -moz-animation: rotation 2s ease infinite reverse;
-  -o-animation: rotation 2s ease infinite reverse;
-  animation: rotation 2s ease infinite reverse;
-}
-
-@-webkit-keyframes rotation {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  50% {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes rotation {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  50% {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-o-keyframes rotation {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  50% {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes rotation {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  50% {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes hide {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes hide {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-moz-keyframes hide {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes hide {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-s
-
-.back { 
   background: url(http://roselltattoo.com/web/wp-content/uploads/2013/04/tinta.jpg);
   background-repeat:no-repeat;
   background-size: 120%;
   background-position: left center;
 }
 
+/* --- NAV --- */
 #main section {
   position:absolute;
   top:18%;
-  left:72%;
+  left:75%;
   width:80%;
-  height:24%;
+  height:15%;
   margin-left:-40%;
 }
 
 nav {
-  width:42%;
+  width:35%;
   margin:40px 0 0;
   padding:20px;
   background:#000000;
-  border-radius:8px;
+  border-radius:5px;
   box-shadow:inset 0 0 5px rgba(255,255,255,0.2), 0 -2px #8d7f6f;
 }
-
 nav *, footer * { 
   font-size:24px;
   font-family:"Orbitron";
 }
-
 nav h2 {
   margin-bottom:10px;
   margin-left:10px; 
@@ -313,6 +48,7 @@ nav h2 {
 }
 
 button {
+  /* menu buttons */
   -webkit-appearance:none;
   position:relative;
   display:block;
@@ -331,22 +67,18 @@ button {
   border:none;
   cursor:pointer;
 }
-
 nav div { 
   position:relative;
   margin-top:15px;
 }
-
 nav div:before,
 nav div:after {
     content:"";
     display:table;
 }
-
 nav div:after {
     clear:both;
 }
-
 nav div button {
   width:49%;
   display:inline;
@@ -354,19 +86,15 @@ nav div button {
   float:left;
   margin:0;
 }
-
 nav div button:last-child {
   float:right;
 }
-
 nav button:first-of-type {
   margin-top:0;
 }
-
 nav button:last-of-type {
   margin-bottom:0;
 }
-
 button:hover {
   background:linear-gradient(to bottom, #91493b 0%, #4f2920 100%);
   color:white;
@@ -376,14 +104,14 @@ button:hover {
   font-family:"icons";
   position:relative;
   top:-2px;
-  color:#0066FF;
+  color:#766c5e;
 }
-
 .mvm {
   font-size:12px;
   top:-10px;
 }
 
+/* --- FOOTER --- */
 footer {
   position:absolute;
   bottom:0;
@@ -400,28 +128,24 @@ footer > div {
 }
 
 footer button {
-  background:#fff;
+  background:#766b5e;
   display:inline-block;
-  color:#000000;
+  color:#fff;
   box-shadow:none;
   width:22%;
   padding-left:30px;
   margin-left:4%;
 }
-
 footer button:hover {
   background:#924738;
 }
-
 footer button:first-child {
   margin-left:0;
 }
-
 .multibtn {
   display:inline;
   margin-left:4%;
 }
-
 .multibtn button {
   width:55px;
   text-align:center;
@@ -430,18 +154,16 @@ footer button:first-child {
   padding-right:10px;
   padding-left:10px;
 }
-
 .multibtn button:first-child {
   border-radius:3px 0 0 3px;
   margin-left:0;
 }
-
 .multibtn button:last-child {
   border-radius:0 3px 3px 0;
 }
 
 footer .icon {
-  color:#0066FF;
+  color:#fff;
 }
 
 @font-face {
