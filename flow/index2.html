@@ -13,18 +13,18 @@
 		<script src="js/events.js"></script>
 		<script>
 			var TANKS = {
-	NORMAL : {
-		size : 32,
-		hp : 100,
-		friction : 0.85,
-		speed : 20,
-		color : {'body' : '#527A7A', 
-				 'wheels' : "#336699", 
-				 'turret' : '#0066CC', 
-				 'cover' : '#3385D6' }
-	},
-	TURNSPEED : 5 * Math.PI / 180
-}
+				NORMAL : {
+					size : 32,
+					hp : 100,
+					friction : 0.85,
+					speed : 20,
+					color : {'body' : '#527A7A', 
+							 'wheels' : "#336699", 
+							 'turret' : '#0066CC', 
+							 'cover' : '#3385D6' }
+				},
+				TURNSPEED : 5 * Math.PI / 180
+			}
 			$(document).ready(function() {
 				
 				var hid = $("#hid")[0],
@@ -38,11 +38,17 @@
 				F.setResolution(120,80);
 				F.setFade(0.971);
 
-				// for(i in flowWorld.fluids)
+				// for(i in W.fluids)
 				// F.setUICallback(function(field) {
-				// 	field.setBlockVRGB(flowWorld.fluids[i].x,flowWorld.fluids[i].y,flowWorld.fluids[i].w,flowWorld.fluids[i].h,
-				// 					   flowWorld.fluids[i].vx,flowWorld.fluids[i].vy,flowWorld.fluids[i].c);
+				// 	field.setBlockVRGB(W.fluids[i].x,W.fluids[i].y,W.fluids[i].w,W.fluids[i].h,
+				// 					   W.fluids[i].vx,W.fluids[i].vy,W.fluids[i].c);
 				// });
+
+				for(i in W.fluids)
+				F.setUICallback(function(field) {
+					field.setBlockVRGB(W.fluids[i].x,W.fluids[i].y,W.fluids[i].w,W.fluids[i].h,
+									   W.fluids[i].vx,W.fluids[i].vy,W.fluids[i].c);
+				});
 				setInterval(function() {					
 					g.clearRect(0,0,cv.width,cv.height);
 					var fcv = F.update();

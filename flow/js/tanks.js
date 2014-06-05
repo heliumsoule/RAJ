@@ -1,11 +1,28 @@
+var Win = 0;
 
+var TANKS = {
+	NORMAL : {
+		size : 32,
+		hp : 100,
+		friction : 0.85,
+		speed : 20,
+		color : {
+				 'body' : '#527A7A', 
+				 'wheels' : "#336699", 
+				 'turret' : '#0066CC', 
+				 'cover' : '#3385D6', 
+				 'healthbar' : "#B20000"
+				}
+	},
+	TURNSPEED : 5 * Math.PI / 180
+}
 
 var Tank = function() {
 	this.p = new Vector(), this.cp;
 	this.v = new Vector();
 	this.angle = 0;
 	this.s = new Dimension(TANKS.NORMAL.size,TANKS.NORMAL.size);
-	this.MAXHP, this.FRICTION, this.SPEED, this.TURNSPEED;
+	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED;
 	this.keyb;
 	this.bulletTimer = 0;
 	this.init = function(keyBinding) {
@@ -17,9 +34,9 @@ var Tank = function() {
 		}
 		this.FRICTION = TANKS.NORMAL.friction;
 		this.SPEED = TANKS.NORMAL.speed;
+		this.HP = TANKS.NORMAL.hp;
 	}
 	this.setup = function(startPos, angle) {
-		this.hp = this.MAXHP;
 		this.p = startPos;
 		this.angle = angle;
 	}
@@ -43,6 +60,17 @@ var Tank = function() {
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].call(this);
+	}
+	this.health = function() {
+		if(this.HP == 0) {
+			Win = 1;
+		}
+		else {
+			for(var i in arrBullets) {
+			if(DBP(this.p.x,arrBullets[i].p.x,this.p.y,arrBullets[i].p.y) < 5) 
+				this.HP--;
+			}		
+		}
 	}
 	this.fire = function() {
 		if(keyv[this.keyb.shoot]) {
@@ -69,6 +97,9 @@ var Tank = function() {
 					g.fillRect(-16,10,32,8);
 					g.strokeRect(-16,-18,32,8);
 					g.strokeRect(-16,10,32,8);
+					g.fillStyle = TANKS.NORMAL.color['healthbar'];
+					g.strokeStyle = TANKS.NORMAL.color['healthbar'];
+					g.fillRect(-28,-27,7,30 * this.HP / 100);
 					var flowTurret = new Turret(this.p.x-12,this.p.y-12,TANKS.NORMAL.color['cover'],TANKS.NORMAL.color['turret']);
 					flowTurret.draw(g);
 		g.restore();

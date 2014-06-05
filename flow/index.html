@@ -6,17 +6,21 @@
 		<script src="js/fluid.js"></script>
 		<script src="js/maps.js"></script>
 		<script src="js/all.js"></script>
-		<script src="js/tankintegrationworks.js"></script>
+		<script src="js/world.js"></script>
+		<script src="js/tanks.js"></script>
+		<script src="js/weapons.js"></script>
+		<script src="js/projectiles.js"></script>
 		<script src="js/events.js"></script>
 		<script>
 			$(document).ready(function() {
+				
 				var hid = $("#hid")[0],
 					hidg = hid.getContext("2d"),
 					cv = $("#cv")[0],
 					g = cv.getContext("2d");
 				
-				flowWorld = new World();
-				flowWorld.initMap(maps);
+				window.W = new World();
+				W.initMap(maps[0]);
 				var F = new Fluid();
 				F.setResolution(120,80);
 				F.setFade(0.971);
@@ -34,7 +38,7 @@
 					g.scale(6,6);
 					g.drawImage(hid,0,0);
 					g.restore();
-					flowWorld.draw(g);
+					W.draw(g);
 
 				}, 25);
 

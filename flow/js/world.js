@@ -57,8 +57,6 @@ var World = function() {
 		for(i in this.tanks) {
 			this.t.push((new NormalTank()).setup(new Vector(this.tanks[i].x,this.tanks[i].y), this.tanks[i].angle));
 		}
-		// this.t[0].init(keyBindP1);
-		// this.t[1].init(keyBindP2);
 	}
 	this.step = function() {
 		
@@ -67,6 +65,7 @@ var World = function() {
 		for(var i in this.tanks) {
 			this.tanks[i].step();
 			this.tanks[i].draw(g);
+			this.tanks[i].fire();
 		}
 		g.fillStyle = "rgb(0,0,255)";
 		for(var count = 0; count < this.walls.length; count++) {
