@@ -64,7 +64,6 @@ var Projectile = function() {
 
 }
 var Bullet = Projectile.extend(function() {
-	// this.p = new Vector(position.x - TANKS.NORMAL.size / 2 * Math.sin(angle),position.y - TANKS.NORMAL.size / 2 * Math.cos(angle));
 	this.step = function(g) {
 
 	}
@@ -78,6 +77,9 @@ var Bullet = Projectile.extend(function() {
 				g.strokeRect(-2,-2,8,4);
 			g.rotate(-angle);
 		g.translate(-this.p.x,-this.p.y);
+	}
+	this.hasCollision = function(g) {
+
 	}
 });
 
@@ -103,7 +105,8 @@ var Tank = function() {
 		this.p = startPos;
 		this.angle = angle;
 	}
-	this.steps = [function() {
+	this.steps = [];
+	this.steps.push(function() {
 		if (keyv[this.keyb.left]) this.angle -= TANKS.TURNSPEED;
 		if (keyv[this.keyb.right]) this.angle += TANKS.TURNSPEED;
 		if (keyv[this.keyb.up] || keyv[this.keyb.down])  {
@@ -118,7 +121,7 @@ var Tank = function() {
 			this.v.set(r.v);
 		}
 		this.cp = this.p.plus(this.s.times(0.5));
-	}];
+	});
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].call(this);
@@ -160,25 +163,6 @@ var Turret = function(x,y,fillCode,strokeCode) {
 	this.fillCode = fillCode;
 	this.strokeCode = strokeCode;
 	this.draw = function(g) {
-		// var r = 10;
-		// var coverPoints = [[r,0],
-		// 			  [r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
-		// 			  [-r*Math.cos(Math.PI/3),r*Math.sin(Math.PI/3)],
-		// 			  [-r,0],
-		// 			  [-r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
-		// 			  [r*Math.cos(Math.PI/3),-r*Math.sin(Math.PI/3)],
-		// 			  [r,0]];
-		// g.moveTo(coverPoints[0][0],coverPoints[0][1]);
-		// for(var count = 1; count < 6; count++) {
-		// 	g.lineTo(coverPoints[count][0],coverPoints[count][1]);
-		// }
-		// g.closePath();
-		// g.fillStyle = this.color;
-		// g.strokeStyle = this.color;
-		// g.fill();
-		// g.stroke();
-		// g.fillRect(2,-3,18,6);
-		// g.strokeRect(2,-3,18,6);
 		g.fillStyle = this.fillCode;
 		g.strokeStyle = this.strokeCode;
 		g.fillRect(2,-3,18,6);
@@ -201,7 +185,6 @@ var Laser = function(x,y,width,height) {
 		g.strokeStyle = this.strokeStyle;
 		g.fillRect(x,y,width,height);
 		g.strokeRect(x,y,width,height);
-		// fadeOutRectangle(x,y,width,height, context, 123,213,312);
 	}
 }
 
@@ -215,50 +198,87 @@ var NormalTank = Tank.extend(function() {
 });
 
 var World = function() {
-	var worldColor = [];
-	var worldFluid = [];
-	var worldLasers = [];
-	var worldMines = [];
-	var worldMud = [];
-	var worldStartP1 = [];
-	var worldStartP2 = []; 
-	var worldWalls = [];
-	this.init = function(numberCode,colorCode) {
-		for(var count = 0; count < maps.length; count++) {
-			worldColor.push(maps[count]['color']);
-			worldFluid.push(maps[count]['fluid']);
-			worldLasers.push(maps[count]['lasers']);
-			worldMines.push(maps[count]['mines']);
-			worldMud.push(maps[count]['mud']);
-			worldStartP1.push(maps[count]['startP1']);
-			worldStartP2.push(maps[count]['startP2']);
-			worldWalls.push(maps[count]['walls']);
+	this.initMap = function(map) {
+		this.walls = [];
+		this.lasers = [];
+		this.tanks = [];
+		this.fluids = [];
+		this.mud = [];
+		this.t = [];
+		this.p = [];
+		for(i in map.walls) {
+			this.walls.push({
+				x : map.walls[i][0],
+				y : map.walls[i][1],
+				w : map.walls[i][2],
+				h : map.walls[i][3]
+			})
 		}
-		this.worldColor = worldColor;
-		this.worldFluid = worldFluid;
-		this.worldLasers = worldLasers;
-		this.worldMines = worldMines;
-		this.worldMud = worldMud;
-		this.worldStartP1 = worldStartP1;
-		this.worldStartP2 = worldStartP2;
-		this.worldWalls = worldWalls;
-		this.numberCode = numberCode;
+		for(i in map.lasers) {
+			this.lasers.push({
+				x : map.lasers[i][0],
+				y : map.lasers[i][1],
+				w : map.lasers[i][2],
+				h : map.lasers[i][3]
+			})
+		}
+		for(i in map.tanks) {
+			this.tanks.push({
+				x : map.tanks[i][0],
+				y : map.tanks[i][1],
+				angle : map.tanks[i][2]
+			})
+		}
+		for(i in map.fluids) {
+			this.fluids.push({
+				x : map.fluids[i][0],
+				y : map.fluids[i][1],
+				w : map.fluids[i][2],
+				h : map.fluids[i][3],
+				vx : map.fluids[i][4],
+				vy : map.fluids[i][5],
+				c : map.fluids[i][6]
+			})
+		}
+		for(i in map.mud) {
+			this.fluids.push({
+				x : map.mud[i][0],
+				y : map.mud[i][1],
+				w : map.mud[i][2],
+				h : map.mud[i][3]
+			})
+		}
+	}
+	this.init = function() {
+		var F = new Fluid();
+		F.setResolution(120,80);
+		F.setFade(0.971);
+
+		for(i in this.fluids)
+		F.setUICallback(function(field) {
+			field.setBlockVRGB(this.fluids[i].x,this.fluids[i].y,this.fluids[[i].w,this.fluids[i].h,
+							   this.fluids[i].vx,this.fluids[i].vy,this.fluids[i].c);
+		});
+		
+		for(i in this.tanks) {
+			this.t.push((new NormalTank()).setup(new Vector(this.tanks[i].x,this.tanks[i].y), this.tanks[i].angle));
+		}
+		this.t[0].init(keyBindP1);
+		this.t[1].init(keyBindP2);
 	}
 
 	this.draw = function(g) {
 		var Lasers = [];
 		if (this.numberCode != 0) return;
 		g.fillStyle = this.worldColor[0];
-		for(var count = 0, tick = this.worldWalls[0].length; count < tick; count++) {
-			g.fillRect(this.worldWalls[0][count][0],this.worldWalls[0][count][1],this.worldWalls[0][count][2],this.worldWalls[0][count][3]);
+		for(var count = 0; count < this.tanks.length; count++) {
+			this.tanks[count].step();
+			this.tanks[count].draw(g);
+			this.tanks[count].fire();
 		}
-		for(var count = 0, tick = this.worldLasers[0].length; count < tick; count++) {
-			Lasers[count] = new Laser(this.worldLasers[0][count][0],this.worldLasers[0][count][1],this.worldLasers[0][count][2],this.worldLasers[0][count][3]);
+		for(var count = 0; count < this.walls.length; count++) {
+			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls.[count].h);
 		}
-		// for(var count = 0, tick = Lasers.length; count < tick; count++) {
-		// 	if(count % 2 == 0) 
-		// 		Lasers[Math.floor(tick * Math.random())].draw(g);	
-		// }
 		if (!arrBullets.length) return;
 		for(var count = 0; count < arrBullets.length; count++)
 			if(arrBullets[count].p.x > 0 && arrBullets[count].p.x < 720 && 

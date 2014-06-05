@@ -229,10 +229,6 @@ var World = function() {
 		for(var count = 0, tick = this.worldLasers[0].length; count < tick; count++) {
 			Lasers[count] = new Laser(this.worldLasers[0][count][0],this.worldLasers[0][count][1],this.worldLasers[0][count][2],this.worldLasers[0][count][3]);
 		}
-		// for(var count = 0, tick = Lasers.length; count < tick; count++) {
-		// 	if(count % 2 == 0) 
-		// 		Lasers[Math.floor(tick * Math.random())].draw(g);	
-		// }
 		if (!arrBullets.length) return;
 		for(var count = 0, tick = arrBullets.length; count < tick; count++)
 			if(arrBullets[count].p.x > 0 && arrBullets[count].p.x < 720 && 
