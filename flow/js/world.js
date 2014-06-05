@@ -83,12 +83,12 @@ var World = function() {
 		for(var count = 0; count < this.walls.length; count++) {
 			g.fillStyle = "rgb(0,0,255)";
 			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls[count].h);
-			// for(var count = 0; stop = Math.floor(Math.random() * 20); count < stop; count++) {
-			// 	g.fillStyle = "rgb(0,0,240)";
-			// 	g.fillRect(this.walls[count].x + Math.floor(Math.random() * this.walls[count].w - 10),
-			// 			   this.walls[count].y + Math.floor(Math.random() * this.walls[count]h.h - 10),
-			// 			   4,4);
-			// }
+			for(var count = 0, stop = Math.floor(Math.random() * 20); count < stop; count++) {
+				g.fillStyle = "rgb(0,0,240)";
+				g.fillRect(this.walls[count].x + Math.floor(Math.random() * this.walls[count].w - 10),
+						   this.walls[count].y + Math.floor(Math.random() * this.walls[count].h - 10),
+						   4,4);
+			}
 		}
 		if (!arrBullets.length) return;
 		for(var count = 0; count < arrBullets.length; count++)
