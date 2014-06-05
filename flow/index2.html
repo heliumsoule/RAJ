@@ -33,25 +33,13 @@
 					g = cv.getContext("2d");
 				
 				window.W = new World();
+				W.init();
 				W.initMap(maps[0]);
-				var F = new Fluid();
-				F.setResolution(120,80);
-				F.setFade(0.971);
-
-				// for(i in flowWorld.fluids)
-				// F.setUICallback(function(field) {
-				// 	field.setBlockVRGB(flowWorld.fluids[i].x,flowWorld.fluids[i].y,flowWorld.fluids[i].w,flowWorld.fluids[i].h,
-				// 					   flowWorld.fluids[i].vx,flowWorld.fluids[i].vy,flowWorld.fluids[i].c);
-				// });
-				setInterval(function() {					
-					g.clearRect(0,0,cv.width,cv.height);
-					var fcv = F.update();
-					hidg.drawImage(fcv,0,0);
-					g.save();
-					g.scale(6,6);
-					g.drawImage(hid,0,0);
-					g.restore();
-					W.draw(g);
+				
+				
+				setInterval(function() {	
+					W.step();
+					W.draw(cv, g, hid, hidg);
 
 				}, 25);
 

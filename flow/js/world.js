@@ -2,14 +2,18 @@
 var arrBullets = [];
 
 var World = function() {
+	this.init = function() {
+		this.F = new Fluid();
+		this.F.W = this;
+		this.F.setResolution(120,80);
+		this.F.setFade(0.971);
+	}
 	this.initMap = function(map) {
 		this.walls = [];
 		this.lasers = [];
 		this.tanks = [];
 		this.fluids = [];
-		this.mud = [];
-		this.t = [];
-		this.p = [];
+		this.muds = [];
 		for(var i in map.walls) {
 			this.walls.push({
 				x : map.walls[i][0],
@@ -27,12 +31,10 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			var t = new Tank();
-			t.init(window["keyBindP"+i]);
-			t.p = new Point(map.tanks[i][0], map.tanks[i][1]);
-			t.angle = map.tanks[i][2];
-			this.tanks.push(t)
+			this.tanks.push((new NormalTank()).setup(new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2]));
 		}
+		this.tanks[0].init(keyBindP1);
+		this.tanks[1].init(keyBindP2);
 		for(var i in map.fluids) {
 			this.fluids.push({
 				x : map.fluids[i][0],
@@ -42,10 +44,16 @@ var World = function() {
 				vx : map.fluids[i][4],
 				vy : map.fluids[i][5],
 				c : map.fluids[i][6]
-			})
+			});
 		}
+		this.F.setUICallback(function(field) {
+			for(var i in this.W.fluids) {
+				field.setBlockVRGB(this.W.fluids[i].x,this.W.fluids[i].y,this.W.fluids[i].w,this.W.fluids[i].h,
+								   this.W.fluids[i].vx,this.W.fluids[i].vy,this.W.fluids[i].c);
+			}
+		});
 		for(var i in map.mud) {
-			this.fluids.push({
+			this.muds.push({
 				x : map.mud[i][0],
 				y : map.mud[i][1],
 				w : map.mud[i][2],
@@ -53,17 +61,18 @@ var World = function() {
 			})
 		}
 	}
-	this.init = function() {
-		for(i in this.tanks) {
-			this.t.push((new NormalTank()).setup(new Vector(this.tanks[i].x,this.tanks[i].y), this.tanks[i].angle));
-		}
-		// this.t[0].init(keyBindP1);
-		// this.t[1].init(keyBindP2);
-	}
 	this.step = function() {
-		
+		this.fcv = this.F.update();
 	}
-	this.draw = function(g) {
+	this.draw = function(cv, g, hid, hidg) {	
+		{
+			g.clearRect(0,0,cv.width,cv.height);
+			hidg.drawImage(this.fcv,0,0);
+			g.save();
+			g.scale(6,6);
+			g.drawImage(hid,0,0);
+			g.restore();
+		}
 		for(var i in this.tanks) {
 			this.tanks[i].step();
 			this.tanks[i].draw(g);

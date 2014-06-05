@@ -22,6 +22,7 @@ var Tank = function() {
 		this.hp = this.MAXHP;
 		this.p = startPos;
 		this.angle = angle;
+		return this;
 	}
 	this.steps = [];
 	this.steps.push(function() {
