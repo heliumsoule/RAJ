@@ -35,38 +35,10 @@
 				window.W = new World();
 				W.init();
 				W.initMap(maps[0]);
-<<<<<<< HEAD
-				var F = new Fluid();
-				F.setResolution(120,80);
-				F.setFade(0.971);
-
-				// for(i in W.fluids)
-				// F.setUICallback(function(field) {
-				// 	field.setBlockVRGB(W.fluids[i].x,W.fluids[i].y,W.fluids[i].w,W.fluids[i].h,
-				// 					   W.fluids[i].vx,W.fluids[i].vy,W.fluids[i].c);
-				// });
-
-				for(i in W.fluids)
-				F.setUICallback(function(field) {
-					field.setBlockVRGB(W.fluids[i].x,W.fluids[i].y,W.fluids[i].w,W.fluids[i].h,
-									   W.fluids[i].vx,W.fluids[i].vy,W.fluids[i].c);
-				});
-				setInterval(function() {					
-					g.clearRect(0,0,cv.width,cv.height);
-					var fcv = F.update();
-					hidg.drawImage(fcv,0,0);
-					g.save();
-					g.scale(6,6);
-					g.drawImage(hid,0,0);
-					g.restore();
-					W.draw(g);
-=======
-				
 				
 				setInterval(function() {	
 					W.step();
 					W.draw(cv, g, hid, hidg);
->>>>>>> 04dccff5dc8fa2dcdd12c20bceaa78e7dc94d216
 
 				}, 25);
 

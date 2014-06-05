@@ -61,14 +61,6 @@ var World = function() {
 			})
 		}
 	}
-<<<<<<< HEAD
-	this.init = function() {
-		for(i in this.tanks) {
-			this.t.push((new NormalTank()).setup(new Vector(this.tanks[i].x,this.tanks[i].y), this.tanks[i].angle));
-		}
-	}
-=======
->>>>>>> 04dccff5dc8fa2dcdd12c20bceaa78e7dc94d216
 	this.step = function() {
 		this.fcv = this.F.update();
 	}
