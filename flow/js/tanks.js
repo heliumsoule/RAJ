@@ -63,15 +63,15 @@ var Tank = function() {
 			this.steps[i].call(this);
 	}
 	this.health = function() {
-		if(this.HP == 0) {
-			Win = 1;
-		}
-		else {
+		// if(this.HP == 0) {
+		// 	Win = 1;
+		// }
+		// else {
 			for(var i in arrBullets) {
 			if(DBP(this.p.x,arrBullets[i].p.x,this.p.y,arrBullets[i].p.y) < 5) 
 				this.HP--;
 			}		
-		}
+		// }
 	}
 	this.fire = function() {
 		if(keyv[this.keyb.shoot]) {
@@ -85,7 +85,11 @@ var Tank = function() {
 	}
 	this.draw = function(g) {
 		g.save();
+
 		g.translate(this.cp.x, this.cp.y);
+		g.fillStyle = TANKS.NORMAL.color['healthbar'];
+		g.strokeStyle = TANKS.NORMAL.color['healthbar'];
+		g.fillRect(-16,-30, 32 * this.HP / 100, 7);
 			g.rotate(this.angle);
 				g.scale(this.s.x/32,this.s.y/32);
 					g.fillStyle = TANKS.NORMAL.color['body'];
@@ -98,9 +102,6 @@ var Tank = function() {
 					g.fillRect(-16,10,32,8);
 					g.strokeRect(-16,-18,32,8);
 					g.strokeRect(-16,10,32,8);
-					g.fillStyle = TANKS.NORMAL.color['healthbar'];
-					g.strokeStyle = TANKS.NORMAL.color['healthbar'];
-					g.fillRect(-28,-27,7,30 * this.HP / 100);
 					var flowTurret = new Turret(this.p.x-12,this.p.y-12,TANKS.NORMAL.color['cover'],TANKS.NORMAL.color['turret']);
 					flowTurret.draw(g);
 		g.restore();
