@@ -1,0 +1,48 @@
+<html>
+    <head>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title></title>
+		<script src="js/vendor/jmin.js"></script>
+		<script src="js/fluid.js"></script>
+		<script src="js/maps.js"></script>
+		<script src="js/all.js"></script>
+		<script src="js/world.js"></script>
+		<script src="js/tanks.js"></script>
+		<script src="js/weapons.js"></script>
+		<script src="js/projectiles.js"></script>
+		<script src="js/events.js"></script>
+		<script>
+			$(document).ready(function() {
+				
+				var hid = $("#hid")[0],
+					hidg = hid.getContext("2d"),
+					cv = $("#cv")[0],
+					g = cv.getContext("2d");
+				
+				flowWorld = new World();
+				flowWorld.init(0,randomColor());
+				setInterval(function() {					
+					g.clearRect(0,0,cv.width,cv.height);
+					var fcv = F.update();
+					hidg.drawImage(fcv,0,0);
+					g.save();
+					g.scale(6,6);
+					g.drawImage(hid,0,0);
+					g.restore();
+					flowWorld.draw(g);
+
+				}, 25);
+
+
+
+			});
+		</script>
+    </head>
+    <body>
+    	<div id="container">
+			<canvas id="hid" width="120" height="80"></canvas>
+			<canvas id="cv" width="720" height="480" style="border:2px solid black;position:absolute;top:5px;left:5px;"></canvas>
+		</div>
+
+    </body>
+</html>
