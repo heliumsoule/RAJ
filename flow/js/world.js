@@ -4,6 +4,7 @@ var arrBullets = [];
 var World = function() {
 	this.init = function() {
 		this.F = new Fluid();
+		this.FF;
 		this.F.W = this;
 		this.F.setResolution(120,80);
 		this.F.setFade(0.971);
@@ -64,12 +65,6 @@ var World = function() {
 				c : map.fluids[i][6]
 			});
 		}
-		this.F.setUICallback(function(field) {
-			for(var i in this.W.fluids) {
-				field.setBlockVRGB(this.W.fluids[i].x,this.W.fluids[i].y,this.W.fluids[i].w,this.W.fluids[i].h,
-								   this.W.fluids[i].vx,this.W.fluids[i].vy,this.W.fluids[i].c);
-			}
-		});
 		for(var i in map.mud) {
 			this.muds.push({
 				x : map.mud[i][0],
@@ -78,6 +73,13 @@ var World = function() {
 				h : map.mud[i][3]
 			})
 		}
+		this.F.setUICallback(function(field) {
+			for(var i in this.W.fluids) {
+				field.setBlockVRGB(this.W.fluids[i].x,this.W.fluids[i].y,this.W.fluids[i].w,this.W.fluids[i].h,
+								   this.W.fluids[i].vx,this.W.fluids[i].vy,this.W.fluids[i].c);
+			}
+			this.W.FF = field;
+		});
 	}
 	this.col = function(opt, p, s) {
 		var alive = true;

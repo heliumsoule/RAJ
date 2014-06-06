@@ -7,6 +7,7 @@ var TANKS = {
 		FRICTION : 0.85,
 		SPEED : 20,
 		TURNSPEED : 5 * Math.PI / 180,
+		WATER : 1,
 		color : {
 				 'body' : 'rgb(94,92,92)', 
 				 'wheels' : 'rgb(111,183,199)', 
@@ -31,7 +32,7 @@ var Tank = function() {
 	this.v = new Vector();
 	this.angle = 0;
 	this.hp = 0;
-	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.s;
+	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.WATER, this.s;
 	this.keyb;
 	this.weapon;
 	this.inits = [];
@@ -42,6 +43,14 @@ var Tank = function() {
 				if (keys[j] == keyBinding[i])
 					this.keyb[i] = j;
 		}
+	}
+	this.setupData = function(TDATA) {
+		this.HP = TDATA.HP;
+		this.FRICTION = TDATA.FRICTION;
+		this.SPEED = TDATA.SPEED;
+		this.TURNSPEED = TDATA.TURNSPEED;
+		this.WATER = TDATA.WATER;
+		this.s = new Dimension(TDATA.SIZE,TDATA.SIZE);
 	}
 	this.setup = function(W, startPos, angle, weapon) {
 		this.W = W;
@@ -117,11 +126,7 @@ var Tank = function() {
 
 
 var NormalTank = Tank.extend(function() {
-	this.HP = TANKS.NORMAL.HP;
-	this.FRICTION = TANKS.NORMAL.FRICTION;
-	this.SPEED = TANKS.NORMAL.SPEED;
-	this.TURNSPEED = TANKS.NORMAL.TURNSPEED;
-	this.s = new Dimension(TANKS.NORMAL.SIZE,TANKS.NORMAL.SIZE);
+	this.setupData(TANKS.NORMAL);
 });
 
 
