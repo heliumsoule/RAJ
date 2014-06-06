@@ -18,13 +18,13 @@ var TANKS = {
 }
 
 var Tank = function() {
+	this.W;
 	this.p = new Vector(), this.cp;
 	this.v = new Vector();
 	this.angle = 0;
 	this.s = new Dimension(TANKS.NORMAL.size,TANKS.NORMAL.size);
 	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED;
 	this.keyb;
-	this.bulletTimer = 0;
 	this.weapon;
 	this.init = function(keyBinding) {
 		this.keyb = {};
@@ -38,9 +38,12 @@ var Tank = function() {
 		this.HP = TANKS.NORMAL.hp;
 	}
 	this.setup = function(W, startPos, angle, weapon) {
+		this.W = W;
 		this.p = startPos;
 		this.angle = angle;
 		this.weapon = weapon;
+		this.weapon.T = this;
+		this.weapon.W = W;
 		return this;
 	}
 	this.steps = [];
@@ -50,6 +53,9 @@ var Tank = function() {
 		if (keyv[this.keyb.up] || keyv[this.keyb.down])  {
 			var d = (keyv[this.keyb.up]?1:-1)*this.SPEED * 0.07;
 			this.v.addA(this.angle, d);
+		}
+		if(keyv[this.keyb.shoot]) {
+			this.weapon.fire();
 		}
 		{
 			this.v.scale(this.FRICTION);
@@ -74,16 +80,6 @@ var Tank = function() {
 				this.HP--;
 			}		
 		// }
-	}
-	this.fire = function() {
-		if(keyv[this.keyb.shoot]) {
-			if (this.bulletTimer-- <= 0 && (this.bulletTimer = 3)) {
-				var newb = new Bullet();
-				newb.init(this.p.clone().addC(16,16).addA(this.angle,15));
-				newb.v = (new Vector()).addA(this.angle, BULLETS.velocity);
-				arrBullets.push(newb);
-			}
-		}
 	}
 	this.draw = function(g) {
 		g.save();
