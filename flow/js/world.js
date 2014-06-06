@@ -22,7 +22,7 @@ var World = function() {
 				y : map.walls[i][1],
 				w : map.walls[i][2],
 				h : map.walls[i][3],
-				wallSpots : 
+				wallSpots : 0
 			})
 			var upperBound = map.walls[i][2] * map.walls[i][3] / 400 
 			for(var iter = 0, stop = Math.floor(Math.random() * upperBound); iter < stop; iter++) {
