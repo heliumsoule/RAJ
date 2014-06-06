@@ -100,10 +100,9 @@ var World = function() {
 		for(var i in this.b) 
 			this.b[i].draw(g);
 		for(var count = 0; count < this.walls.length; count++) {
-			g.fillStyle = "#F0F5F5";
-			// g.fillStyle = "#293D3D";
+			g.fillStyle = "rgb(116,116,116)";
 			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls[count].h);
-			g.fillStyle = "#F0F5F5";
+			g.fillStyle = "rgb(88,88,88)";
 
 			for(var iter = 0; iter < this.walls[count].wallSpots.length; iter++) {
 				g.fillRect(this.walls[count].wallSpots[iter].x,this.walls[count].wallSpots[iter].y,
