@@ -8,7 +8,7 @@ var TANKS = {
 		speed : 20,
 		color : {
 				 'body' : '#527A7A', 
-				 'wheels' : "#336699", 
+				 'wheels' : "rgb(0,209,255)", 
 				 'turret' : '#0066CC', 
 				 'cover' : '#3385D6', 
 				 'healthbar' : "#B20000"
