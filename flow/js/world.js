@@ -79,12 +79,25 @@ var World = function() {
 			})
 		}
 	}
+	this.col = function(opt, p, s) {
+		var alive = true;
+		var o = {
+			walls : true
+		};
+		for(var i in opt) o[i] = opt[i];
+		if (p.x < 0 || p.y < 0 || p.x + s.x >= 720 || p.y + s.y >= 480) alive = false;
+		if (o.walls) for(var i in this.walls)
+			if (col(this.walls[i].x,this.walls[i].y,this.walls[i].w,this.walls[i].h,p.x,p.y,s.x,s.y)) alive = false;
+		return !alive;
+	}
 	this.step = function() {
 		this.fcv = this.F.update();
 		for(var i in this.tanks)
 			this.tanks[i].step();
-		for(var i in this.b)
+		for(var i=0;i<this.b.length;i++) {
 			this.b[i].step();
+			if (this.b[i].destroy) this.b.splice(i--, 1);
+		}
 	}
 	this.draw = function(cv, g, hid, hidg) {	
 		{

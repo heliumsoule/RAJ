@@ -1,6 +1,7 @@
 var WEAPONS = {
 	TURRET : {
-		SPEED : 10
+		SPEED : 10,
+		SIZE : [6,3]
 	}
 };
 
@@ -17,7 +18,7 @@ var Turret = Weapon.extend(function() {
 	this.timer = 0;
 	this.fire = function() {
 		if (this.timer-- <= 0 && (this.timer = 3)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TURRET.SPEED));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TURRET.SPEED).setVars(this.W,this.T,this));
 		}
 	}
 	this.draw = function(g) {
