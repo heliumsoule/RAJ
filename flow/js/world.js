@@ -21,12 +21,15 @@ var World = function() {
 				x : map.walls[i][0],
 				y : map.walls[i][1],
 				w : map.walls[i][2],
-				h : map.walls[i][3]
+				h : map.walls[i][3],
+				wallSpots : 
 			})
-			for(var iter = 0, stop = Math.floor(Math.random() * 8); iter < stop; iter++) {
-				g.fillRect(maps.walls[i][0] + Math.floor(Math.random() * (maps.walls[i][2] - 10)),
-						   maps.walls[i][1] + Math.floor(Math.random() * (maps.walls[i][3] - 10)),
-						   4,4);
+			var upperBound = map.walls[i][2] * map.walls[i][3] / 400 
+			for(var iter = 0, stop = Math.floor(Math.random() * upperBound); iter < stop; iter++) {
+				this.wallSpots.push({
+					x : map.walls[i][0] + Math.floor(Math.random() * (map.walls[i][2] - 10)),
+					y : map.walls[i][1] + Math.floor(Math.random() * (map.walls[i][3] - 10))
+				})
 			}
 		}
 		for(var i in map.lasers) {
@@ -38,7 +41,10 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]),
+			// this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]),
+			// 												   map.tanks[i][2],
+			// 												   new Turret()));
+			this.tanks.push((new NormalTank()).setup(new Point(map.tanks[i][0],map.tanks[i][1]),
 															   map.tanks[i][2],
 															   new Turret()));
 		}
@@ -98,7 +104,7 @@ var World = function() {
 			// }
 		}
 		for(var count = 0; count < this.wallSpots.length; count++) {
-			g.fillRect(this.wallSpots[])
+			g.fillRect(this.wallSpots[count].x,this.wallSpots[count].y,4,4);
 		}
 		if (!arrBullets.length) return;
 		for(var count = 0; count < arrBullets.length; count++)
