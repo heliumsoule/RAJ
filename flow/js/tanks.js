@@ -25,6 +25,7 @@ var Tank = function() {
 	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED;
 	this.keyb;
 	this.bulletTimer = 0;
+	this.weapon;
 	this.init = function(keyBinding) {
 		this.keyb = {};
 		for(var i in keyBinding) {
@@ -36,9 +37,10 @@ var Tank = function() {
 		this.SPEED = TANKS.NORMAL.speed;
 		this.HP = TANKS.NORMAL.hp;
 	}
-	this.setup = function(startPos, angle) {
+	this.setup = function(W, startPos, angle, weapon) {
 		this.p = startPos;
 		this.angle = angle;
+		this.weapon = weapon;
 		return this;
 	}
 	this.steps = [];
@@ -102,8 +104,7 @@ var Tank = function() {
 					g.fillRect(-16,10,32,8);
 					g.strokeRect(-16,-18,32,8);
 					g.strokeRect(-16,10,32,8);
-					var flowTurret = new Turret(this.p.x-12,this.p.y-12,TANKS.NORMAL.color['cover'],TANKS.NORMAL.color['turret']);
-					flowTurret.draw(g);
+					this.weapon.draw(g);
 		g.restore();
 	}
 }
