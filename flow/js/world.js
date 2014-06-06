@@ -10,10 +10,12 @@ var World = function() {
 	}
 	this.initMap = function(map) {
 		this.walls = [];
+		this.wallSpots = [];
 		this.lasers = [];
 		this.tanks = [];
 		this.fluids = [];
 		this.muds = [];
+		this.b = [];
 		for(var i in map.walls) {
 			this.walls.push({
 				x : map.walls[i][0],
@@ -21,6 +23,11 @@ var World = function() {
 				w : map.walls[i][2],
 				h : map.walls[i][3]
 			})
+			for(var iter = 0, stop = Math.floor(Math.random() * 8); iter < stop; iter++) {
+				g.fillRect(maps.walls[i][0] + Math.floor(Math.random() * (maps.walls[i][2] - 10)),
+						   maps.walls[i][1] + Math.floor(Math.random() * (maps.walls[i][3] - 10)),
+						   4,4);
+			}
 		}
 		for(var i in map.lasers) {
 			this.lasers.push({
@@ -31,7 +38,7 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push((new NormalTank()).setup(new Point(map.tanks[i][0],map.tanks[i][1]),
+			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]),
 															   map.tanks[i][2],
 															   new Turret()));
 		}
@@ -81,14 +88,17 @@ var World = function() {
 			this.tanks[i].fire();
 		}
 		for(var count = 0; count < this.walls.length; count++) {
-			g.fillStyle = "rgb(0,0,255)";
+			g.fillStyle = "rgb(0,210,255)";
 			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls[count].h);
-			for(var count = 0, stop = Math.floor(Math.random() * 20); count < stop; count++) {
-				g.fillStyle = "rgb(0,0,240)";
-				g.fillRect(this.walls[count].x + Math.floor(Math.random() * this.walls[count].w - 10),
-						   this.walls[count].y + Math.floor(Math.random() * this.walls[count].h - 10),
-						   4,4);
-			}
+			g.fillStyle = "rgb(0,0,240)";
+			// for(var iter = 0, stop = Math.floor(Math.random() * 8); iter < stop; iter++) {
+			// 	g.fillRect(this.walls[count].x + Math.floor(Math.random() * (this.walls[count].w - 10)),
+			// 			   this.walls[count].y + Math.floor(Math.random() * (this.walls[count].h - 10)),
+			// 			   4,4);
+			// }
+		}
+		for(var count = 0; count < this.wallSpots.length; count++) {
+			g.fillRect(this.wallSpots[])
 		}
 		if (!arrBullets.length) return;
 		for(var count = 0; count < arrBullets.length; count++)
