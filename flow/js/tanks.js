@@ -8,10 +8,10 @@ var TANKS = {
 		SPEED : 20,
 		TURNSPEED : 5 * Math.PI / 180,
 		color : {
-				 'body' : 'rgb(32,120,140)', 
-				 'wheels' : 'rgb(0,209,255)', 
-				 'turret' : 'rgb(111,183,199)', 
-				 'cover' : 'rgb(14,90,107)', 
+				 'body' : 'rgb(94,92,92)', 
+				 'wheels' : 'rgb(111,183,199)', 
+				 'turret' : 'rgb(65,62,67)', 
+				 'cover' : 'rgb(255,149,0)', 
 				 'healthbar' : "rgb(204,11,11)"
 				}
 		// color : {
