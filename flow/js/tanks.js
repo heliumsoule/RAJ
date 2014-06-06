@@ -8,12 +8,19 @@ var TANKS = {
 		SPEED : 20,
 		TURNSPEED : 5 * Math.PI / 180,
 		color : {
-				 'body' : '#527A7A', 
-				 'wheels' : "rgb(0,209,255)", 
-				 'turret' : '#0066CC', 
-				 'cover' : '#3385D6', 
-				 'healthbar' : "#B20000"
+				 'body' : 'rgb(32,120,140)', 
+				 'wheels' : 'rgb(0,209,255)', 
+				 'turret' : 'rgb(111,183,199)', 
+				 'cover' : 'rgb(14,90,107)', 
+				 'healthbar' : "rgb(204,11,11)"
 				}
+		// color : {
+		// 	 'body' : 'rgb(32,120,140)', 
+		// 	 'wheels' : 'rgb(0,209,255)', 
+		// 	 'turret' : 'rgb(111,183,199)', 
+		// 	 'cover' : 'rgb(14,90,107)', 
+		// 	 'healthbar' : "rgb(204,11,11)"
+		// 	}
 	},
 	TURNSPEED : 5 * Math.PI / 180
 }
