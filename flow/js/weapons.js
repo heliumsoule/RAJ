@@ -1,14 +1,25 @@
+var WEAPONS = {
+	TURRET : {
+		SPEED : 10
+	}
+};
 
 
 var Weapon = function() {
 	this.fire;
 	this.draw;
+	this.W, this.T;
+	this.timer;
 }
 
 
-
-
 var Turret = Weapon.extend(function() {
+	this.timer = 0;
+	this.fire = function() {
+		if (this.timer-- <= 0 && (this.timer = 3)) {
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TURRET.SPEED));
+		}
+	}
 	this.draw = function(g) {
 		g.fillStyle = TANKS.NORMAL.color['cover'];
 		g.strokeStyle = TANKS.NORMAL.color['turret'];

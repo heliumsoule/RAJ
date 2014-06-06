@@ -15,23 +15,24 @@ var Projectile = function() {
 			this.steps[i].call(this);
 	}
 	this.draws = [];
-	this.draw = function() {
+	this.draw = function(g) {
 		for(var i=0;i<this.draws.length;i++)
-			this.draws[i].call(this);
+			this.draws[i].call(this,g);
 	}
 }
 
 var Bullet = Projectile.extend(function() {
-	this.init = function(position, angle) {
-		this.p = new Vector(position.x + TANKS.NORMAL.size / 2 * Math.sin(angle),position.y + TANKS.NORMAL.size / 2 * Math.cos(angle));
-		this.v = new Vector(BULLETS.speed * Math.cos(angle),BULLETS.speed * BULLETS.speed * Math.sin(angle));
+	this.init = function(position, angle, velocity) {
+		this.p = position.clone();
+		this.v = new Vector().addA(angle, velocity);
 		this.angle = angle;
+		return this;
 	}
 	this.steps.push(function() {
 		this.p.add(this.v);
 	});
 	this.draws.push(function(g) {
-		g.fillStyle = g.strokeStyle = BULLETS.color;
+		g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
 		g.fillRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
 		g.strokeRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
 	});
