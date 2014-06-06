@@ -1,13 +1,7 @@
 
-var BULLETS = {
-	velocity : 10,
-	friction : .70,
-	color : '#FFFFFF',
-	width : 6,
-	height : 3
-}
 
 var Projectile = function() {
+	this.destroy = false;
 	this.p, this.v, this.angle;
 	this.steps = [];
 	this.step = function() {
@@ -19,9 +13,16 @@ var Projectile = function() {
 		for(var i=0;i<this.draws.length;i++)
 			this.draws[i].call(this,g);
 	}
+	this.setVars = function(W,T,w) {
+		this.W = W;
+		this.T = T;
+		this.w = w;
+		return this;
+	}
 }
 
 var Bullet = Projectile.extend(function() {
+	this.s = new Dimension(WEAPONS.TURRET.SIZE[0],WEAPONS.TURRET.SIZE[1]);
 	this.init = function(position, angle, velocity) {
 		this.p = position.clone();
 		this.v = new Vector().addA(angle, velocity);
@@ -30,13 +31,15 @@ var Bullet = Projectile.extend(function() {
 	}
 	this.steps.push(function() {
 		this.p.add(this.v);
+		if (this.W.col(0, this.p, this.s))
+			this.destroy = true;
 	});
 	this.draws.push(function(g) {
 		g.translate(this.p.x,this.p.y);
 			g.rotate(this.angle);
 				g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
-				g.fillRect(0,0,BULLETS.width,BULLETS.height);
-				g.strokeRect(0,0,BULLETS.width,BULLETS.height);
+				g.fillRect(0,0,this.s.x,this.s.y);
+				g.strokeRect(0,0,this.s.x,this.s.y);
 			g.rotate(-this.angle);
 		g.translate(-this.p.x,-this.p.y);
 	});
