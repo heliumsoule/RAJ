@@ -32,9 +32,13 @@ var Bullet = Projectile.extend(function() {
 		this.p.add(this.v);
 	});
 	this.draws.push(function(g) {
-		g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
-		g.fillRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
-		g.strokeRect(this.p.x,this.p.y,BULLETS.width,BULLETS.height);
+		g.translate(this.p.x,this.p.y);
+			g.rotate(this.angle);
+				g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
+				g.fillRect(0,0,BULLETS.width,BULLETS.height);
+				g.strokeRect(0,0,BULLETS.width,BULLETS.height);
+			g.rotate(-this.angle);
+		g.translate(-this.p.x,-this.p.y);
 	});
 });
 
