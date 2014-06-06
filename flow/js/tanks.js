@@ -2,10 +2,11 @@ var Win = 0;
 
 var TANKS = {
 	NORMAL : {
-		size : 32,
-		hp : 100,
-		friction : 0.85,
-		speed : 20,
+		SIZE : 32,
+		HP : 100,
+		FRICTION : 0.85,
+		SPEED : 20,
+		TURNSPEED : 5 * Math.PI / 180,
 		color : {
 				 'body' : '#527A7A', 
 				 'wheels' : "rgb(0,209,255)", 
@@ -22,10 +23,11 @@ var Tank = function() {
 	this.p = new Vector(), this.cp;
 	this.v = new Vector();
 	this.angle = 0;
-	this.s = new Dimension(TANKS.NORMAL.size,TANKS.NORMAL.size);
-	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED;
+	this.hp = 0;
+	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.s;
 	this.keyb;
 	this.weapon;
+	this.inits = [];
 	this.init = function(keyBinding) {
 		this.keyb = {};
 		for(var i in keyBinding) {
@@ -33,9 +35,6 @@ var Tank = function() {
 				if (keys[j] == keyBinding[i])
 					this.keyb[i] = j;
 		}
-		this.FRICTION = TANKS.NORMAL.friction;
-		this.SPEED = TANKS.NORMAL.speed;
-		this.HP = TANKS.NORMAL.hp;
 	}
 	this.setup = function(W, startPos, angle, weapon) {
 		this.W = W;
@@ -48,8 +47,8 @@ var Tank = function() {
 	}
 	this.steps = [];
 	this.steps.push(function() {
-		if (keyv[this.keyb.left]) this.angle -= TANKS.TURNSPEED;
-		if (keyv[this.keyb.right]) this.angle += TANKS.TURNSPEED;
+		if (keyv[this.keyb.left]) this.angle -= this.TURNSPEED;
+		if (keyv[this.keyb.right]) this.angle += this.TURNSPEED;
 		if (keyv[this.keyb.up] || keyv[this.keyb.down])  {
 			var d = (keyv[this.keyb.up]?1:-1)*this.SPEED * 0.07;
 			this.v.addA(this.angle, d);
@@ -81,9 +80,9 @@ var Tank = function() {
 			}		
 		// }
 	}
-	this.draw = function(g) {
+	this.draws = [];
+	this.draws.push(function(g) {
 		g.save();
-
 		g.translate(this.cp.x, this.cp.y);
 		g.fillStyle = TANKS.NORMAL.color['healthbar'];
 		g.strokeStyle = TANKS.NORMAL.color['healthbar'];
@@ -102,18 +101,28 @@ var Tank = function() {
 					g.strokeRect(-16,10,32,8);
 					this.weapon.draw(g);
 		g.restore();
+	});
+	this.draw = function(g) {
+		for(var i in this.draws);
+			this.draws[i].call(this,g);
 	}
 }
 
 
 var NormalTank = Tank.extend(function() {
-	this.MAXHP = TANKS.NORMAL.hp;
-	this.FRICTION = TANKS.NORMAL.friction;
-	this.SPEED = TANKS.NORMAL.speed;
-	this.steps.push(function() {
-		
-	});
+	this.HP = TANKS.NORMAL.HP;
+	this.FRICTION = TANKS.NORMAL.FRICTION;
+	this.SPEED = TANKS.NORMAL.SPEED;
+	this.TURNSPEED = TANKS.NORMAL.TURNSPEED;
+	this.s = new Dimension(TANKS.NORMAL.SIZE,TANKS.NORMAL.SIZE);
 });
+
+
+
+
+
+
+
 
 
 
