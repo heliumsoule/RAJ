@@ -332,41 +332,6 @@ button {
   cursor:pointer;
 }
 
-nav div { 
-  position:relative;
-  margin-top:15px;
-}
-
-nav div:before,
-nav div:after {
-    content:"";
-    display:table;
-}
-
-nav div:after {
-    clear:both;
-}
-
-nav div button {
-  width:49%;
-  display:inline;
-  margin-bottom:-20px;
-  float:left;
-  margin:0;
-}
-
-nav div button:last-child {
-  float:right;
-}
-
-nav button:first-of-type {
-  margin-top:0;
-}
-
-nav button:last-of-type {
-  margin-bottom:0;
-}
-
 button:hover {
   background:linear-gradient(to bottom, #91493b 0%, #4f2920 100%);
   color:white;
