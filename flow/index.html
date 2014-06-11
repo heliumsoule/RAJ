@@ -12,6 +12,8 @@
 		<script src="js/projectiles.js"></script>
 		<script src="js/events.js"></script>
 		<script>
+			var VECTOR_DRAW = true;
+			var g;
 			$(document).ready(function() {
 				
 				var hid = $("#hid")[0],
@@ -22,6 +24,7 @@
 				window.W = new World();
 				W.init();
 				W.initMap(maps[1]);
+				window.g = g;
 				
 				setInterval(function() {	
 					W.step();

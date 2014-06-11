@@ -102,7 +102,7 @@ var World = function() {
 		}
 	}
 	this.draw = function(cv, g, hid, hidg) {	
-		{
+		if (!VECTOR_DRAW) {
 			g.clearRect(0,0,cv.width,cv.height);
 			hidg.drawImage(this.fcv,0,0);
 			g.save();

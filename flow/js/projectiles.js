@@ -1,5 +1,3 @@
-
-
 var Projectile = function() {
 	this.destroy = false;
 	this.p, this.v, this.angle;
@@ -30,6 +28,11 @@ var Bullet = Projectile.extend(function() {
 		return this;
 	}
 	this.steps.push(function() {
+		var mult = 1000;
+		if (this.W.FF.getColor(Math.floor(this.p.x/6),Math.floor(this.p.y/6)) > 1) {
+			this.v.addC(this.W.FF.getXVelocity(Math.floor(this.p.x/6),Math.floor(this.p.y/6))*mult,
+						this.W.FF.getYVelocity(Math.floor(this.p.x/6),Math.floor(this.p.y/6))*mult);
+		}
 		this.p.add(this.v);
 		if (this.W.col(0, this.p, this.s))
 			this.destroy = true;

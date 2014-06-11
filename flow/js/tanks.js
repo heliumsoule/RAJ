@@ -63,6 +63,7 @@ var Tank = function() {
 	}
 	this.steps = [];
 	this.steps.push(function() {
+		this.cp = this.p.plus(this.s.times(0.5));
 		if (keyv[this.keyb.left]) this.angle -= this.TURNSPEED;
 		if (keyv[this.keyb.right]) this.angle += this.TURNSPEED;
 		if (keyv[this.keyb.up] || keyv[this.keyb.down])  {
@@ -72,6 +73,9 @@ var Tank = function() {
 		if(keyv[this.keyb.shoot]) {
 			this.weapon.fire();
 		}
+		var mult = 1000;
+		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult,
+					this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult);
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);

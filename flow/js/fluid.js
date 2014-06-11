@@ -332,7 +332,9 @@ function Fluid(canvas) {
             return;
 
         }         
-
+        this.getColor = function(x, y) {
+            return r[(x + 1) + (y + 1) * rowSize] + g[(x + 1) + (y + 1) * rowSize] + bl[(x + 1) + (y + 1) * rowSize];
+        }
 
         this.getXVelocity = function(x, y) {
 
@@ -551,8 +553,9 @@ function Fluid(canvas) {
         // Continously buffer data to reduce computation overhead
         prepareBuffer(field);        
 		var context = buffer.getContext("2d");
+        var canvas = context.canvas;
 
-        if (bufferData) {
+        if (!VECTOR_DRAW && bufferData) {
             
             // Decouple from pixels to reduce overhead
             var data = bufferData.data;
@@ -585,16 +588,29 @@ function Fluid(canvas) {
             context.putImageData(bufferData, 0, 0);
             
         } else {
+            context = window.g;
+            canvas = context.canvas;
+            context.lineWidth = 1;
+            var wScale = canvas.width / field.width();
+            var hScale = canvas.height / field.height();
+            context.fillStyle="black";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.strokeStyle = "rgb(0,255,0)";
             
-            for ( var x = 0; x < width; x++ ) {
+            var vectorScale = 3;
+            
+            
+            for (var x = 0; x < field.width(); x++) {
                 
-                for ( var y = 0; y < height; y++ ) {
+                for (var y = 0; y < field.height(); y++) {
                     
-                    var d = field.getDensity(x, y) / 5;
-                    
-                    context.setFillColor(0, d, 0, 1);
-                    context.fillRect(x, y, 1, 1);
-                    
+            context.beginPath();
+                    context.moveTo(x * wScale + 0.5 * wScale, y * hScale + 0.5 * hScale);
+                    context.lineTo((x + 0.5 + vectorScale * field.getXVelocity(x, y)) * wScale, 
+                                   (y + 0.5 + vectorScale * field.getYVelocity(x, y)) * hScale);
+                    if (field.getYVelocity(x, y) <= 0) context.strokeStyle = "cyan";
+                    else context.strokeStyle = "green";
+            context.stroke();
                 }
                 
             }
