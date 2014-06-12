@@ -28,7 +28,7 @@ var TANKS = {
 
 var Tank = function() {
 	this.W;
-	this.p = new Vector(), this.cp;
+	this.p = new Vector(), this.cp = new Vector();
 	this.v = new Vector();
 	this.angle = 0;
 	this.hp = 0;
@@ -73,9 +73,12 @@ var Tank = function() {
 		if(keyv[this.keyb.shoot]) {
 			this.weapon.fire();
 		}
-		var mult = 1000;
+		$("#d").html(this.v.y);
+		var mult = 5000;
 		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult,
 					this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult);
+		$("#d").css("width",200+Math.round(this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult*500)+"px");
+		$("#d").append("<br>"+this.v.y);
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
@@ -84,6 +87,7 @@ var Tank = function() {
 			this.v.set(r.v);
 		}
 		this.cp = this.p.plus(this.s.times(0.5));
+		$("#d").append("<br>"+this.v.y);
 	});
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)

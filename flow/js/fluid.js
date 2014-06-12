@@ -608,8 +608,8 @@ function Fluid(canvas) {
                     context.moveTo(x * wScale + 0.5 * wScale, y * hScale + 0.5 * hScale);
                     context.lineTo((x + 0.5 + vectorScale * field.getXVelocity(x, y)) * wScale, 
                                    (y + 0.5 + vectorScale * field.getYVelocity(x, y)) * hScale);
-                    if (field.getYVelocity(x, y) <= 0) context.strokeStyle = "cyan";
-                    else context.strokeStyle = "green";
+                    if (field.getYVelocity(x, y) <= 0) context.strokeStyle = "green";
+                    else context.strokeStyle = "rgb("+Math.floor((vectorScale * field.getYVelocity(x, y)) * hScale *255/3)+",255,255)";
             context.stroke();
                 }
                 
