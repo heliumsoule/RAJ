@@ -73,12 +73,12 @@ var Tank = function() {
 		if(keyv[this.keyb.shoot]) {
 			this.weapon.fire();
 		}
-		$("#d").html(this.v.y);
-		var mult = 5000;
-		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult,
-					this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult);
-		$("#d").css("width",200+Math.round(this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult*500)+"px");
-		$("#d").append("<br>"+this.v.y);
+		// $("#d").html(this.v.y);
+		// var mult = 5000;
+		// this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult,
+		// 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult);
+		// $("#d").css("width",200+Math.round(this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult*500)+"px");
+		// $("#d").append("<br>"+this.v.y);
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
@@ -93,15 +93,17 @@ var Tank = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].call(this);
 	}
-	this.health = function() {
+	this.health = function(b) {
 		// if(this.HP == 0) {
 		// 	Win = 1;
 		// }
 		// else {
-			for(var i in arrBullets) {
-			if(DBP(this.p.x,arrBullets[i].p.x,this.p.y,arrBullets[i].p.y) < 5) 
-				this.HP--;
-			}		
+			for(i in b) {
+				console.log(DBP(this.cp.x + 16, b[i].p.x,this.cp.y + 16,b[i].p.y));
+				if(DBP(this.cp.x + 16, b[i].p.x,this.cp.y + 16,b[i].p.y) < 20) {
+					this.HP--;
+				}
+			}
 		// }
 	}
 	this.draws = [];

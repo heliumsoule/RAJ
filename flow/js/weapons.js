@@ -1,6 +1,6 @@
 var WEAPONS = {
 	TURRET : {
-		SPEED : 3,
+		SPEED : 10,
 		SIZE : [6,3]
 	}
 };

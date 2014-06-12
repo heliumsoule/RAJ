@@ -48,9 +48,6 @@ var World = function() {
 			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]),
 															   map.tanks[i][2],
 															   new Turret()));
-			// this.tanks.push((new NormalTank()).setup(new Point(map.tanks[i][0],map.tanks[i][1]),
-			// 												   map.tanks[i][2],
-			// 												   new Turret()));
 		}
 		this.tanks[0].init(keyBindP1);
 		this.tanks[1].init(keyBindP2);
@@ -110,8 +107,10 @@ var World = function() {
 			g.drawImage(hid,0,0);
 			g.restore();
 		}
-		for(var i in this.tanks) 
+		for(var i in this.tanks) {
+			this.tanks[i].health(this.b);
 			this.tanks[i].draw(g);
+		}
 		for(var i in this.b) 
 			this.b[i].draw(g);
 		for(var count = 0; count < this.walls.length; count++) {
