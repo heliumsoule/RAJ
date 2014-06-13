@@ -13,7 +13,8 @@ var TANKS = {
 				 'wheels' : 'rgb(111,183,199)', 
 				 'turret' : 'rgb(65,62,67)', 
 				 'cover' : 'rgb(255,149,0)', 
-				 'healthbar' : "rgb(204,11,11)"
+				 'healthbargreen' : "rgb(58,201,22)",
+				 'healthbarred' : "rgb(251,68,68)"
 				}
 		// color : {
 		// 	 'body' : 'rgb(32,120,140)', 
@@ -109,8 +110,14 @@ var Tank = function() {
 	this.draws.push(function(g) {
 		g.save();
 		g.translate(this.cp.x, this.cp.y);
-		g.fillStyle = TANKS.NORMAL.color['healthbar'];
-		g.strokeStyle = TANKS.NORMAL.color['healthbar'];
+		if(this.HP > 30) {
+			g.fillStyle = TANKS.NORMAL.color['healthbargreen'];
+			g.strokeStyle = TANKS.NORMAL.color['healthbargreen'];			
+		}
+		else {
+			g.fillStyle = TANKS.NORMAL.color['healthbarred'];
+			g.strokeStyle = TANKS.NORMAL.color['healthbarred'];
+		}
 		g.fillRect(-16,-30, 32 * this.HP / 100, 7);
 			g.rotate(this.angle);
 				g.scale(this.s.x/32,this.s.y/32);
