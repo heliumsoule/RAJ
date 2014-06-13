@@ -99,8 +99,7 @@ var Tank = function() {
 		// }
 		// else {
 			for(i in b) {
-				console.log(DBP(this.cp.x + 16, b[i].p.x,this.cp.y + 16,b[i].p.y));
-				if(DBP(this.cp.x + 16, b[i].p.x,this.cp.y + 16,b[i].p.y) < 20) {
+				if(this.HP >= 0 && DBP(this.cp.x,this.cp.y,b[i].p.x,b[i].p.y) < 20) {
 					this.HP--;
 				}
 			}
