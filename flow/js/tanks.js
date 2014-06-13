@@ -63,7 +63,7 @@ var Tank = function() {
 		return this;
 	}
 	this.steps = [];
-	this.steps.push(function() {
+	this.steps.push(function(debug) {
 		this.cp = this.p.plus(this.s.times(0.5));
 		if (keyv[this.keyb.left]) this.angle -= this.TURNSPEED;
 		if (keyv[this.keyb.right]) this.angle += this.TURNSPEED;
@@ -74,12 +74,12 @@ var Tank = function() {
 		if(keyv[this.keyb.shoot]) {
 			this.weapon.fire();
 		}
-		// $("#d").html(this.v.y);
-		// var mult = 5000;
+		 if (debug) $("#dd").html(this.v.y);
+		 var mult = 5000;
 		// this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult,
 		// 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult);
-		// $("#d").css("width",200+Math.round(this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult*500)+"px");
-		// $("#d").append("<br>"+this.v.y);
+		 if (debug) $("#dd").css("width",200+Math.round(this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult*50)+"px");
+		 if (debug) $("#dd").append("<br>"+this.v.y);
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
@@ -88,11 +88,11 @@ var Tank = function() {
 			this.v.set(r.v);
 		}
 		this.cp = this.p.plus(this.s.times(0.5));
-		$("#d").append("<br>"+this.v.y);
+		if (debug) $("#dd").append("<br>"+this.v.y);
 	});
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
-			this.steps[i].call(this);
+			this.steps[i].apply(this,arguments);
 	}
 	this.health = function(b) {
 		// if(this.HP == 0) {

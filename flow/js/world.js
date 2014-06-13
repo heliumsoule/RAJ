@@ -92,7 +92,7 @@ var World = function() {
 	this.step = function() {
 		this.fcv = this.F.update();
 		for(var i in this.tanks)
-			this.tanks[i].step();
+			this.tanks[i].step(i==0);
 		for(var i=0;i<this.b.length;i++) {
 			this.b[i].step();
 			if (this.b[i].destroy) this.b.splice(i--, 1);
