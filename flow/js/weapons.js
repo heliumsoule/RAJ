@@ -2,7 +2,7 @@ var WEAPONS = {
 	TURRET : {
 		SPEED : 10,
 		SIZE : [6,3],
-		TIMER : 200,
+		TIMER : 230,
 		DAMAGE : 14,
 		NUMBER : 1,
 		SPREAD : 0,
@@ -23,11 +23,11 @@ var WEAPONS = {
 			'cover' : 'rgb(72,153,253)'
 		}
 	},
-	FIVETURRET : {
-		SPEED : 7,
-		SIZE : [7,3],
+	SPREADTURRET : {
+		SPEED : 12,
+		SIZE : [3,2],
 		TIMER : 300,
-		DAMAGE : 2.5,
+		DAMAGE : 2,
 		NUMBER : 5,
 		SPREAD : Math.PI / 25,
 		COLOR : {
@@ -65,7 +65,7 @@ var Turret = Weapon.extend(function() {
 		var num = this.CONSTS.NUMBER;
 		if ((this.timer-=25) <= 0 && (this.timer = this.CONSTS.TIMER)) {
 			for(var i=-(num-1)/2;i<=(num-1)/2;i++)
-				this.W.b.push((new Bullet()).init(this.T.ID,
+				this.W.b.push((new Bullet()).init(this.T.ID, this.CONSTS.SIZE,
 					this.T.cp.clone().addA(this.T.angle,15), this.T.angle + i*this.CONSTS.SPREAD, 
 					this.CONSTS.SPEED, this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
 		}
@@ -83,8 +83,8 @@ var Turret = Weapon.extend(function() {
 var TripleTurret = Turret.extend(function() {
 	this.CONSTS = WEAPONS.TRIPLETURRET;
 });
-var FiveTurret = Turret.extend(function() {
-	this.CONSTS = WEAPONS.FIVETURRET;
+var SpreadTurret = Turret.extend(function() {
+	this.CONSTS = WEAPONS.SPREADTURRET;
 });
 
 var sniperTurret = Weapon.extend(function() {
