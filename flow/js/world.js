@@ -49,11 +49,11 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push(((i==1)?(new ArmoredTank()):(new NormalTank()))
+			this.tanks.push( ((i==1)?(new ArmoredTank()):(new NormalTank()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-				(i==0)?(new Minigun()):
-					(new Turret())
-			));
+					(i==0)?(new Sniper()):
+						(new TripleTurret())
+				));
 		}
 		this.tanks[0].init(keyBindP1);
 		this.tanks[1].init(keyBindP2);
@@ -142,11 +142,6 @@ var World = function() {
 			g.drawImage(hid,0,0);
 			g.restore();
 		}
-		for(var i in this.tanks) {
-			this.tanks[i].draw(g);
-		}
-		for(var i in this.b) 
-			this.b[i].draw(g);
 		for(var count = 0; count < this.walls.length; count++) {
 			g.fillStyle = "rgb(116,116,116)";
 			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls[count].h);
@@ -157,6 +152,13 @@ var World = function() {
 						   this.walls[count].wallSpots[iter].w,this.walls[count].wallSpots[iter].h);
 			}
 		}
+<<<<<<< HEAD
+		for(var i in this.tanks) {
+			this.tanks[i].draw(g);
+		}
+		for(var i in this.b) 
+			this.b[i].draw(g);
+=======
 		for(var i=0;i<this.sw.length;i++) {
 			var sw = this.sw[i];
 			g.fillStyle = "rgba("+sw.color.join(",")+","+(1-sw.prog)+")";
@@ -165,6 +167,7 @@ var World = function() {
 			g.fill();
 			if (sw.prog >= 1) this.sw.splice(i--, 1);
 		}
+>>>>>>> db52413706e07c346de1332332b95eb6b53d200e
 	}
 }
 
