@@ -71,6 +71,11 @@ var WEAPONS = {
 			'turret' : 'rgb(252,65,109)',
 			'cover' : 'rgb(251,155,177)'
 		}
+	},
+	MINE : {
+		SIZE : [4,4],
+		DAMAGE : 15,
+		COLOR : 'rgb(147,74,225)'
 	}
 };
 
@@ -81,6 +86,11 @@ var Weapon = function() {
 	this.step = function() {};
 	this.W, this.T;
 	this.timer = 0;
+	this.setVars = function(W,T) {
+		this.W = W;
+		this.T = T;
+		return this;
+	}
 }
 
 

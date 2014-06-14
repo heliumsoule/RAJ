@@ -19,6 +19,37 @@ var Projectile = function() {
 	}
 }
 
+var Mine = Projectile.extend(function() {
+	this.CONSTS = WEAPONS.MINES;
+	this.s = new Dimension(4,4);
+	this.init = function(id, size, position, damage) {
+		this.s = new Dimension(size[0],size[1]);
+		this.ID = id;
+		this.p = position.clone();
+		this.damage = damage;
+		return this;
+	}
+	this.step = function() {
+		for(i in this.W.tanks) {
+			var t = this.W.tanks[i];
+			if (t.ID == this.ID) continue;
+			if(col(t.p.x,t.p.y,t.s.x,t.s.y,this.p.x,this.p.y,this.s.x,this.s.y)) {
+				this.W.tanks[i].HP -= this.damage;
+				this.destroy = true;
+				break;
+			}
+		}
+	}
+	this.fire = function() {
+		this.W.b.push((new Mine()).init(this.T.ID, this.CONSTS.SIZE,
+					this.T.cp.clone(), this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
+	}
+	this.draw = function(g) {
+		g.fillStyle = g.strokeStyle = this.CONSTS.COLOR;
+		g.fillRect(0,0,this.s.x,this.s.y);
+	}
+});
+
 var Bullet = Projectile.extend(function() {
 	this.WATER = 2.5;
 	this.s = new Dimension(2,2);
