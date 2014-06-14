@@ -30,7 +30,7 @@ var Ray = Projectile.extend(function() {
 		this.color = color;
 		this.p = p;
 		var col = {
-			obj : null,
+			obj : {OBJECT:"POOP"},
 			pv : (new Vector()).addA(ang, 1000)
 		};
 		for(var i in this.W.walls)
@@ -41,6 +41,12 @@ var Ray = Projectile.extend(function() {
 				this.checkSquare(col, this.W.tanks[i],
 					p, this.W.tanks[i].p.x, this.W.tanks[i].p.y, this.W.tanks[i].s.x, this.W.tanks[i].s.y);
 		this.e = this.p.plus(col.pv);
+		var obj = col.obj;
+		switch(obj.OBJECT) {
+			case "TANK":
+				obj.hit(damage);
+			break;
+		}
 		return this;
 	}
 	this.checkSquare = function(col, obj, p, x, y, w, h) {
