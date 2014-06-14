@@ -7,7 +7,7 @@ var TANKS = {
 		FRICTION : 0.85,
 		SPEED : 20,
 		TURNSPEED : 5 * Math.PI / 180,
-		WATER : 1,
+		WATER : 0.3,
 		color : {
 				 'body' : 'rgb(94,92,92)', 
 				 'wheels' : 'rgb(111,183,199)', 

@@ -20,6 +20,7 @@ var Projectile = function() {
 }
 
 var Bullet = Projectile.extend(function() {
+	this.WATER = 2;
 	this.s = new Dimension(WEAPONS.TURRET.SIZE[0],WEAPONS.TURRET.SIZE[1]);
 	this.init = function(position, angle, velocity, damage, range) {
 		this.p = position.clone();
@@ -30,11 +31,8 @@ var Bullet = Projectile.extend(function() {
 		return this;
 	}
 	this.steps.push(function() {
-		var mult = 1000;
-		if (this.W.FF.getColor(Math.floor(this.p.x/6),Math.floor(this.p.y/6)) > 1) {
-			this.v.addC(this.W.FF.getXVelocity(Math.floor(this.p.x/6),Math.floor(this.p.y/6))*mult,
-						this.W.FF.getYVelocity(Math.floor(this.p.x/6),Math.floor(this.p.y/6))*mult);
-		}
+		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.p.x/6),Math.floor(this.p.y/6))*this.WATER,
+					this.W.FF.getYVelocity(Math.floor(this.p.x/6),Math.floor(this.p.y/6))*this.WATER);
 		this.p.add(this.v);
 		if (this.W.col(0, this.p, this.s))
 			this.destroy = true;
