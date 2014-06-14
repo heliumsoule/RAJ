@@ -23,11 +23,10 @@ var WEAPONS = {
 		}
 	},
 	SNIPERTURRET : {
-		SPEED : 8,
+		SPEED : 20,
 		SIZE : [6,3],
 		DELAY : 20,
-		ACCURACY : 30,
-		DAMAGE : 3,
+		DAMAGE : 5,
 		RANGE : 7,
 		COLOR : {
 			'turret' : 'rgb(252,65,109)',
