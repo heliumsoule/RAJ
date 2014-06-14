@@ -170,7 +170,7 @@ var MineDropper = TimedWeapon.extend(function() {
 	this.C = WEAPONS.MINEDROPPER;
 	this.fire = function() {
 		this.W.b.push(new Mine().setVars(this.W,this.T,this)
-			.init(this.C.SIZE, this.T.cp.clone().addA(this.T.angle,15), this.C.DAMAGE));
+			.init(this.C.SIZE, this.T.cp.clone().addA(this.T.angle,-15), this.C.TIMER, this.C.DAMAGE));
 	}
 	this.draws.push(function(g) {
 		g.fillStyle = this.C.COLOR;

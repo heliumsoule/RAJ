@@ -52,7 +52,7 @@ var World = function() {
 		for(var i in map.tanks) {
 			this.tanks.push( ((i==1)?(new Scout()):(new Heavy()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-					(i==1)?([new Turret(), new Minigun()]):
+					(i==1)?([new MineDropper(), new Minigun()]):
 						([new TripleTurret(), new Minigun()])
 				));
 		}

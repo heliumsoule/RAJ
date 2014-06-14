@@ -78,29 +78,41 @@ var Ray = Projectile.extend(function() {
 
 var Mine = Projectile.extend(function() {
 	this.s = new Dimension(4,4);
-	this.init = function(size, position, damage) {
+	this.activated = 0;
+	this.init = function(size, position, time, damage) {
 		this.s = new Dimension(size[0],size[1]);
 		this.p = position.clone();
 		this.damage = damage;
+		this.timer = time;
+		this.currTime = time;
 		return this;
 	}
-	this.explode = function(r) {
-		
+	this.explode = function(T) {
+		console.log(0);
+		if (this.currTime <= 0 && (this.currTime = this.timer)) {
+			T.hit(this.damage);
+			this.destroy = true;
+			console.log(1);
+		}
 	}
-	this.steps.push(function() {
+	this.steps.push(function(g) {
 		for(i in this.W.tanks) {
 			var t = this.W.tanks[i];
-			if (t.ID == this.ID) continue;
 			if(col(t.p.x,t.p.y,t.s.x,t.s.y,this.p.x,this.p.y,this.s.x,this.s.y)) {
-				t.hit(this.damage);
-				this.destroy = true;
+				this.currTime -= 25;
+				this.explode(t);
 				break;
 			}
 		}
 	});
 	this.draws.push(function(g) {
 		g.beginPath();
-		g.fillStyle = "rgb(255,255,255)";
+		if(this.activated == 1) {
+			g.fillStyle = "rgb(233,67,30)";
+		}
+		else {
+			g.fillStyle = "rgb(255,255,255)";
+		}
 		g.arc(this.p.x,this.p.y,this.s.x,0,Math.PI * 2, true);
 		g.fill();
 	});
