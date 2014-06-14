@@ -33,7 +33,7 @@ $(function() {
 			}
 	}
 	
-	$(window).keydown(function(e) {console.log(e.keyCode);
+	$(window).keydown(function(e) {//console.log(e.keyCode);
 		checkKey(e, e.keyCode, true);
 	});
 	$(window).keyup(function(e) {

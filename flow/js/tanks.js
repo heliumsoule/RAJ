@@ -88,12 +88,14 @@ var Tank = function() {
 	this.draws.push(function(g) {
 		g.save();
 			g.translate(this.cp.x, this.cp.y);
-	
-			g.fillStyle = this.COLOR['healthbarred'];
-			g.fillRect(-16,-30, 32, 7);
 			
+			if (this.cp.y < 30) g.translate(0,50);
+			g.fillStyle = this.COLOR['healthbarred'];
+			g.fillRect(-17,-27, 34, 4);
 			g.fillStyle = this.COLOR['healthbargreen'];
-			g.fillRect(-16,-30, 32 * this.HP / 100, 7);
+			g.fillRect(-17,-27, 34 * this.HP / 100, 4);
+			if (this.cp.y < 30) g.translate(0,-50);
+			
 			g.rotate(this.angle);
 				g.scale(this.s.x/32,this.s.y/32);
 					g.fillStyle = this.COLOR['body'];
