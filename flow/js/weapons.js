@@ -70,8 +70,8 @@ var WEAPONS = {
 	RPG : {
 		SPEED : 9,
 		SIZE : [2,1],
-		TIMER : 50,
-		DAMAGE : 1.3,
+		TIMER : 1250,
+		DAMAGE : 35,
 		NUMBER : 1,
 		SPREAD_RANDOM : Math.PI / 25,
 		COLOR : {
