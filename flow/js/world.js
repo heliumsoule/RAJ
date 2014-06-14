@@ -8,6 +8,7 @@ var World = function() {
 		this.F.W = this;
 		this.F.setResolution(120,80);
 		this.F.setFade(0.971);
+		this.sw = [];
 	}
 	this._t = function(p) {
 		return Math.floor(p/6);
@@ -50,7 +51,7 @@ var World = function() {
 		for(var i in map.tanks) {
 			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
 				(i==0)?(new Minigun()):
-					(new Shotgun())
+					(new Turret())
 			));
 		}
 		this.tanks[0].init(keyBindP1);
@@ -92,8 +93,23 @@ var World = function() {
 			if (col(this.walls[i].x,this.walls[i].y,this.walls[i].w,this.walls[i].h,p.x,p.y,s.x,s.y)) alive = false;
 		return !alive;
 	}
-	this.createShockwave = function() {
-		
+	this.createShockwave = function(x,y,color,r,p) {
+		var pp = isNaN(p)?r:p
+		this.sw.push({
+			x : x,
+			y : y,
+			r : 10+p,
+			color : color,
+			prog : 0
+		});
+		for(var i in this.tanks) {
+			var t = this.tanks[i];
+			var dist = Math.max(0, DBP(t.cp.x,t.cp.y,x,y) - (t.s.x+t.s.y)/4);
+			if (dist > r) continue;
+			var ang = Math.atan2(t.cp.y-y, t.cp.x-x);
+			var ratio = (r - dist) / r;
+			t.v.addA(ang, ratio*pp * 0.66);
+		}
 	}
 	this.step = function() {
 		this.F.clearDisable();
@@ -106,7 +122,14 @@ var World = function() {
 			this.tanks[i].step(i==0);
 		for(var i=0;i<this.b.length;i++) {
 			this.b[i].step();
-			if (this.b[i].destroy) this.b.splice(i--, 1);
+			if (this.b[i].destroy) {
+				this.b[i].kill();
+				this.b.splice(i--, 1);
+			}
+		}
+		for(var i=0;i<this.sw.length;i++) {
+			var sw = this.sw[i];
+			sw.prog = Math.min(sw.prog+0.08, 1);
 		}
 	}
 	this.draw = function(cv, g, hid, hidg) {	
@@ -132,6 +155,14 @@ var World = function() {
 				g.fillRect(this.walls[count].wallSpots[iter].x,this.walls[count].wallSpots[iter].y,
 						   this.walls[count].wallSpots[iter].w,this.walls[count].wallSpots[iter].h);
 			}
+		}
+		for(var i=0;i<this.sw.length;i++) {
+			var sw = this.sw[i];
+			g.fillStyle = "rgba("+sw.color.join(",")+","+(1-sw.prog)+")";
+			g.beginPath();
+			g.arc(sw.x,sw.y,sw.prog*sw.r,0,2*Math.PI);
+			g.fill();
+			if (sw.prog >= 1) this.sw.splice(i--, 1);
 		}
 	}
 }

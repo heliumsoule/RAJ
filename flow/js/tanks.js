@@ -5,7 +5,7 @@ var TANKS = {
 		SIZE : 32,
 		HP : 100,
 		FRICTION : 0.85,
-		SPEED : 20,
+		SPEED : 10,
 		TURNSPEED : 5 * Math.PI / 180,
 		WATER : 0.3,
 		COLOR : {
