@@ -22,12 +22,12 @@ var Projectile = function() {
 var Bullet = Projectile.extend(function() {
 	this.WATER = 2.5;
 	this.s = new Dimension(WEAPONS.TURRET.SIZE[0],WEAPONS.TURRET.SIZE[1]);
-	this.init = function(position, angle, velocity, damage, range) {
+	this.init = function(id, position, angle, velocity, damage) {
+		this.ID = id;
 		this.p = position.clone();
 		this.v = new Vector().addA(angle, velocity);
 		this.angle = angle;
 		this.damage = damage;
-		this.range = range;
 		return this;
 	}
 	this.steps.push(function() {
@@ -37,9 +37,12 @@ var Bullet = Projectile.extend(function() {
 		if (this.W.col(0, this.p, this.s))
 			this.destroy = true;
 		for(i in this.W.tanks) {
-			if(DBP(this.W.tanks[i].cp.x,this.W.tanks[i].cp.y,this.p.x,this.p.y) < this.range) {
-				this.W.tanks[i].HP = this.W.tanks[i].HP - this.damage;
+			var t = this.W.tanks[i];
+			if (t.ID == this.ID) continue;
+			if(col(t.p.x,t.p.y,t.s.x,t.s.y, this.p.x,this.p.y,this.s.x,this.s.y)) {
+				this.W.tanks[i].HP -= this.damage;
 				this.destroy = true;
+				break;
 			}
 		}
 	});

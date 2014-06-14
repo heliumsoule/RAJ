@@ -3,8 +3,9 @@ var WEAPONS = {
 		SPEED : 10,
 		SIZE : [6,3],
 		TIMER : 200,
-		DAMAGE : 1,
-		RANGE : 10,
+		DAMAGE : 14,
+		NUMBER : 1,
+		SPREAD : 0,
 		COLOR : {
 			'turret' : 'rgb(65,62,67)', 
 			'cover' : 'rgb(255,149,0)'
@@ -13,10 +14,22 @@ var WEAPONS = {
 	TRIPLETURRET : {
 		SPEED : 7,
 		SIZE : [7,3],
-		SPREAD : Math.PI / 20,
 		TIMER : 300,
-		DAMAGE : 1/3,
-		RANGE : 15,
+		DAMAGE : 4,
+		NUMBER : 3,
+		SPREAD : Math.PI / 20,
+		COLOR : {
+			'turret' : 'rgb(72,253,229)',
+			'cover' : 'rgb(72,153,253)'
+		}
+	},
+	FIVETURRET : {
+		SPEED : 7,
+		SIZE : [7,3],
+		TIMER : 300,
+		DAMAGE : 2.5,
+		NUMBER : 5,
+		SPREAD : Math.PI / 25,
 		COLOR : {
 			'turret' : 'rgb(72,253,229)',
 			'cover' : 'rgb(72,153,253)'
@@ -28,7 +41,6 @@ var WEAPONS = {
 		DELAY : 20,
 		ACCURACY : 30,
 		DAMAGE : 3,
-		RANGE : 7,
 		COLOR : {
 			'turret' : 'rgb(252,65,109)',
 			'cover' : 'rgb(251,155,177)'
@@ -46,15 +58,19 @@ var Weapon = function() {
 
 
 var Turret = Weapon.extend(function() {
+	this.CONSTS = WEAPONS.TURRET;
 	this.fire = function() {
-		if ((this.timer-=25) <= 0 && (this.timer = WEAPONS.TURRET.TIMER)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, 
-				WEAPONS.TURRET.SPEED, WEAPONS.TURRET.DAMAGE, WEAPONS.TURRET.RANGE).setVars(this.W,this.T,this));
+		var num = this.CONSTS.NUMBER;
+		if ((this.timer-=25) <= 0 && (this.timer = this.CONSTS.TIMER)) {
+			for(var i=-(num-1)/2;i<=(num-1)/2;i++)
+				this.W.b.push((new Bullet()).init(this.T.ID,
+					this.T.cp.clone().addA(this.T.angle,15), this.T.angle + i*this.CONSTS.SPREAD, 
+					this.CONSTS.SPEED, this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
 		}
 	}
 	this.draw = function(g) {
-		g.fillStyle = WEAPONS.TURRET.COLOR['cover'];
-		g.strokeStyle = WEAPONS.TURRET.COLOR['turret'];
+		g.fillStyle = this.CONSTS.COLOR['cover'];
+		g.strokeStyle = this.CONSTS.COLOR['turret'];
 		g.fillRect(2,-3,18,6);
 		g.strokeRect(2,-3,18,6);
 		g.beginPath();
@@ -62,24 +78,11 @@ var Turret = Weapon.extend(function() {
 		g.fill();
 	}
 });
-
-var TripleTurret = Weapon.extend(function() {
-	this.fire = function() {
-		if((this.timer-=25) <= 0 && (this.timer = WEAPONS.TRIPLETURRET.TIMER)) {
-			for(var i=-1;i<=1;i++)
-				this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle + i*WEAPONS.TRIPLETURRET.SPREAD, 
-					WEAPONS.TRIPLETURRET.SPEED, WEAPONS.TRIPLETURRET.DAMAGE, WEAPONS.TRIPLETURRET.RANGE).setVars(this.W,this.T,this));
-		}
-	}
-	this.draw = function(g) {
-		g.fillStyle = WEAPONS.TRIPLETURRET.COLOR['cover'];
-		g.strokeStyle = WEAPONS.TRIPLETURRET.COLOR['turret'];
-		g.fillRect(2,-3,18,6);
-		g.strokeRect(2,-3,18,6);
-		g.beginPath();
-		g.arc(0,0,10,0,Math.PI*2,true);
-		g.fill();
-	}
+var TripleTurret = Turret.extend(function() {
+	this.CONSTS = WEAPONS.TRIPLETURRET;
+});
+var FiveTurret = Turret.extend(function() {
+	this.CONSTS = WEAPONS.FIVETURRET;
 });
 
 var sniperTurret = Weapon.extend(function() {

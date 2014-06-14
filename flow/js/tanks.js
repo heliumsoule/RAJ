@@ -8,7 +8,7 @@ var TANKS = {
 		SPEED : 20,
 		TURNSPEED : 5 * Math.PI / 180,
 		WATER : 0.3,
-		color : {
+		COLOR : {
 				 'body' : 'rgb(94,92,92)', 
 				 'wheels' : 'rgb(111,183,199)', 
 				 'healthbargreen' : "rgb(58,201,22)",
@@ -20,11 +20,12 @@ var TANKS = {
 
 var Tank = function() {
 	this.W;
+	this.ID = Math.floor(Math.random()*10000);
 	this.p = new Vector(), this.cp = new Vector();
 	this.v = new Vector();
 	this.angle = 0;
 	this.hp = 0;
-	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.WATER, this.s;
+	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.WATER, this.COLOR, this.s;
 	this.keyb;
 	this.weapon;
 	this.inits = [];
@@ -42,6 +43,7 @@ var Tank = function() {
 		this.SPEED = TDATA.SPEED;
 		this.TURNSPEED = TDATA.TURNSPEED;
 		this.WATER = TDATA.WATER;
+		this.COLOR = TDATA.COLOR;
 		this.s = new Dimension(TDATA.SIZE,TDATA.SIZE);
 	}
 	this.setup = function(W, startPos, angle, weapon) {
@@ -75,6 +77,7 @@ var Tank = function() {
 			this.v.set(r.v);
 		}
 		this.cp = this.p.plus(this.s.times(0.5));
+		this.HP = Math.max(this.HP, 0);
 	});
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
@@ -83,24 +86,21 @@ var Tank = function() {
 	this.draws = [];
 	this.draws.push(function(g) {
 		g.save();
-		g.translate(this.cp.x, this.cp.y);
-
-		g.fillStyle = TANKS.NORMAL.color['healthbarred'];
-		g.strokeStyle = TANKS.NORMAL.color['healthbarred'];
-		g.fillRect(-16,-30, 32, 7);
-
-		g.fillStyle = TANKS.NORMAL.color['heathbargreen'];
-		g.fillStyle = TANKS.NORMAL.color['healthbargreen'];
-		g.fillRect(-16,-30, 32 * this.HP / 100, 7);
-
+			g.translate(this.cp.x, this.cp.y);
+	
+			g.fillStyle = this.COLOR['healthbarred'];
+			g.fillRect(-16,-30, 32, 7);
+			
+			g.fillStyle = this.COLOR['healthbargreen'];
+			g.fillRect(-16,-30, 32 * this.HP / 100, 7);
 			g.rotate(this.angle);
 				g.scale(this.s.x/32,this.s.y/32);
-					g.fillStyle = TANKS.NORMAL.color['body'];
-					g.strokeStyle = TANKS.NORMAL.color['body'];
+					g.fillStyle = this.COLOR['body'];
+					g.strokeStyle = this.COLOR['body'];
 					g.fillRect(-12,-12,24,24);
 					g.strokeRect(-12,-12,24,24);
-					g.fillStyle = TANKS.NORMAL.color['wheels'];
-					g.strokeStyle = TANKS.NORMAL.color['wheels'];
+					g.fillStyle = this.COLOR['wheels'];
+					g.strokeStyle = this.COLOR['wheels'];
 					g.fillRect(-16,-18,32,8);
 					g.fillRect(-16,10,32,8);
 					g.strokeRect(-16,-18,32,8);
