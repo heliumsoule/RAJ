@@ -78,6 +78,7 @@ var WEAPONS = {
 var Weapon = function() {
 	this.fire;
 	this.draw;
+	this.step = function() {};
 	this.W, this.T;
 	this.timer = 0;
 }
@@ -86,7 +87,7 @@ var Weapon = function() {
 var Turret = Weapon.extend(function() {
 	this.CONSTS = WEAPONS.TURRET;
 	this.fire = function() {
-		if ((this.timer-=25) <= 0 && (this.timer = this.CONSTS.TIMER)) {
+		if (this.timer <= 0 && (this.timer = this.CONSTS.TIMER)) {
 			var num = this.CONSTS.NUMBER;
 			var rand_spread = isNaN(this.CONSTS.SPREAD_RANDOM)?0:this.CONSTS.SPREAD_RANDOM;
 			var spread = isNaN(this.CONSTS.SPREAD)?0:this.CONSTS.SPREAD;
@@ -99,6 +100,9 @@ var Turret = Weapon.extend(function() {
 					speed, this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
 			}
 		}
+	}
+	this.step = function() {
+		this.timer -= 25;
 	}
 	this.draw = function(g) {
 		g.fillStyle = this.CONSTS.COLOR['cover'];

@@ -82,6 +82,7 @@ var Tank = function() {
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].apply(this,arguments);
+		this.weapon.step();
 	}
 	this.draws = [];
 	this.draws.push(function(g) {
