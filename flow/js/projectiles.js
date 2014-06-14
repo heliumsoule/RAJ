@@ -46,6 +46,7 @@ var Mine = Projectile.extend(function() {
 		}
 	}
 	this.draw = function(g) {
+		g.beginPath();
 		g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
 		g.arc(this.p.x,this.p.y,this.s.x,0,Math.PI * 2, true);
 		g.fill();
