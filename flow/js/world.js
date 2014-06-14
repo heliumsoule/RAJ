@@ -9,6 +9,9 @@ var World = function() {
 		this.F.setResolution(120,80);
 		this.F.setFade(0.971);
 	}
+	this._t = function(p) {
+		return Math.floor(p/6);
+	}
 	this.initMap = function(map) {
 		this.walls = [];
 		this.wallSpots = [];
@@ -90,6 +93,11 @@ var World = function() {
 		return !alive;
 	}
 	this.step = function() {
+		this.F.clearDisable();
+		for(var i in this.walls) {
+			var w = this.walls[i];
+			this.F.disableBlock(this._t(w.x), this._t(w.y), this._t(w.w), this._t(w.h));
+		}
 		this.fcv = this.F.update();
 		for(var i in this.tanks)
 			this.tanks[i].step(i==0);

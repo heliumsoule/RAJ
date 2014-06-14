@@ -412,7 +412,12 @@ function Fluid(canvas) {
     var v_prev;
 	var disable;
 	this.getDisable = function() {return disable;}
+	this.clearDisable = function() {
+        size = (width+2)*(height+2);
+        disable = new Array(size);
+	}
 	this.disableBlock = function(x,y,w,h) {
+		rowsize = width + 2;
 		for(var i=x;i<x+w;i++) {
 			for(var j=y;j<y+h;j++) {
 				disable[i+1+(j+1)*rowsize] = true;
