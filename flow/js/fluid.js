@@ -383,7 +383,7 @@ function Fluid(canvas) {
 			}
 		}
         // Display/Return new density and vector fields
-        return displayFunc( new Field(r, g, bl, u, v), ctx );
+        return displayFunc( this.W.FF = new Field(r, g, bl, u, v), ctx );
     }
 
     this.setDisplayFunction = function( func ) { displayFunc = func; }
@@ -599,18 +599,44 @@ function Fluid(canvas) {
             
             var vectorScale = 3;
             
-            
+			context.fillStyle = "rgb(0,255,0)";
             for (var x = 0; x < field.width(); x++) {
                 
                 for (var y = 0; y < field.height(); y++) {
                     
-            context.beginPath();
+					var vx = field.getXVelocity(x, y),
+						vy = field.getYVelocity(x, y);
+						var ovy = vy;
+					context.fillStyle = (vy>0?"rgb(0,255,0)":"rgb(0,255,255)");
+					if (x >= Math.floor(this.W.tanks[0].p.x/6)-1 - 2 && x <= Math.floor(this.W.tanks[0].p.x/6)-1 + 2 &&
+						y >= Math.floor(this.W.tanks[0].p.y/6)-1 - 2 && y <= Math.floor(this.W.tanks[0].p.y/6)-1 + 2) {
+						if (x == Math.floor(this.W.tanks[0].p.x/6)-1 &&
+							y == Math.floor(this.W.tanks[0].p.y/6)-1) {} else continue;
+					}
+					if (vy == 0) vy = -0.0001;
+					if (vx == 0) vx = -0.0001;
+					vy = vy + 0.2*(Math.abs(vy)/vy);
+					vx = vx + 0.1*(Math.abs(vx)/vx);
+					if (x == Math.floor(this.W.tanks[0].p.x/6)-1 &&
+						y == Math.floor(this.W.tanks[0].p.y/6)-1) {
+						context.fillStyle = (vy>0)?"rgb(255,0,0)":"rgb(255,0,255)";
+						vy *= 3
+						vx *= 3;
+						$("#d2").html((Math.floor(this.W.tanks[0].p.x/6)-1)+","+(Math.floor(this.W.tanks[0].p.y/6)-1));
+						$("#d2").append(" -> "+(ovy*10000).toFixed(5));
+					}
+					
+					
+					context.fillRect(x * wScale + 0.5 * wScale, y * hScale + 0.5 * hScale,
+									 vectorScale * vx * wScale,
+									 vectorScale * vy * hScale);
+            /*context.beginPath();
                     context.moveTo(x * wScale + 0.5 * wScale, y * hScale + 0.5 * hScale);
                     context.lineTo((x + 0.5 + vectorScale * field.getXVelocity(x, y)) * wScale, 
                                    (y + 0.5 + vectorScale * field.getYVelocity(x, y)) * hScale);
                     if (field.getYVelocity(x, y) <= 0) context.strokeStyle = "green";
                     else context.strokeStyle = "rgb("+Math.floor((vectorScale * field.getYVelocity(x, y)) * hScale *255/3)+",255,255)";
-            context.stroke();
+            context.stroke();*/
                 }
                 
             }

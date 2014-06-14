@@ -75,7 +75,6 @@ var World = function() {
 				field.setBlockVRGB(this.W.fluids[i].x,this.W.fluids[i].y,this.W.fluids[i].w,this.W.fluids[i].h,
 								   this.W.fluids[i].vx,this.W.fluids[i].vy,this.W.fluids[i].c);
 			}
-			this.W.FF = field;
 		});
 	}
 	this.col = function(opt, p, s) {

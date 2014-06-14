@@ -14,13 +14,6 @@ var TANKS = {
 				 'healthbargreen' : "rgb(58,201,22)",
 				 'healthbarred' : "rgb(251,68,68)"
 				}
-		// color : {
-		// 	 'body' : 'rgb(32,120,140)', 
-		// 	 'wheels' : 'rgb(0,209,255)', 
-		// 	 'turret' : 'rgb(111,183,199)', 
-		// 	 'cover' : 'rgb(14,90,107)', 
-		// 	 'healthbar' : "rgb(204,11,11)"
-		// 	}
 	},
 	TURNSPEED : 5 * Math.PI / 180
 }
@@ -72,12 +65,8 @@ var Tank = function() {
 		if(keyv[this.keyb.shoot]) {
 			this.weapon.fire();
 		}
-		 if (debug) $("#dd").html(this.v.y);
-		 var mult = 5000;
-		// this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult,
-		// 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult);
-		 if (debug) $("#dd").css("width",200+Math.round(this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*mult*50)+"px");
-		 if (debug) $("#dd").append("<br>"+this.v.y);
+		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER,
+		 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER);
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
@@ -86,7 +75,6 @@ var Tank = function() {
 			this.v.set(r.v);
 		}
 		this.cp = this.p.plus(this.s.times(0.5));
-		if (debug) $("#dd").append("<br>"+this.v.y);
 	});
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
