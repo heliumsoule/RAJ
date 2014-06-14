@@ -3,19 +3,16 @@
 		<title>Plasma Tanks</title>
     </head>
     <body>
-		damage: <input id="w" type="range" min="10" max="150" /><br>
+		damage: <input id="w" type="range" min="5" max="50" /><br>
 		Horsepower: <input id="h" type="range" min="1000" max="3500" /><br><br>
 		<div id="a" style="font-family:monospace;margin-left:30px;"></div>
-		<script src="js/vendor/jmin.js"></script>
+		<script src="../flow/js/vendor/jmin.js"></script>
 		<script>
 			setInterval(function() {
 				var w = $("#w").val();
 				var h = $("#h").val();
-				var r = 2;
-				if (w > 20) r = w / 10;
-				r = Math.pow(r-1,0.5);
-				r+=1;
-				$("#a").html("Damage: "+w+"<br>"+"RADIUS: "+Math.round(r*1000)/1000);
+				r = 10 + 30 * Math.pow(((w > 20) ? (w/10) : 2) - 2, 0.5);
+				$("#a").html("Damage: "+w+"<br>"+"RADIUS: "+r.toFixed(3));
 			},25);
 			
 		</script>

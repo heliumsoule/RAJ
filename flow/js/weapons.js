@@ -67,6 +67,18 @@ var WEAPONS = {
 			'laser' : [255,0,0]
 		}
 	},
+	RPG : {
+		SPEED : 9,
+		SIZE : [2,1],
+		TIMER : 50,
+		DAMAGE : 1.3,
+		NUMBER : 1,
+		SPREAD_RANDOM : Math.PI / 25,
+		COLOR : {
+			'turret' : 'rgb(95,92,97)',
+			'cover' : 'rgb(26,26,26)'
+		}
+	},
 	MINEDROPPER : {
 		SIZE : [4,4],
 		DAMAGE : 15,
