@@ -29,10 +29,34 @@ var Ray = Projectile.extend(function() {
 	this.init = function(p, ang, color, damage) {
 		this.color = color;
 		this.p = p;
-		var pv = (new Vector()).addA(ang, 1000),
-			objCol;
-		
+		var col = {
+			obj : null,
+			pv : (new Vector()).addA(ang, 1000)
+		};
+		for(var i in this.W.walls)
+			this.checkSquare(col, this.W.walls[i],
+				p, this.W.walls[i].x, this.W.walls[i].y, this.W.walls[i].w, this.W.walls[i].h);
+		for(var i in this.W.tanks)
+			if (this.W.tanks[i].ID != this.ID)
+				this.checkSquare(col, this.W.tanks[i],
+					p, this.W.tanks[i].p.x, this.W.tanks[i].p.y, this.W.tanks[i].s.x, this.W.tanks[i].s.y);
+		this.e = this.p.plus(col.pv);
 		return this;
+	}
+	this.checkSquare = function(col, obj, p, x, y, w, h) {
+		var lines = [
+			[new Point(x,y), new Vector(w,0)],
+			[new Point(x,y), new Vector(0,h)],
+			[new Point(x,y+h), new Vector(w,0)],
+			[new Point(x+w,y), new Vector(0,h)]
+		];
+		for(var i in lines) {
+			var newt = LineLine(p, col.pv, lines[i][0], lines[i][1]);
+			if (newt[1] <= 1 && newt[1] > 0 && newt[0] <= 1 && newt[0] > 0) {
+				col.obj = obj;
+				col.pv.scale(newt[0]);
+			}
+		}
 	}
 	this.draws.push(function() {
 		this.fade = Math.max(this.fade - 0.4, 0);
@@ -41,7 +65,7 @@ var Ray = Projectile.extend(function() {
 		g.lineWidth = 2;
 		g.beginPath();
 			g.moveTo(this.p.x, this.p.y);
-			//g.lineTo(this.e.x, this.e.y);
+			g.lineTo(this.e.x, this.e.y);
 		g.stroke();
 	});
 });

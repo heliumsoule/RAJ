@@ -51,6 +51,9 @@ var Vector = Point = Dimension = function(x,y) {
 		this.x = x;
 		this.y = y;
 	}
+	this.magnitude = function() {
+		return Math.sqrt(this.x*this.x+this.y*this.y);
+	}
 	this.cross = function(v) {
 		return this.x*v.y - this.y*v.x;
 	}
