@@ -49,8 +49,8 @@ var World = function() {
 		}
 		for(var i in map.tanks) {
 			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-				(i==0)?(new SpreadTurret()):
-					(new Turret())
+				(i==0)?(new Minigun()):
+					(new Shotgun())
 			));
 		}
 		this.tanks[0].init(keyBindP1);
@@ -91,6 +91,9 @@ var World = function() {
 		if (o.walls) for(var i in this.walls)
 			if (col(this.walls[i].x,this.walls[i].y,this.walls[i].w,this.walls[i].h,p.x,p.y,s.x,s.y)) alive = false;
 		return !alive;
+	}
+	this.createShockwave = function() {
+		
 	}
 	this.step = function() {
 		this.F.clearDisable();

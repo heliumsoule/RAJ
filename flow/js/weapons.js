@@ -5,7 +5,6 @@ var WEAPONS = {
 		TIMER : 230,
 		DAMAGE : 14,
 		NUMBER : 1,
-		SPREAD : 0,
 		COLOR : {
 			'turret' : 'rgb(65,62,67)', 
 			'cover' : 'rgb(255,149,0)'
@@ -30,6 +29,31 @@ var WEAPONS = {
 		DAMAGE : 2,
 		NUMBER : 5,
 		SPREAD : Math.PI / 25,
+		COLOR : {
+			'turret' : 'rgb(72,253,229)',
+			'cover' : 'rgb(72,153,253)'
+		}
+	},
+	MINIGUN : {
+		SPEED : 9,
+		SIZE : [2,1],
+		TIMER : 50,
+		DAMAGE : 1.3,
+		NUMBER : 1,
+		SPREAD_RANDOM : Math.PI / 25,
+		COLOR : {
+			'turret' : 'rgb(72,253,229)',
+			'cover' : 'rgb(72,153,253)'
+		}
+	},
+	SHOTGUN : {
+		SPEED : [9,11],
+		SIZE : [3,2],
+		TIMER : 700,
+		DAMAGE : 3.5,
+		NUMBER : 6,
+		SPREAD : Math.PI / 70,
+		SPREAD_RANDOM : Math.PI / 15,
 		COLOR : {
 			'turret' : 'rgb(72,253,229)',
 			'cover' : 'rgb(72,153,253)'
@@ -62,12 +86,18 @@ var Weapon = function() {
 var Turret = Weapon.extend(function() {
 	this.CONSTS = WEAPONS.TURRET;
 	this.fire = function() {
-		var num = this.CONSTS.NUMBER;
 		if ((this.timer-=25) <= 0 && (this.timer = this.CONSTS.TIMER)) {
-			for(var i=-(num-1)/2;i<=(num-1)/2;i++)
+			var num = this.CONSTS.NUMBER;
+			var rand_spread = isNaN(this.CONSTS.SPREAD_RANDOM)?0:this.CONSTS.SPREAD_RANDOM;
+			var spread = isNaN(this.CONSTS.SPREAD)?0:this.CONSTS.SPREAD;
+			for(var i=-(num-1)/2;i<=(num-1)/2;i++) {
+				var speed = (!isNaN(this.CONSTS.SPEED))?this.CONSTS.SPEED:
+					(this.CONSTS.SPEED[0]+Math.random()*(this.CONSTS.SPEED[1]-this.CONSTS.SPEED[0]));
 				this.W.b.push((new Bullet()).init(this.T.ID, this.CONSTS.SIZE,
-					this.T.cp.clone().addA(this.T.angle,15), this.T.angle + i*this.CONSTS.SPREAD, 
-					this.CONSTS.SPEED, this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
+					this.T.cp.clone().addA(this.T.angle,15), this.T.angle + i*spread
+						+(Math.random()*2-1)*rand_spread, 
+					speed, this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
+			}
 		}
 	}
 	this.draw = function(g) {
@@ -85,6 +115,12 @@ var TripleTurret = Turret.extend(function() {
 });
 var SpreadTurret = Turret.extend(function() {
 	this.CONSTS = WEAPONS.SPREADTURRET;
+});
+var Minigun = Turret.extend(function() {
+	this.CONSTS = WEAPONS.MINIGUN;
+});
+var Shotgun = Turret.extend(function() {
+	this.CONSTS = WEAPONS.SHOTGUN;
 });
 
 var sniperTurret = Weapon.extend(function() {
