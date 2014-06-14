@@ -110,7 +110,7 @@ var World = function() {
 			if (dist > r) continue;
 			var ang = Math.atan2(t.cp.y-y, t.cp.x-x);
 			var ratio = (r - dist) / r;
-			t.v.addA(ang, ratio*pp * 0.66);
+			t.v.addA(ang, ratio*pp * 0.66 / t.weight);
 		}
 	}
 	this.step = function() {
