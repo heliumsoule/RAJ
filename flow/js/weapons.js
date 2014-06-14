@@ -92,25 +92,6 @@ var Weapon = function() {
 	}
 }
 
-var MineDropper = Weapon.extend(function() {
-	this.CONSTS = WEAPONS.MINEDROPPER;
-	this.fire = function() {
-		if(this.timer <= 0 && (this.timer = this.CONSTS.TIMER)) {
-			this.W.b.push(new Mine().init(this.T.ID, this.CONSTS.SIZE,
-				this.T.cp.clone().addA(this.T.angle,15), this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
-		}
-	}
-	this.step = function() {
-		this.timer -= 15;
-	}
-	this.draw = function(g) {
-		g.fillStyle = this.CONSTS.COLOR;
-		g.fillRect(2,-3,18,6);
-		g.arc(0,0,10,0,Math.PI*2,true);
-		g.fill()
-	}
-});
-
 var Turret = Weapon.extend(function() {
 	this.CONSTS = WEAPONS.TURRET;
 	this.fire = function() {
@@ -154,13 +135,23 @@ var Shotgun = Turret.extend(function() {
 var Sniper = Turret.extend(function() {
 	this.CONSTS = WEAPONS.SNIPER;
 });
-<<<<<<< HEAD
-var MineDrop = MineDropper.extend(function() {
-	this.CONSTS = WEAPONS.MINEDROPPER;
-})
-=======
 
 var MineDropper = Weapon.extend(function() {
-	this.CONSTS = WEAPONS.MINE;
-})
->>>>>>> f8739f59f648882d14bd90f79b7a9d4e233d5ba6
+	this.CONSTS = WEAPONS.MINEDROPPER;
+	this.fire = function() {
+		if(this.timer <= 0 && (this.timer = this.CONSTS.TIMER)) {
+			this.W.b.push(new Mine().init(this.T.ID, this.CONSTS.SIZE,
+				this.T.cp.clone().addA(this.T.angle,15), this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
+		}
+	}
+	this.step = function() {
+		this.timer -= 15;
+	}
+	this.draw = function(g) {
+		g.fillStyle = this.CONSTS.COLOR;
+		g.fillRect(2,-3,18,6);
+		g.arc(0,0,10,0,Math.PI*2,true);
+		g.fill()
+	}
+});
+

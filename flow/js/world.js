@@ -51,13 +51,8 @@ var World = function() {
 		for(var i in map.tanks) {
 			this.tanks.push( ((i==0)?(new SpikedTank()):(new NormalTank()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-<<<<<<< HEAD
-					(i==0)?([new MineDrop(), new TripleTurret()]):
-						([new SpreadTurret(), new TripleTurret()])
-=======
-					(i==0)?([new Sniper(), new TripleTurret()]):
-						([new Minigun(), new SpreadTurret()])
->>>>>>> f8739f59f648882d14bd90f79b7a9d4e233d5ba6
+					(i==0)?([new MineDropper(), new TripleTurret()]):
+						([new Minigun(), new TripleTurret()])
 				));
 		}
 

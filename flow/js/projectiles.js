@@ -31,6 +31,9 @@ var Mine = Projectile.extend(function() {
 		this.damage = damage;
 		return this;
 	}
+	this.explode = function() {
+		
+	}
 	this.step = function() {
 		for(i in this.W.tanks) {
 			var t = this.W.tanks[i];
