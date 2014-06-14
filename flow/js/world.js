@@ -50,10 +50,10 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push( ((i==1)?(new Scout()):(new NormalTank()))
+			this.tanks.push( ((i==1)?(new Scout()):(new Heavy()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-					(i==1)?([new Minigun(), new Turret()]):
-						([new Laser(), new Minigun()])
+					(i==1)?([new Turret(), new Minigun()]):
+						([new TripleTurret(), new Minigun()])
 				));
 		}
 
