@@ -75,7 +75,7 @@ var Bullet = Projectile.extend(function() {
 			var t = this.W.tanks[i];
 			if (t.ID == this.ID) continue;
 			if(col(t.p.x,t.p.y,t.s.x,t.s.y, this.p.x,this.p.y,this.s.x,this.s.y)) {
-				this.W.tanks[i].HP -= this.damage;
+				this.W.tanks[i].hp -= this.damage;
 				this.destroy = true;
 				break;
 			}

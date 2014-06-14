@@ -9,13 +9,34 @@ var TANKS = {
 		TURNSPEED : 5 * Math.PI / 180,
 		WATER : 0.3,
 		COLOR : {
-				 'body' : 'rgb(94,92,92)', 
-				 'wheels' : 'rgb(111,183,199)', 
-				 'healthbargreen' : "rgb(58,201,22)",
-				 'healthbarred' : "rgb(251,68,68)"
+				 'body' : 'rgb(150,150,150)', 
+				 'wheels' : 'rgb(100,100,100)'
 				}
 	},
-	TURNSPEED : 5 * Math.PI / 180
+	SCOUT : {
+		SIZE : 28,
+		HP : 75,
+		FRICTION : 0.9,
+		SPEED : 12,
+		TURNSPEED : 7 * Math.PI / 180,
+		WATER : 0.7,
+		COLOR : {
+				 'body' : 'rgb(160,160,160)', 
+				 'wheels' : 'rgb(111,183,199)'
+				}
+	},
+	HEAVY : {
+		SIZE : 36,
+		HP : 170,
+		FRICTION : 0.8,
+		SPEED : 10,
+		TURNSPEED : 4 * Math.PI / 180,
+		WATER : 0.2,
+		COLOR : {
+				 'body' : 'rgb(80,80,80)', 
+				 'wheels' : 'rgb(50,50,50)'
+				}
+	}
 }
 
 var Tank = function() {
@@ -38,7 +59,7 @@ var Tank = function() {
 		}
 	}
 	this.setupData = function(TDATA) {
-		this.HP = TDATA.HP;
+		this.hp = this.HP = TDATA.HP;
 		this.FRICTION = TDATA.FRICTION;
 		this.SPEED = TDATA.SPEED;
 		this.TURNSPEED = TDATA.TURNSPEED;
@@ -77,7 +98,7 @@ var Tank = function() {
 			this.v.set(r.v);
 		}
 		this.cp = this.p.plus(this.s.times(0.5));
-		this.HP = Math.max(this.HP, 0);
+		this.hp = Math.max(this.hp, 0);
 	});
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
@@ -90,10 +111,10 @@ var Tank = function() {
 			g.translate(this.cp.x, this.cp.y);
 			
 			if (this.cp.y < 30) g.translate(0,50);
-			g.fillStyle = this.COLOR['healthbarred'];
+			g.fillStyle = "rgb(251,68,68)";
 			g.fillRect(-17,-27, 34, 4);
-			g.fillStyle = this.COLOR['healthbargreen'];
-			g.fillRect(-17,-27, 34 * this.HP / 100, 4);
+			g.fillStyle = "rgb(58,201,22)";
+			g.fillRect(-17,-27, 34 * this.hp / this.HP, 4);
 			if (this.cp.y < 30) g.translate(0,-50);
 			
 			g.rotate(this.angle);
@@ -120,6 +141,12 @@ var Tank = function() {
 
 var NormalTank = Tank.extend(function() {
 	this.setupData(TANKS.NORMAL);
+});
+var Scout = Tank.extend(function() {
+	this.setupData(TANKS.SCOUT);
+});
+var Heavy = Tank.extend(function() {
+	this.setupData(TANKS.HEAVY);
 });
 
 
