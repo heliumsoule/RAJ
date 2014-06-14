@@ -152,13 +152,11 @@ var World = function() {
 						   this.walls[count].wallSpots[iter].w,this.walls[count].wallSpots[iter].h);
 			}
 		}
-<<<<<<< HEAD
 		for(var i in this.tanks) {
 			this.tanks[i].draw(g);
 		}
 		for(var i in this.b) 
 			this.b[i].draw(g);
-=======
 		for(var i=0;i<this.sw.length;i++) {
 			var sw = this.sw[i];
 			g.fillStyle = "rgba("+sw.color.join(",")+","+(1-sw.prog)+")";
@@ -167,7 +165,6 @@ var World = function() {
 			g.fill();
 			if (sw.prog >= 1) this.sw.splice(i--, 1);
 		}
->>>>>>> db52413706e07c346de1332332b95eb6b53d200e
 	}
 }
 
