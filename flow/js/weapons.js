@@ -3,6 +3,8 @@ var WEAPONS = {
 		SPEED : 10,
 		SIZE : [6,3],
 		DELAY : 3,
+		DAMAGE : 1,
+		RANGE : 10,
 		COLOR : {
 			'turret' : 'rgb(65,62,67)', 
 			'cover' : 'rgb(255,149,0)'
@@ -13,6 +15,8 @@ var WEAPONS = {
 		SIZE : [7,3],
 		SPREAD : Math.PI / 16,
 		DELAY : 7,
+		DAMAGE : 1/3,
+		RANGE : 15,
 		COLOR : {
 			'turret' : 'rgb(72,253,229)',
 			'cover' : 'rgb(72,153,253)'
@@ -23,6 +27,8 @@ var WEAPONS = {
 		SIZE : [6,3],
 		DELAY : 20,
 		ACCURACY : 30,
+		DAMAGE : 3,
+		RANGE : 7,
 		COLOR : {
 			'turret' : 'rgb(252,65,109)',
 			'cover' : 'rgb(251,155,177)'
@@ -43,7 +49,8 @@ var Turret = Weapon.extend(function() {
 	this.timer = 0;
 	this.fire = function() {
 		if (this.timer-- <= 0 && (this.timer = WEAPONS.TURRET.DELAY)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TURRET.SPEED).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, 
+				WEAPONS.TURRET.SPEED, WEAPONS.TURRET.DAMAGE, WEAPONS.TURRET.RANGE).setVars(this.W,this.T,this));
 		}
 	}
 	this.draw = function(g) {
@@ -61,9 +68,12 @@ var tripleTurret = Weapon.extend(function() {
 	this.timer = 0;
 	this.fire = function() {
 		if(this.timer-- <= 0 && (this.timer = WEAPONS.TRIPLETURRET.DELAY)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle + WEAPONS.TRIPLETURRET.SPREAD, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle - WEAPONS.TRIPLETURRET.SPREAD, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, 
+				WEAPONS.TRIPLETURRET.SPEED, WEAPONS.TRIPLETURRET.DAMAGE, WEAPONS.TRIPLETURRET.RANGE).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle + WEAPONS.TRIPLETURRET.SPREAD, 
+				WEAPONS.TRIPLETURRET.SPEED, WEAPONS.TRIPLETURRET.DAMAGE, WEAPONS.TRIPLETURRET.RANGE).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle - WEAPONS.TRIPLETURRET.SPREAD, 
+				WEAPONS.TRIPLETURRET.SPEED, WEAPONS.TRIPLETURRET.DAMAGE, WEAPONS.TRIPLETURRET.RANGE).setVars(this.W,this.T,this));
 		}
 	}
 	this.draw = function(g) {
@@ -81,7 +91,8 @@ var sniperTurret = Weapon.extend(function() {
 	this.timer = 0;
 	this.fire = function(id) {
 		if(this.timer-- <= 0 && (this.timer = WEAPONS.SNIPERTURRET.DELAY)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, 
+				WEAPONS.SNIPERTURRET.SPEED, WEAPONS.SNIPERTURRET.DAMAGE, WEAPONS.SNIPERTURRET.RANGE).setVars(this.W,this.T,this));
 		}
 	}
 	this.draw = function(g) {

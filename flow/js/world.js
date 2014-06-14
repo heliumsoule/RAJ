@@ -47,7 +47,7 @@ var World = function() {
 		for(var i in map.tanks) {
 			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]),
 															   map.tanks[i][2],
-															   new tripleShotTurret()));
+															   new tripleTurret()));
 		}
 		this.tanks[0].init(keyBindP1);
 		this.tanks[1].init(keyBindP2);
@@ -108,7 +108,6 @@ var World = function() {
 			g.restore();
 		}
 		for(var i in this.tanks) {
-			this.tanks[i].health(this.b);
 			this.tanks[i].draw(g);
 		}
 		for(var i in this.b) 

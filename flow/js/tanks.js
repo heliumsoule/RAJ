@@ -11,8 +11,6 @@ var TANKS = {
 		color : {
 				 'body' : 'rgb(94,92,92)', 
 				 'wheels' : 'rgb(111,183,199)', 
-				 'turret' : 'rgb(65,62,67)', 
-				 'cover' : 'rgb(255,149,0)', 
 				 'healthbargreen' : "rgb(58,201,22)",
 				 'healthbarred' : "rgb(251,68,68)"
 				}
@@ -93,18 +91,6 @@ var Tank = function() {
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].apply(this,arguments);
-	}
-	this.health = function(b) {
-		// if(this.HP == 0) {
-		// 	Win = 1;
-		// }
-		// else {
-			for(i in b) {
-				if(this.HP >= 0 && DBP(this.cp.x,this.cp.y,b[i].p.x,b[i].p.y) < 10) {
-					this.HP--;
-				}
-			}
-		// }
 	}
 	this.draws = [];
 	this.draws.push(function(g) {
