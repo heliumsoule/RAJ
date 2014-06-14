@@ -31,7 +31,7 @@ var Mine = Projectile.extend(function() {
 		this.damage = damage;
 		return this;
 	}
-	this.explode = function() {
+	this.explode = function(r) {
 		
 	}
 	this.step = function() {
@@ -47,7 +47,7 @@ var Mine = Projectile.extend(function() {
 	}
 	this.draw = function(g) {
 		g.beginPath();
-		g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
+		g.fillStyle = "rgb(255,255,255)";
 		g.arc(this.p.x,this.p.y,this.s.x,0,Math.PI * 2, true);
 		g.fill();
 	}
