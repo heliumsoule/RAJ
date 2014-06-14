@@ -138,6 +138,6 @@ var Sniper = Turret.extend(function() {
 	this.CONSTS = WEAPONS.SNIPER;
 });
 
-var MineDropper = Projectile.extend(function() {
+var MineDropper = Weapon.extend(function() {
 	this.CONSTS = WEAPONS.MINE;
 })

@@ -56,6 +56,11 @@ var Mine = Projectile.extend(function() {
 var Bullet = Projectile.extend(function() {
 	this.WATER = 2.5;
 	this.s = new Dimension(2,2);
+	this.color = [255,255,255];
+	this.options = function(o) {
+		if (o.color) this.color = o.color;
+		return this;
+	}
 	this.init = function(id, size, position, angle, velocity, damage) {
 		this.s = new Dimension(size[0],size[1]);
 		this.ID = id;
@@ -82,12 +87,12 @@ var Bullet = Projectile.extend(function() {
 		}
 	});
 	this.kill = function() {
-		this.W.createShockwave(this.p.x,this.p.y,[255,255,255],10+this.damage,this.damage);
+		this.W.createShockwave(this.p.x,this.p.y,this.color,10+this.damage,this.damage);
 	}
 	this.draws.push(function(g) {
 		g.translate(this.p.x,this.p.y);
 			g.rotate(this.angle);
-				g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
+				g.fillStyle = g.strokeStyle = "rgb("+this.color.join(",")+")";
 				g.fillRect(0,0,this.s.x,this.s.y);
 				g.strokeRect(0,0,this.s.x,this.s.y);
 			g.rotate(-this.angle);
