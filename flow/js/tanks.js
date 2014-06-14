@@ -126,6 +126,9 @@ var Tank = function() {
 			this.steps[i].apply(this,arguments);
 		this.weapon.step();
 	}
+	this.hit = function(dmg) {
+		this.hp -= dmg;
+	}
 	this.draws = [];
 	this.draws.push(function(g) {
 		g.save();
@@ -171,6 +174,9 @@ var Heavy = Tank.extend(function() {
 });
 var ArmoredTank = Tank.extend(function() {
 	this.setupData(TANKS.ARMORED);
+});
+var SpikedTank = Tank.extend(function() {
+	this.setupData(TANKS.NORMAL);
 });
 
 
