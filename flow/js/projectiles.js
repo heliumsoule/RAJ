@@ -20,7 +20,7 @@ var Projectile = function() {
 }
 
 var Bullet = Projectile.extend(function() {
-	this.WATER = 2;
+	this.WATER = 2.5;
 	this.s = new Dimension(WEAPONS.TURRET.SIZE[0],WEAPONS.TURRET.SIZE[1]);
 	this.init = function(position, angle, velocity, damage, range) {
 		this.p = position.clone();
