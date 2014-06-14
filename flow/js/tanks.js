@@ -60,8 +60,7 @@ var Tank = function() {
 	this.hp = 0;
 	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.WATER, this.COLOR, this.s;
 	this.keyb;
-	this.weapon;
-	this.currWeapon;
+	this.weapons, this.weapon, this.weaponST = 0;
 	this.inits = [];
 	this.init = function(keyBinding) {
 		this.keyb = {};
@@ -84,10 +83,12 @@ var Tank = function() {
 		this.W = W;
 		this.p = startPos;
 		this.angle = angle;
-		this.weapon = weapon;
-		this.currWeapon = weapon[0];
-		this.currWeapon.T = this;
-		this.currWeapon.W = W;
+		this.weapons = weapon;
+		for(i in this.weapons) {
+			this.weapons[i].T = this;
+			this.weapons[i].W = W;
+		}
+		this.weapon = this.weapons[0];
 		return this;
 	}
 	this.steps = [];
@@ -99,13 +100,14 @@ var Tank = function() {
 			var d = (keyv[this.keyb.up]?1:-1)*this.SPEED * 0.07;
 			this.v.addA(this.angle, d);
 		}
-		if(keyv[this.keyb.switch]) {
-			console.log(this.weapon.indexOf(this.currWeapon));
-			console.log((this.weapon.indexOf(this.currWeapon) + 1) % 2);
-			this.currWeapon = this.weapon[(this.weapon.indexOf(this.currWeapon) + 1) % 2];
+		this.weaponST--;
+		if(keyv[this.keyb.switch] && this.weaponST <= 0 && (this.weaponST=8)) {
+			console.log(this.weapons.indexOf(this.weapon));
+			console.log((this.weapons.indexOf(this.weapon) + 1) % 2);
+			this.weapon = this.weapons[(this.weapons.indexOf(this.weapon) + 1) % 2];
 		}
 		if(keyv[this.keyb.shoot]) {
-			this.currWeapon.fire();
+			this.weapon.fire();
 		}
 		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER,
 		 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER);
@@ -122,7 +124,7 @@ var Tank = function() {
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].apply(this,arguments);
-		this.currWeapon.step();
+		this.weapon.step();
 	}
 	this.draws = [];
 	this.draws.push(function(g) {
@@ -148,7 +150,7 @@ var Tank = function() {
 					g.fillRect(-16,10,32,8);
 					g.strokeRect(-16,-18,32,8);
 					g.strokeRect(-16,10,32,8);
-					this.currWeapon.draw(g);
+					this.weapon.draw(g);
 		g.restore();
 	});
 	this.draw = function(g) {
