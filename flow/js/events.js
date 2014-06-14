@@ -1,6 +1,6 @@
 var keyBindP1 = {
-	primary : 75,
-	secondary : 76,
+	primary : 190,
+	secondary : 191,
 	up : 38,
 	right : 39,
 	down : 40,
@@ -21,7 +21,7 @@ var keyBindP2 = {
 	shoot : 32
 }
 
-var keys = [16,49,50,87,68,83,65,75,76,38,39,40,37,32]; // 73,74,75,76   190,191
+var keys = [16,49,50,87,68,83,65,190,191,38,39,40,37,32]; // 73,74,75,76
 var keyv = [];
 for(var i=0;i<keys.length;i++) keyv[i] = false;
 
