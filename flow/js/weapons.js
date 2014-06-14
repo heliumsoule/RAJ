@@ -154,6 +154,13 @@ var Shotgun = Turret.extend(function() {
 var Sniper = Turret.extend(function() {
 	this.CONSTS = WEAPONS.SNIPER;
 });
+<<<<<<< HEAD
 var MineDrop = MineDropper.extend(function() {
 	this.CONSTS = WEAPONS.MINEDROPPER;
 })
+=======
+
+var MineDropper = Weapon.extend(function() {
+	this.CONSTS = WEAPONS.MINE;
+})
+>>>>>>> f8739f59f648882d14bd90f79b7a9d4e233d5ba6

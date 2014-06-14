@@ -52,6 +52,20 @@ var TANKS = {
 				 'body' : 'rgb(50,50,50)', 
 				 'wheels' : 'rgb(30,30,30)'
 				}
+	},
+	SPIKEDTANK : {
+		SIZE : 35,
+		HP : 200,
+		FRICTION : 0.85,
+		SPEED : 7.5,
+		TURNSPEED : 3.3 * Math.PI / 180,
+		WATER : 0.3,
+		WEIGHT : 1.2,
+		BULLETSPEED : 10,
+		COLOR : {
+				 'body' : 'rgb(150,150,150)', 
+				 'wheels' : 'rgb(100,100,100)'
+				}
 	}
 }
 
@@ -73,6 +87,8 @@ var Tank = function() {
 				if (keys[j] == keyBinding[i])
 					this.keyb[i] = j;
 		}
+		for(var i=0;i<this.inits.length;i++)
+			this.inits[i].apply(this);
 	}
 	this.setupData = function(TDATA) {
 		this.hp = this.HP = TDATA.HP;
@@ -160,29 +176,62 @@ var Tank = function() {
 		g.restore();
 	});
 	this.draw = function(g) {
-		for(var i in this.draws);
+		for(var i in this.draws)
 			this.draws[i].call(this,g);
 	}
 }
 
-
 var NormalTank = Tank.extend(function() {
 	this.setupData(TANKS.NORMAL);
 });
+
 var Scout = Tank.extend(function() {
 	this.setupData(TANKS.SCOUT);
 });
+
 var Heavy = Tank.extend(function() {
 	this.setupData(TANKS.HEAVY);
 });
+
 var ArmoredTank = Tank.extend(function() {
 	this.setupData(TANKS.ARMORED);
 });
+
 var SpikedTank = Tank.extend(function() {
-	this.setupData(TANKS.NORMAL);
-	this.hit = function() {
+	this.setupData(TANKS.SPIKEDTANK);
+	this.hit = function(dmg) {
 		this.hp -= dmg;
+		for(var i=0;i<=dmg;i+=1) {
+			this.W.b.push((new Bullet()).init(this.ID, [2,2],
+					this.cp.clone(), Math.random()*2*Math.PI, 
+					TANKS.SPIKEDTANK.BULLETSPEED, 2.5).setVars(this.W,this,this.T)
+					.options({color:[255,255,0]}) );
+		}
 	}
+	this.inits.push(function() {
+		this.spikes = [];
+		for(var i=0;i<2;i++) {
+			var sy = -18 + 28 * i;
+			for(var j=0;j<15;j++) {
+				this.spikes.push({
+					x : -16 + Math.random()*31,
+					y : sy + Math.random()*7,
+					w : 1+Math.random()*1,
+					h : 1+Math.random()*1
+				});
+			}
+		}
+	});
+	this.draws.push(function() {
+		g.save();
+			g.translate(this.cp.x, this.cp.y);
+				g.rotate(this.angle);
+					g.scale(this.s.x/32,this.s.y/32);
+						g.fillStyle="rgb(255,255,0)";
+						for(var i in this.spikes)
+							g.fillRect(this.spikes[i].x,this.spikes[i].y,this.spikes[i].w,this.spikes[i].h);
+		g.restore();
+	});
 });
 
 
