@@ -36,6 +36,18 @@ var TANKS = {
 				 'body' : 'rgb(80,80,80)', 
 				 'wheels' : 'rgb(50,50,50)'
 				}
+	},
+	ARMORED : {
+		SIZE : 40,
+		HP : 250,
+		FRICTION : 0.72	,
+		SPEED : 10,
+		TURNSPEED : 3 * Math.PI / 180,
+		WATER : 0.1,
+		COLOR : {
+				 'body' : 'rgb(50,50,50)', 
+				 'wheels' : 'rgb(30,30,30)'
+				}
 	}
 }
 
@@ -147,6 +159,9 @@ var Scout = Tank.extend(function() {
 });
 var Heavy = Tank.extend(function() {
 	this.setupData(TANKS.HEAVY);
+});
+var ArmoredTank = Tank.extend(function() {
+	this.setupData(TANKS.ARMORED);
 });
 
 

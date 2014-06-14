@@ -49,7 +49,7 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push(((i==1)?(new Heavy()):(new NormalTank()))
+			this.tanks.push(((i==1)?(new ArmoredTank()):(new NormalTank()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
 				(i==0)?(new Minigun()):
 					(new Turret())
