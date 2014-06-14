@@ -45,9 +45,10 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]),
-															   map.tanks[i][2],
-															   new tripleTurret()));
+			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
+				(i==0)?(new TripleTurret()):
+					(new Turret())
+			));
 		}
 		this.tanks[0].init(keyBindP1);
 		this.tanks[1].init(keyBindP2);
