@@ -9,10 +9,10 @@
 		<script src="../flow/js/vendor/jmin.js"></script>
 		<script>
 			setInterval(function() {
-				var w = $("#w").val();
+				var dmg = $("#w").val();
 				var h = $("#h").val();
-				r = 10 + 30 * Math.pow(((w > 20) ? (w/10) : 2) - 2, 0.5);
-				$("#a").html("Damage: "+w+"<br>"+"RADIUS: "+r.toFixed(3));
+				r = 20 + 30 * Math.pow(((dmg > 20) ? (dmg/10) : 2) - 2, 0.5);
+				$("#a").html("Damage: "+dmg+"<br>"+"RADIUS: "+r.toFixed(3));
 			},25);
 			
 		</script>

@@ -100,17 +100,16 @@ var World = function() {
 		if (!opt) opt = {};
 		var o = { shockwave : true, ID : -1 };
 		for(var i in opt) o[i] = opt[i];
-		if (opt.shockwave === false) {}
-		else this.createShockwave(x, y, [255,255,255], 6+dmg, dmg);
-		var r = 10 + 30 * Math.pow(((dmg > 20) ? (dmg/10) : 2) - 2, 0.5);
+		var r = 20 + 30 * Math.pow(((dmg > 20) ? (dmg/10) : 2) - 2, 0.5);
 		for(var i in this.tanks) {
 			var t = this.tanks[i];
 			if (t.ID == o.ID) continue;
-			var dist = Math.max(0, DBP(t.cp.x,t.cp.y,x,y) - (t.s.x+t.s.y)/6);
+			var dist = Math.max(0, DBP(t.cp.x,t.cp.y,x,y) - (t.s.x+t.s.y)/4);
 			if (dist > r) continue;
 			var ratio = (r - dist) / r;
 			t.hit(ratio * dmg);
 		}
+		if (opt.shockwave !== false) this.createShockwave(x, y, [255,255,255], r, dmg);
 	}
 	this.createShockwave = function(x,y,color,r,p) {
 		var pp = isNaN(p)?r:p

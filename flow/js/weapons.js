@@ -81,8 +81,8 @@ var WEAPONS = {
 	},
 	MINEDROPPER : {
 		SIZE : [4,4],
-		DAMAGE : 15,
-		TIMER : 500,
+		DAMAGE : 30,
+		TIMER : 2000,
 		COLOR : 'rgb(147,74,225)'
 	}
 };
