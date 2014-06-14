@@ -60,8 +60,8 @@ var WEAPONS = {
 		}
 	},
 	LASER : {
-		TIMER : 1100,
-		DAMAGE : 13,
+		TIMER : 1000,
+		DAMAGE : 14,
 		COLOR : {
 			'base' : [80,80,80],
 			'laser' : [255,0,0]
