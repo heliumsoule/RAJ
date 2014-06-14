@@ -49,10 +49,18 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
+<<<<<<< HEAD
 			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
 				(i==0)?(new Minigun()):
 					(new Turret())
 			));
+=======
+			this.tanks.push( ((i==1)?(new ArmoredTank()):(new NormalTank()))
+				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
+					(i==0)?(new Sniper()):
+						(new TripleTurret())
+				));
+>>>>>>> 1f4b3c76077e7c976b9a31386ad3ca621b120cef
 		}
 		this.tanks[0].init(keyBindP1);
 		this.tanks[1].init(keyBindP2);
