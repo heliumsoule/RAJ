@@ -23,7 +23,6 @@ var Projectile = function() {
 }
 
 var Mine = Projectile.extend(function() {
-	this.CONSTS = WEAPONS.MINES;
 	this.s = new Dimension(4,4);
 	this.init = function(id, size, position, damage) {
 		this.s = new Dimension(size[0],size[1]);
@@ -37,19 +36,19 @@ var Mine = Projectile.extend(function() {
 			var t = this.W.tanks[i];
 			if (t.ID == this.ID) continue;
 			if(col(t.p.x,t.p.y,t.s.x,t.s.y,this.p.x,this.p.y,this.s.x,this.s.y)) {
-				this.W.tanks[i].HP -= this.damage;
+				t.hit(this.damage);
 				this.destroy = true;
 				break;
 			}
 		}
 	}
-	this.fire = function() {
-		this.W.b.push((new Mine()).init(this.T.ID, this.CONSTS.SIZE,
-					this.T.cp.clone(), this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
-	}
 	this.draw = function(g) {
-		g.fillStyle = g.strokeStyle = this.CONSTS.COLOR;
-		g.fillRect(0,0,this.s.x,this.s.y);
+		g.fillStyle = g.strokeStyle = "rgb(255,255,255)";
+		g.arc(this.p.x,this.p.y,this.s.x,0,Math.PI * 2, true);
+		g.fill();
+	}
+	this.kill = function() {
+		this.W.createShockwave(this.p.x,this.p.y,[255,255,255],15+this.damage,this.damage);
 	}
 });
 

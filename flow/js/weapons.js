@@ -70,9 +70,10 @@ var WEAPONS = {
 			'cover' : 'rgb(40,255,191)'
 		}
 	},
-	MINE : {
+	MINEDROPPER : {
 		SIZE : [4,4],
 		DAMAGE : 15,
+		TIMER : 500,
 		COLOR : 'rgb(147,74,225)'
 	}
 };
@@ -91,6 +92,24 @@ var Weapon = function() {
 	}
 }
 
+var MineDropper = Weapon.extend(function() {
+	this.CONSTS = WEAPONS.MINEDROPPER;
+	this.fire = function() {
+		if(this.timer <= 0 && (this.timer = this.CONSTS.TIMER)) {
+			this.W.b.push(new Mine().init(this.T.ID, this.CONSTS.SIZE,
+				this.T.cp.clone().addA(this.T.angle,15), this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
+		}
+	}
+	this.step = function() {
+		this.timer -= 15;
+	}
+	this.draw = function(g) {
+		g.fillStyle = this.CONSTS.COLOR;
+		g.fillRect(2,-3,18,6);
+		g.arc(0,0,10,0,Math.PI*2,true);
+		g.fill()
+	}
+});
 
 var Turret = Weapon.extend(function() {
 	this.CONSTS = WEAPONS.TURRET;
@@ -114,9 +133,7 @@ var Turret = Weapon.extend(function() {
 	}
 	this.draw = function(g) {
 		g.fillStyle = this.CONSTS.COLOR['cover'];
-		g.strokeStyle = this.CONSTS.COLOR['turret'];
 		g.fillRect(2,-3,18,6);
-		g.strokeRect(2,-3,18,6);
 		g.beginPath();
 		g.arc(0,0,10,0,Math.PI*2,true);
 		g.fill();
@@ -137,7 +154,6 @@ var Shotgun = Turret.extend(function() {
 var Sniper = Turret.extend(function() {
 	this.CONSTS = WEAPONS.SNIPER;
 });
-
-var MineDropper = Projectile.extend(function() {
-	this.CONSTS = WEAPONS.MINE;
+var MineDrop = MineDropper.extend(function() {
+	this.CONSTS = WEAPONS.MINEDROPPER;
 })
