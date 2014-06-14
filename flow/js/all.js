@@ -32,9 +32,13 @@ var Vector = Point = Dimension = function(x,y) {
 	this.plus = function(v) {
 		return new Vector(this.x + v.x, this.y + v.y);
 	}
+	this.minus = function(v) {
+		return new Vector(this.x - v.x, this.y - v.y);
+	}
 	this.scale = function(d) {
 		this.x *= d;
 		this.y *= d;
+		return this;
 	}
 	this.times = function(d) {
 		return new Vector(this.x * d, this.y * d);
@@ -47,10 +51,24 @@ var Vector = Point = Dimension = function(x,y) {
 		this.x = x;
 		this.y = y;
 	}
+	this.cross = function(v) {
+		return this.x*v.y - this.y*v.x;
+	}
 }
 
 function randomColor() {
 	return '#'+Math.random().toString(16).substring(2, 8);
+}
+
+function LineLinePVPP(a, av, b, c) {
+	return LineLine(a, av, b, c.plus(b.clone().scale(-1)));
+}
+function LineLine(p, r, q, s) {
+	var qminusp = q.minus(p), rcrosss = r.cross(s)+0.00001;
+	return [
+		qminusp.cross(s) / rcrosss,
+		qminusp.cross(r) / rcrosss
+	];
 }
 
 function col(x1,y1,w1,h1,x2,y2,w2,h2) {

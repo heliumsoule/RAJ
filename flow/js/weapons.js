@@ -59,15 +59,12 @@ var WEAPONS = {
 			'turret' : 'rgb(139,113,52)'
 		}
 	},
-	SNIPER : {
-		SPEED : 30,
-		SIZE : [6,3],
-		TIMER : 820,
-		DAMAGE : 25,
-		NUMBER : 1,
+	LASER : {
+		TIMER : 800,
+		DAMAGE : 15,
 		COLOR : {
-			'turret' : 'rgb(40,255,191)',
-			'cover' : 'rgb(40,255,191)'
+			'base' : [80,80,80],
+			'laser' : [255,0,0]
 		}
 	},
 	MINEDROPPER : {
@@ -80,11 +77,20 @@ var WEAPONS = {
 
 
 var Weapon = function() {
-	this.fire;
-	this.draw;
-	this.step = function() {};
+	this.OBJECT = "WEAPON";
+	this.C;
+	this.shoot;
+	this.steps = [];
+	this.step = function() {
+		for(var i=0;i<this.steps.length;i++)
+			this.steps[i].apply(this,arguments);
+	}
+	this.draws = [];
+	this.draw = function(g) {
+		for(var i=0;i<this.draws.length;i++)
+			this.draws[i].call(this,g);
+	}
 	this.W, this.T;
-	this.timer = 0;
 	this.setVars = function(W,T) {
 		this.W = W;
 		this.T = T;
@@ -92,66 +98,85 @@ var Weapon = function() {
 	}
 }
 
-var Turret = Weapon.extend(function() {
-	this.CONSTS = WEAPONS.TURRET;
+var TimedWeapon = Weapon.extend(function() {
+	this.timer = 0;
+	this.totalTimer = 100;
+	this.fire;
+	this.shoot = function() {
+		if (this.timer <= 0 && (this.timer = this.C.TIMER))
+			this.fire();
+	}
+	this.steps.push(function() {
+		this.timer -= 25;
+	});
+});
+
+var Turret = TimedWeapon.extend(function() {
+	this.C = WEAPONS.TURRET;
 	this.fire = function() {
-		if (this.timer <= 0 && (this.timer = this.CONSTS.TIMER)) {
-			var num = this.CONSTS.NUMBER;
-			var rand_spread = isNaN(this.CONSTS.SPREAD_RANDOM)?0:this.CONSTS.SPREAD_RANDOM;
-			var spread = isNaN(this.CONSTS.SPREAD)?0:this.CONSTS.SPREAD;
-			for(var i=-(num-1)/2;i<=(num-1)/2;i++) {
-				var speed = (!isNaN(this.CONSTS.SPEED))?this.CONSTS.SPEED:
-					(this.CONSTS.SPEED[0]+Math.random()*(this.CONSTS.SPEED[1]-this.CONSTS.SPEED[0]));
-				this.W.b.push((new Bullet()).init(this.T.ID, this.CONSTS.SIZE,
-					this.T.cp.clone().addA(this.T.angle,15), this.T.angle + i*spread
-						+(Math.random()*2-1)*rand_spread, 
-					speed, this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
-			}
+		var num = this.C.NUMBER;
+		var rand_spread = isNaN(this.C.SPREAD_RANDOM)?0:this.C.SPREAD_RANDOM;
+		var spread = isNaN(this.C.SPREAD)?0:this.C.SPREAD;
+		for(var i=-(num-1)/2;i<=(num-1)/2;i++) {
+			var speed = (!isNaN(this.C.SPEED))?this.C.SPEED:
+				(this.C.SPEED[0]+Math.random()*(this.C.SPEED[1]-this.C.SPEED[0]));
+			this.W.b.push((new Bullet()).setVars(this.W,this.T,this)
+				.init(this.C.SIZE, this.T.cp.clone().addA(this.T.angle,15),
+					this.T.angle + i*spread + (Math.random()*2-1)*rand_spread, 
+				speed, this.C.DAMAGE));
 		}
 	}
-	this.step = function() {
-		this.timer -= 25;
-	}
-	this.draw = function(g) {
-		g.fillStyle = this.CONSTS.COLOR['cover'];
+	this.draws.push(function(g) {
+		g.fillStyle = this.C.COLOR.turret;
 		g.fillRect(2,-3,18,6);
+		g.fillStyle = this.C.COLOR.cover;
 		g.beginPath();
 		g.arc(0,0,10,0,Math.PI*2,true);
 		g.fill();
-	}
+	});
 });
 var TripleTurret = Turret.extend(function() {
-	this.CONSTS = WEAPONS.TRIPLETURRET;
+	this.C = WEAPONS.TRIPLETURRET;
 });
 var SpreadTurret = Turret.extend(function() {
-	this.CONSTS = WEAPONS.SPREADTURRET;
+	this.C = WEAPONS.SPREADTURRET;
 });
 var Minigun = Turret.extend(function() {
-	this.CONSTS = WEAPONS.MINIGUN;
+	this.C = WEAPONS.MINIGUN;
 });
 var Shotgun = Turret.extend(function() {
-	this.CONSTS = WEAPONS.SHOTGUN;
-});
-var Sniper = Turret.extend(function() {
-	this.CONSTS = WEAPONS.SNIPER;
+	this.C = WEAPONS.SHOTGUN;
 });
 
-var MineDropper = Weapon.extend(function() {
-	this.CONSTS = WEAPONS.MINEDROPPER;
+var Laser = TimedWeapon.extend(function() {
+	this.C = WEAPONS.LASER;
 	this.fire = function() {
-		if(this.timer <= 0 && (this.timer = this.CONSTS.TIMER)) {
-			this.W.b.push(new Mine().init(this.T.ID, this.CONSTS.SIZE,
-				this.T.cp.clone().addA(this.T.angle,15), this.CONSTS.DAMAGE).setVars(this.W,this.T,this));
-		}
+		var ang = this.T.angle;
+		var sp = this.T.cp.clone().addA(ang+Math.atan(2/17), Math.sqrt(17*17+2*2));
+		this.W.b.push((new Ray()).setVars(this.W,this.T,this)
+			.init(sp, ang, this.C.COLOR.laser, this.C.DAMAGE));
 	}
-	this.step = function() {
-		this.timer -= 15;
+	this.draws.push(function(g) {
+		g.fillStyle = "rgb("+this.C.COLOR.base.join(",")+")";
+		g.fillRect(-8,-8,16,16);
+		g.fillRect(0,0,17,5);
+		g.fillStyle = "rgb("+this.C.COLOR.laser.join(",")+")";
+		g.fillRect(-5,-5,10,10);
+		g.fillRect(0,2,17,1);
+	});
+});
+
+var MineDropper = TimedWeapon.extend(function() {
+	this.C = WEAPONS.MINEDROPPER;
+	this.fire = function() {
+		this.W.b.push(new Mine().setVars(this.W,this.T,this)
+			.init(this.C.SIZE, this.T.cp.clone().addA(this.T.angle,15), this.C.DAMAGE));
 	}
-	this.draw = function(g) {
-		g.fillStyle = this.CONSTS.COLOR;
+	this.draws.push(function(g) {
+		g.fillStyle = this.C.COLOR;
 		g.fillRect(2,-3,18,6);
 		g.arc(0,0,10,0,Math.PI*2,true);
 		g.fill()
-	}
+	});
 });
 

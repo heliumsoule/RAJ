@@ -70,6 +70,7 @@ var TANKS = {
 }
 
 var Tank = function() {
+	this.OBJECT = "TANK";
 	this.W;
 	this.ID = Math.floor(Math.random()*10000);
 	this.p = new Vector(), this.cp = new Vector();
@@ -126,7 +127,7 @@ var Tank = function() {
 			this.weapon = this.weapons[(this.weapons.indexOf(this.weapon) + 1) % 2];
 		}
 		if(keyv[this.keyb.shoot]) {
-			this.weapon.fire();
+			this.weapon.shoot();
 		}
 		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER,
 		 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER);

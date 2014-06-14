@@ -33,6 +33,7 @@ var World = function() {
 				})
 			}
 			this.walls.push({
+				OBJECT : "WALL",
 				x : map.walls[i][0],
 				y : map.walls[i][1],
 				w : map.walls[i][2],
@@ -49,10 +50,15 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push( ((i==0)?(new SpikedTank()):(new NormalTank()))
+			this.tanks.push( ((i==1)?(new Scout()):(new NormalTank()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
+<<<<<<< HEAD
 					(i==0)?([new Minigun(), new SpreadTurret()]):
 						([new Minigun(), new MineDropper()])
+=======
+					(i==1)?([new Minigun(), new Turret()]):
+						([new Laser(), new Minigun()])
+>>>>>>> fc8c3eb9bcb0946239a2a6aa001e726a26e40508
 				));
 		}
 
