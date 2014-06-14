@@ -26,19 +26,40 @@ var World = function() {
 			var ws = [];
 			for(var iter = 0; iter < upperBound; iter++) {
 				ws.push({
-					x : map.walls[i][0] + Math.random() * (map.walls[i][2] - 10),
-					y : map.walls[i][1] + Math.random() * (map.walls[i][3] - 10),
+					x : Math.random() * (map.walls[i][2] - 10),
+					y : Math.random() * (map.walls[i][3] - 10),
 					w : 2 + Math.random () * 4,
 					h : 2 + Math.random () * 4
 				})
 			}
+			var path = false, paths, onPath = 0, patht = 0;
+			if (map.walls[i][4]) {
+				path = [], paths = [];
+				var pathpoints = map.walls[i][4];
+				var lastSpeed = 0;
+				for(var j=0;j<pathpoints.length;j++) {
+					var pp = pathpoints[j];
+					if (!isNaN(pp)) {
+						if (j == 0) onPath = pp;
+						else patht = pp;
+						continue;
+					}
+					if (pp.length == 3) lastSpeed = pp[2];
+					path.push(new Point(pp[0], pp[1]));
+					paths.push(lastSpeed);
+				}
+			}
 			this.walls.push({
 				OBJECT : "WALL",
-				x : map.walls[i][0],
-				y : map.walls[i][1],
+				x : map.walls[i][0], ox : map.walls[i][0],
+				y : map.walls[i][1], oy : map.walls[i][1],
 				w : map.walls[i][2],
 				h : map.walls[i][3],
-				wallSpots : ws			
+				path : path,
+				paths : paths,
+				onPath : onPath,
+				patht : patht,
+				wallSpots : ws
 			})
 		}
 		for(var i in map.lasers) {
@@ -52,7 +73,7 @@ var World = function() {
 		for(var i in map.tanks) {
 			this.tanks.push( ((i==1)?(new Scout()):(new Heavy()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-					(i==1)?([new MineDropper(), new Minigun()]):
+					(i==1)?([new SpreadTurret(), new Minigun()]):
 						([new TripleTurret(), new Minigun()])
 				));
 		}
@@ -145,6 +166,21 @@ var World = function() {
 				this.b.splice(i--, 1);
 			}
 		}
+		for(var i in this.walls) {
+			var w = this.walls[i];
+			if (w.path !== false) {
+				var a = w.path[w.onPath];
+				var b = w.path[(w.onPath+1)%w.path.length];
+				var dist = DBP(a.x, a.y, b.x, b.y);
+				w.patht = Math.min(1, w.patht + w.paths[w.onPath] / dist);
+				w.x = w.ox + a.x + (b.x - a.x) * w.patht;
+				w.y = w.oy + a.y + (b.y - a.y) * w.patht;
+				if (w.patht >= 1) {
+					w.onPath = (w.onPath+1) % w.path.length;
+					w.patht = 0;
+				}
+			}
+		}
 		for(var i=0;i<this.sw.length;i++) {
 			var sw = this.sw[i];
 			sw.prog = Math.min(sw.prog+0.08, 1);
@@ -160,14 +196,15 @@ var World = function() {
 			g.restore();
 		}
 		for(var count = 0; count < this.walls.length; count++) {
-			g.fillStyle = "rgb(116,116,116)";
-			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls[count].h);
-			g.fillStyle = "rgb(88,88,88)";
-
-			for(var iter = 0; iter < this.walls[count].wallSpots.length; iter++) {
-				g.fillRect(this.walls[count].wallSpots[iter].x,this.walls[count].wallSpots[iter].y,
-						   this.walls[count].wallSpots[iter].w,this.walls[count].wallSpots[iter].h);
-			}
+			var w = this.walls[count];
+			g.translate(w.x, w.y);
+				g.fillStyle = "rgb(116,116,116)";
+				g.fillRect(0,0,w.w,w.h);
+				g.fillStyle = "rgb(88,88,88)";
+				for(var iter = 0; iter < w.wallSpots.length; iter++)
+					g.fillRect(w.wallSpots[iter].x,w.wallSpots[iter].y,
+							   w.wallSpots[iter].w,w.wallSpots[iter].h);
+			g.translate(-w.x, -w.y);
 		}
 		for(var i in this.tanks) {
 			this.tanks[i].draw(g);

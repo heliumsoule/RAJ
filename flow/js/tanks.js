@@ -134,7 +134,7 @@ var Tank = function() {
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
-			var r = calculate(this.p, this.s, this.v);
+			var r = calculate(this.p, this.s, this.v, this.W);
 			this.p.set(r.p);
 			this.v.set(r.v);
 		}
