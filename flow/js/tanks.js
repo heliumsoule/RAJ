@@ -8,6 +8,7 @@ var TANKS = {
 		SPEED : 10,
 		TURNSPEED : 5 * Math.PI / 180,
 		WATER : 0.3,
+		WEIGHT : 1,
 		COLOR : {
 				 'body' : 'rgb(150,150,150)', 
 				 'wheels' : 'rgb(100,100,100)'
@@ -20,6 +21,7 @@ var TANKS = {
 		SPEED : 12,
 		TURNSPEED : 7 * Math.PI / 180,
 		WATER : 0.7,
+		WEIGHT : 0.8,
 		COLOR : {
 				 'body' : 'rgb(160,160,160)', 
 				 'wheels' : 'rgb(111,183,199)'
@@ -32,6 +34,7 @@ var TANKS = {
 		SPEED : 10,
 		TURNSPEED : 4 * Math.PI / 180,
 		WATER : 0.2,
+		WEIGHT : 1.2,
 		COLOR : {
 				 'body' : 'rgb(80,80,80)', 
 				 'wheels' : 'rgb(50,50,50)'
@@ -44,6 +47,7 @@ var TANKS = {
 		SPEED : 10,
 		TURNSPEED : 3 * Math.PI / 180,
 		WATER : 0.1,
+		WEIGHT : 1.4,
 		COLOR : {
 				 'body' : 'rgb(50,50,50)', 
 				 'wheels' : 'rgb(30,30,30)'
@@ -58,7 +62,7 @@ var Tank = function() {
 	this.v = new Vector();
 	this.angle = 0;
 	this.hp = 0;
-	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.WATER, this.COLOR, this.s;
+	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.WATER, this.COLOR, this.weight, this.s;
 	this.keyb;
 	this.weapons, this.weapon, this.weaponST = 0;
 	this.inits = [];
@@ -77,6 +81,7 @@ var Tank = function() {
 		this.TURNSPEED = TDATA.TURNSPEED;
 		this.WATER = TDATA.WATER;
 		this.COLOR = TDATA.COLOR;
+		this.weight = TDATA.WEIGHT;
 		this.s = new Dimension(TDATA.SIZE,TDATA.SIZE);
 	}
 	this.setup = function(W, startPos, angle, weapon) {
@@ -102,8 +107,6 @@ var Tank = function() {
 		}
 		this.weaponST--;
 		if(keyv[this.keyb.switch] && this.weaponST <= 0 && (this.weaponST=8)) {
-			console.log(this.weapons.indexOf(this.weapon));
-			console.log((this.weapons.indexOf(this.weapon) + 1) % 2);
 			this.weapon = this.weapons[(this.weapons.indexOf(this.weapon) + 1) % 2];
 		}
 		if(keyv[this.keyb.shoot]) {
@@ -177,6 +180,9 @@ var ArmoredTank = Tank.extend(function() {
 });
 var SpikedTank = Tank.extend(function() {
 	this.setupData(TANKS.NORMAL);
+	this.hit = function() {
+		this.hp -= dmg;
+	}
 });
 
 
