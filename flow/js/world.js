@@ -33,6 +33,7 @@ var World = function() {
 				})
 			}
 			this.walls.push({
+				OBJECT : "WALL",
 				x : map.walls[i][0],
 				y : map.walls[i][1],
 				w : map.walls[i][2],
@@ -52,7 +53,7 @@ var World = function() {
 			this.tanks.push( ((i==1)?(new Scout()):(new NormalTank()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
 					(i==1)?([new Minigun(), new Turret()]):
-						([new Sniper(), new Minigun()])
+						([new Laser(), new Minigun()])
 				));
 		}
 
