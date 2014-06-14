@@ -3,14 +3,17 @@ var Projectile = function() {
 	this.p, this.v, this.angle, this.damage;
 	this.steps = [];
 	this.step = function() {
+		if (this.destroy) return;
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].call(this);
 	}
 	this.draws = [];
 	this.draw = function(g) {
+		if (this.destroy) return;
 		for(var i=0;i<this.draws.length;i++)
 			this.draws[i].call(this,g);
 	}
+	this.kill = function() {}
 	this.setVars = function(W,T,w) {
 		this.W = W;
 		this.T = T;
@@ -78,6 +81,9 @@ var Bullet = Projectile.extend(function() {
 			}
 		}
 	});
+	this.kill = function() {
+		this.W.createShockwave(this.p.x,this.p.y,[255,255,255],10+this.damage,this.damage);
+	}
 	this.draws.push(function(g) {
 		g.translate(this.p.x,this.p.y);
 			g.rotate(this.angle);
