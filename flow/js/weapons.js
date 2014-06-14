@@ -8,7 +8,7 @@ var WEAPONS = {
 			'cover' : 'rgb(255,149,0)'
 		}
 	},
-	POWERTURRET : {
+	TRIPLETURRET : {
 		SPEED : 7,
 		SIZE : [7,3],
 		SPREAD : Math.PI / 16,
@@ -57,18 +57,18 @@ var Turret = Weapon.extend(function() {
 	}
 });
 
-var powerTurret = Weapon.extend(function() {
+var tripleTurret = Weapon.extend(function() {
 	this.timer = 0;
 	this.fire = function() {
-		if(this.timer-- <= 0 && (this.timer = WEAPONS.POWERTURRET.DELAY)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.POWERTURRET.SPEED).setVars(this.W,this.T,this));
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle + WEAPONS.POWERTURRET.SPREAD, WEAPONS.POWERTURRET.SPEED).setVars(this.W,this.T,this));
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle - WEAPONS.POWERTURRET.SPREAD, WEAPONS.POWERTURRET.SPEED).setVars(this.W,this.T,this));
+		if(this.timer-- <= 0 && (this.timer = WEAPONS.TRIPLETURRET.DELAY)) {
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle + WEAPONS.TRIPLETURRET.SPREAD, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle - WEAPONS.TRIPLETURRET.SPREAD, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
 		}
 	}
 	this.draw = function(g) {
-		g.fillStyle = WEAPONS.POWERTURRET.COLOR['cover'];
-		g.strokeStyle = WEAPONS.POWERTURRET.COLOR['turret'];
+		g.fillStyle = WEAPONS.TRIPLETURRET.COLOR['cover'];
+		g.strokeStyle = WEAPONS.TRIPLETURRET.COLOR['turret'];
 		g.fillRect(2,-3,18,6);
 		g.strokeRect(2,-3,18,6);
 		g.beginPath();
@@ -81,7 +81,7 @@ var sniperTurret = Weapon.extend(function() {
 	this.timer = 0;
 	this.fire = function(id) {
 		if(this.timer-- <= 0 && (this.timer = WEAPONS.SNIPERTURRET.DELAY)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.POWERTURRET.SPEED).setVars(this.W,this.T,this));
+			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.TRIPLETURRET.SPEED).setVars(this.W,this.T,this));
 		}
 	}
 	this.draw = function(g) {
