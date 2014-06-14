@@ -64,7 +64,7 @@ var Tank = function() {
 			var d = (keyv[this.keyb.up]?1:-1)*this.SPEED * 0.07;
 			this.v.addA(this.angle, d);
 		}
-		if(keyv[this.keyb.primary]) {
+		if(keyv[this.keyb.shoot]) {
 			this.weapon.fire();
 		}
 		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER,
