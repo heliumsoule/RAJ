@@ -6,8 +6,8 @@ var WEAPONS = {
 		DAMAGE : 14,
 		NUMBER : 1,
 		COLOR : {
-			'turret' : 'rgb(65,62,67)', 
-			'cover' : 'rgb(255,149,0)'
+			'turret' : 'rgb(137,40,255)', 
+			'cover' : 'rgb(137,40,255)'
 		}
 	},
 	TRIPLETURRET : {
@@ -18,8 +18,8 @@ var WEAPONS = {
 		NUMBER : 3,
 		SPREAD : Math.PI / 20,
 		COLOR : {
-			'turret' : 'rgb(72,253,229)',
-			'cover' : 'rgb(72,153,253)'
+			'turret' : 'rgb(255,130,140)',
+			'cover' : 'rgb(255,130,140)'
 		}
 	},
 	SPREADTURRET : {
@@ -42,8 +42,8 @@ var WEAPONS = {
 		NUMBER : 1,
 		SPREAD_RANDOM : Math.PI / 25,
 		COLOR : {
-			'turret' : 'rgb(72,253,229)',
-			'cover' : 'rgb(72,153,253)'
+			'turret' : 'rgb(95,92,97)',
+			'cover' : 'rgb(26,26,26)'
 		}
 	},
 	SHOTGUN : {
@@ -55,21 +55,19 @@ var WEAPONS = {
 		SPREAD : Math.PI / 70,
 		SPREAD_RANDOM : Math.PI / 15,
 		COLOR : {
-			'turret' : 'rgb(72,253,229)',
-			'cover' : 'rgb(72,153,253)'
+			'cover' : 'rgb(245,177,16)',
+			'turret' : 'rgb(139,113,52)'
 		}
 	},
-	SNIPERTURRET : {
-		SPEED : 20,
+	SNIPER : {
+		SPEED : 30,
 		SIZE : [6,3],
-		DELAY : 20,
-		ACCURACY : 30,
-		DAMAGE : 3,
-		DAMAGE : 5,
-		RANGE : 7,
+		TIMER : 820,
+		DAMAGE : 25,
+		NUMBER : 1,
 		COLOR : {
-			'turret' : 'rgb(252,65,109)',
-			'cover' : 'rgb(251,155,177)'
+			'turret' : 'rgb(40,255,191)',
+			'cover' : 'rgb(40,255,191)'
 		}
 	},
 	MINE : {
@@ -136,24 +134,8 @@ var Minigun = Turret.extend(function() {
 var Shotgun = Turret.extend(function() {
 	this.CONSTS = WEAPONS.SHOTGUN;
 });
-
-var sniperTurret = Weapon.extend(function() {
-	this.timer = 0;
-	this.fire = function(id) {
-		if(this.timer-- <= 0 && (this.timer = WEAPONS.SNIPERTURRET.DELAY)) {
-			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, 
-				WEAPONS.SNIPERTURRET.SPEED, WEAPONS.SNIPERTURRET.DAMAGE, WEAPONS.SNIPERTURRET.RANGE).setVars(this.W,this.T,this));
-		}
-	}
-	this.draw = function(g) {
-		g.fillStyle = WEAPONS.SNIPERTURRET.COLOR['cover'];
-		g.strokeStyle = WEAPONS.SNIPERTURRET.COLOR['turret'];
-		g.fillRect(2,-3,18,6);
-		g.strokeRect(2,-3,18,6);
-		g.beginPath();
-		g.arc(0,0,10,0,Math.PI*2,true);
-		g.fill();
-	}
+var Sniper = Turret.extend(function() {
+	this.CONSTS = WEAPONS.SNIPER;
 });
 
 

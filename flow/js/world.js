@@ -49,8 +49,8 @@ var World = function() {
 		}
 		for(var i in map.tanks) {
 			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-				(i==0)?(new Minigun()):
-					(new Shotgun())
+				(i==0)?(new Sniper()):
+					(new TripleTurret())
 			));
 		}
 		this.tanks[0].init(keyBindP1);
@@ -118,11 +118,6 @@ var World = function() {
 			g.drawImage(hid,0,0);
 			g.restore();
 		}
-		for(var i in this.tanks) {
-			this.tanks[i].draw(g);
-		}
-		for(var i in this.b) 
-			this.b[i].draw(g);
 		for(var count = 0; count < this.walls.length; count++) {
 			g.fillStyle = "rgb(116,116,116)";
 			g.fillRect(this.walls[count].x,this.walls[count].y,this.walls[count].w,this.walls[count].h);
@@ -133,6 +128,11 @@ var World = function() {
 						   this.walls[count].wallSpots[iter].w,this.walls[count].wallSpots[iter].h);
 			}
 		}
+		for(var i in this.tanks) {
+			this.tanks[i].draw(g);
+		}
+		for(var i in this.b) 
+			this.b[i].draw(g);
 	}
 }
 
