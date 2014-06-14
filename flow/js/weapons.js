@@ -11,7 +11,7 @@ var WEAPONS = {
 	POWERTURRET : {
 		SPEED : 7,
 		SIZE : [7,3],
-		SPREAD : Math.PI / 8,
+		SPREAD : Math.PI / 16,
 		DELAY : 7,
 		COLOR : {
 			'turret' : 'rgb(72,253,229)',
@@ -79,7 +79,7 @@ var powerTurret = Weapon.extend(function() {
 
 var sniperTurret = Weapon.extend(function() {
 	this.timer = 0;
-	this.fire = function() {
+	this.fire = function(id) {
 		if(this.timer-- <= 0 && (this.timer = WEAPONS.SNIPERTURRET.DELAY)) {
 			this.W.b.push((new Bullet()).init(this.T.cp.clone().addA(this.T.angle,15), this.T.angle, WEAPONS.POWERTURRET.SPEED).setVars(this.W,this.T,this));
 		}
