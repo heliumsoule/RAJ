@@ -203,7 +203,7 @@ var SpikedTank = Tank.extend(function() {
 	this.hit = function(dmg) {
 		this.hp -= dmg;
 		for(var i=0;i<=dmg;i+=1) {
-			this.W.b.push((new Bullet()).init(this.ID, [2,2],
+			this.W.b.push((new Bullet()).init([2,2],
 					this.cp.clone(), Math.random()*2*Math.PI, 
 					TANKS.SPIKEDTANK.BULLETSPEED, 2.5).setVars(this.W,this,this.T)
 					.options({color:[255,255,0]}) );

@@ -71,10 +71,10 @@ var World = function() {
 			})
 		}
 		for(var i in map.tanks) {
-			this.tanks.push( ((i==1)?(new Scout()):(new Heavy()))
+			this.tanks.push( ((i==1)?(new SpikedTank()):(new Scout()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-					(i==1)?([new SpreadTurret(), new Minigun()]):
-						([new TripleTurret(), new Minigun()])
+					(i==1)?([new Laser(), new Minigun()]):
+						([new Laser(), new Shotgun()])
 				));
 		}
 
