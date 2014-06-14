@@ -50,13 +50,8 @@ var World = function() {
 		}
 		for(var i in map.tanks) {
 			this.tanks.push((new NormalTank()).setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-<<<<<<< HEAD
-				(i==0)?(new Sniper()):
-					(new TripleTurret())
-=======
 				(i==0)?(new Minigun()):
 					(new Turret())
->>>>>>> db52413706e07c346de1332332b95eb6b53d200e
 			));
 		}
 		this.tanks[0].init(keyBindP1);
