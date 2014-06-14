@@ -61,6 +61,7 @@ var Tank = function() {
 	this.HP, this.FRICTION, this.SPEED, this.TURNSPEED, this.WATER, this.COLOR, this.s;
 	this.keyb;
 	this.weapon;
+	this.currWeapon;
 	this.inits = [];
 	this.init = function(keyBinding) {
 		this.keyb = {};
@@ -84,8 +85,9 @@ var Tank = function() {
 		this.p = startPos;
 		this.angle = angle;
 		this.weapon = weapon;
-		this.weapon.T = this;
-		this.weapon.W = W;
+		this.currWeapon = weapon[0];
+		this.currWeapon.T = this;
+		this.currWeapon.W = W;
 		return this;
 	}
 	this.steps = [];
@@ -97,8 +99,13 @@ var Tank = function() {
 			var d = (keyv[this.keyb.up]?1:-1)*this.SPEED * 0.07;
 			this.v.addA(this.angle, d);
 		}
+		if(keyv[this.keyb.switch]) {
+			console.log(this.weapon.indexOf(this.currWeapon));
+			console.log((this.weapon.indexOf(this.currWeapon) + 1) % 2);
+			this.currWeapon = this.weapon[(this.weapon.indexOf(this.currWeapon) + 1) % 2];
+		}
 		if(keyv[this.keyb.shoot]) {
-			this.weapon.fire();
+			this.currWeapon.fire();
 		}
 		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER,
 		 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER);
@@ -115,7 +122,7 @@ var Tank = function() {
 	this.step = function() {
 		for(var i=0;i<this.steps.length;i++)
 			this.steps[i].apply(this,arguments);
-		this.weapon.step();
+		this.currWeapon.step();
 	}
 	this.draws = [];
 	this.draws.push(function(g) {
@@ -141,7 +148,7 @@ var Tank = function() {
 					g.fillRect(-16,10,32,8);
 					g.strokeRect(-16,-18,32,8);
 					g.strokeRect(-16,10,32,8);
-					this.weapon.draw(g);
+					this.currWeapon.draw(g);
 		g.restore();
 	});
 	this.draw = function(g) {

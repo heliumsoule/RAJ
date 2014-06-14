@@ -51,10 +51,11 @@ var World = function() {
 		for(var i in map.tanks) {
 			this.tanks.push( ((i==1)?(new ArmoredTank()):(new NormalTank()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
-					(i==0)?(new Sniper()):
-						(new TripleTurret())
+					(i==0)?([new Sniper(), new TripleTurret()]):
+						([new SpreadTurret(), new TripleTurret()])
 				));
 		}
+		
 		this.tanks[0].init(keyBindP1);
 		this.tanks[1].init(keyBindP2);
 		for(var i in map.fluids) {
