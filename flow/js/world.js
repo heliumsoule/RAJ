@@ -210,7 +210,7 @@ var World = function() {
 		for(var count = 0; count < this.walls.length; count++) {
 			var w = this.walls[count];
 			g.translate(w.x, w.y);
-				g.fillStyle = "rgb(116,116,116)";
+				g.fillStyle = "rgb(60,60,60)";
 				g.fillRect(0,0,w.w,w.h);
 				g.fillStyle = "rgb(88,88,88)";
 				for(var iter = 0; iter < w.wallSpots.length; iter++)
