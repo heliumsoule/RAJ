@@ -1,5 +1,5 @@
 body * {
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
 	margin:0;
 	padding:0;
 }
@@ -11,18 +11,135 @@ h1, h2, h3, h4, h5 {
 	padding:0;
 	font-weight:none;
 }
+.t2 { -webkit-transition: all 0.2s ease-out; -moz-transition: all 0.2s ease-out; -o-transition: all 0.2s ease-out; transition: all 0.2s ease-out; }
+.t3 { -webkit-transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -o-transition: all 0.3s ease-out; transition: all 0.3s ease-out; }
+.t4 { -webkit-transition: all 0.4s ease-out; -moz-transition: all 0.4s ease-out; -o-transition: all 0.4s ease-out; transition: all 0.4s ease-out; }
+.t5 { -webkit-transition: all 0.5s ease-out; -moz-transition: all 0.5s ease-out; -o-transition: all 0.5s ease-out; transition: all 0.5s ease-out; }
+.t6 { -webkit-transition: all 0.6s ease-out; -moz-transition: all 0.6s ease-out; -o-transition: all 0.6s ease-out; transition: all 0.6s ease-out; }
+.t9 { -webkit-transition: all 0.9s ease-out; -moz-transition: all 0.9s ease-out; -o-transition: all 0.9s ease-out; transition: all 0.9s ease-out; }
+.table { display:table; }
+.table-cell { display:table-cell; vertical-align:middle; text-align:center; }
 
 #container {
+	position:absolute;
 	width:720px;
 	height:480px;
 	border:1px solid black;
+	overflow-x:hidden;
+	overflow-y:hidden;
+}
+
+.button {
+	color:#fff;
+	background:#999;
+	position:absolute;
+	padding:5px 15px;
+	font-size:30px;
+	border:3px solid #fff;
+	cursor:pointer;
+	font-weight:bold;
+	top:200px;
+}
+.button.on:hover {
+	color:#999;
+	border-color:#999;
+	background:#fff;
 }
 
 #sel {
-	background:#000;
+	position:relative;
 	width:720px;
 	height:480px;
+	white-space: nowrap;
 }
+#sel > div {
+	position:relative;
+	width:720px;
+	height:480px;
+	display:inline-block;
+	background:#000;
+}
+.map h2 {
+	position:absolute;
+	text-align:center;
+	left:0;
+	width:100%;
+	top:15px;
+	font-size:40px;
+	font-weight:bold;
+	color:#fff;
+}
+.map .button.left {
+	left:25px;
+}
+.map .button.right {
+	left:642px;
+}
+.map .button.next {
+	left:308px;
+	top:400px;
+}
+.map .button.off {
+	color:#bbb;
+	border-color:#bbb;
+	background:#777;
+}
+.tanks .p1, .tanks .p2 {
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:50%;
+	white-space:normal;
+}
+.tanks .p2 {
+	left:50%;
+}
+.tanks .vbar {
+	position:absolute;
+	left:359px;
+	width:2px;
+	top:0;
+	height:395px;
+	background:#fff;
+}
+.tanks .classes {
+	width:100%;
+	height:auto;
+}
+.tanks .class {
+	display:inline-block;
+	width:119px;
+	height:100px;
+	border:2px solid #fff;
+	cursor:pointer;
+}
+.tanks .class:hover {
+	border-color:#0f0;
+}
+.tanks .class.active {
+	border-color:#00f;
+}
+.tanks .info {
+	width:100%;
+	padding:10px;
+	color:#fff;
+}
+.tanks .info h3 {
+	font-size:25px;
+	width:100%;
+	text-align:center;
+}
+.tanks .button {
+	left:302px;
+	top:410px;
+}
+
+
+
+
+
+
 
 #game {
 	display:none;
