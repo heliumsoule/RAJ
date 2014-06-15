@@ -80,7 +80,7 @@ function col(x1,y1,w1,h1,x2,y2,w2,h2) {
 function DBP(x1,y1,x2,y2) {
 	return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
-function calculate(p,s,v,W) {
+function calculate(p,s,v,W,id) {
 	var x = p.x, y = p.y, vx = v.x, vy = v.y, w = s.x, h = s.y, we = 0, pp, vv;
 	if (x < 0) {x = 0; vx = Math.abs(vx) *we;}
 	if (x > 720-w) {x = 720-w; vx = -Math.abs(vx) *we;}
@@ -88,6 +88,11 @@ function calculate(p,s,v,W) {
 	if (y < 0) {y = 0; vy = Math.abs(vy) *we;}
 	for(j in W.walls) {
 		var r = getResult(W.walls[j].x,W.walls[j].y,W.walls[j].w,W.walls[j].h,x,y,w,h,vx,vy);
+		x = r[0]; y = r[1]; vx = r[2]; vy = r[3];
+	}
+	for(j in W.tanks) {
+		if (id == W.tanks[j].ID) continue;
+		var r = getResult(W.tanks[j].p.x,W.tanks[j].p.y,W.tanks[j].s.x,W.tanks[j].s.y,x,y,w,h,vx,vy);
 		x = r[0]; y = r[1]; vx = r[2]; vy = r[3];
 	}
 	return {p:new Point(x,y),v:new Vector(vx,vy)};
