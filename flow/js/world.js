@@ -110,6 +110,18 @@ var World = function() {
 			t.hit(ratio * dmg);
 		}
 		if (opt.shockwave !== false) this.createShockwave(x, y, [255,255,255], r, dmg);
+		for(var i in this.b) {
+			var Wb = this.b[i];
+			if (Wb.destroy) continue;
+			if(col(Wb.p.x,Wb.p.y,Wb.s.x,Wb.s.y,x,y,r,r)) {
+				var dist = Math.max(0, DBP(Wb.p.x,Wb.p.y,x,y) - (Wb.s.x+Wb.s.y)/4);
+				console.log(dist + " " + r);
+				if (dist > r) continue;
+				var ratio = (r - dist) / r; 	
+				Wb.hp -=  ratio * dmg;
+				console.log(i + " " + Wb.hp);
+			}
+		}
 	}
 	this.createShockwave = function(x,y,color,r,p) {
 		var pp = isNaN(p)?r:p

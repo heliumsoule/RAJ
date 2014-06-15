@@ -79,28 +79,44 @@ var Ray = Projectile.extend(function() {
 var Mine = Projectile.extend(function() {
 	this.r = 4;
 	this.activated = 0;
+	this.grace = 1, this.startT;
+	this.hp = 25;
 	this.init = function(size, position, time, damage) {
 		this.s = new Dimension(size[0],size[1]);
 		this.p = position.clone();
 		this.damage = damage;
-		this.oTimer = this.timer = time;
+		this.oTimer = this.tTimer = time;
 		return this;
 	}
 	this.steps.push(function(g) {
-		if (this.activated) {
-			this.timer -= 25;
-			if (this.timer <= 0) {
-				this.W.explode(this.p.x,this.p.y,this.damage);
-				this.destroy = true;
+		for(i in this.W.b) {
+			var b = this.W.b[i];
+			if(b != this) {
+				if(col(b.p.x,b.p.y,b.s.x,b.s.y,this.p.x-this.r,this.p.y-this.r,this.r*2,this.r*2)) {
+					this.destroy = true;
+					this.W.explode(this.p.x,this.p.y,this.damage);
+				}				
 			}
-			return;
+
 		}
 		for(i in this.W.tanks) {
 			var t = this.W.tanks[i];
 			if(col(t.p.x,t.p.y,t.s.x,t.s.y,this.p.x-this.r,this.p.y-this.r,this.r*2,this.r*2)) {
-				this.activated = true;
-				break;
+				if(!this.grace) this.startT = 1;
 			}
+		}
+		this.oTimer -= 10;
+		if(this.oTimer <= 0) this.grace = 0;
+		if(!this.grace && this.startT) this.tTimer -= 10;
+		if(this.tTimer <= 0) {
+			this.activated = true;
+		}
+		if(this.activated) {
+			this.hp -= 5;
+		}
+		if (this.hp <= 0) {
+			this.destroy = true;
+			this.W.explode(this.p.x,this.p.y,this.damage);
 		}
 	});
 	this.draws.push(function(g) {

@@ -70,8 +70,8 @@ var WEAPONS = {
 	RPG : {
 		SPEED : 9,
 		SIZE : [2,1],
-		TIMER : 1250,
-		DAMAGE : 35,
+		TIMER : 50,
+		DAMAGE : 1.3,
 		NUMBER : 1,
 		SPREAD_RANDOM : Math.PI / 25,
 		COLOR : {
@@ -82,7 +82,7 @@ var WEAPONS = {
 	MINEDROPPER : {
 		SIZE : [4,4],
 		DAMAGE : 30,
-		TIMER : 2000,
+		TIMER : 200,
 		COLOR : 'rgb(147,74,225)'
 	}
 };
