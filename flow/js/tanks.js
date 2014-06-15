@@ -2,10 +2,10 @@ var Win = 0;
 
 
 var TANKS = {
-	NORMAL : {
+	NORMALTANK : {
 		SIZE : 32,
 		HP : 100,
-		FRICTION : 0.85,
+		FRICTION : 0.15,
 		SPEED : 10,
 		TURNSPEED : 5 * Math.PI / 180,
 		WATER : 0.3,
@@ -18,7 +18,7 @@ var TANKS = {
 	SCOUT : {
 		SIZE : 28,
 		HP : 75,
-		FRICTION : 0.9,
+		FRICTION : 0.1,
 		SPEED : 12,
 		TURNSPEED : 7 * Math.PI / 180,
 		WATER : 0.7,
@@ -31,7 +31,7 @@ var TANKS = {
 	HEAVY : {
 		SIZE : 36,
 		HP : 170,
-		FRICTION : 0.8,
+		FRICTION : 0.2,
 		SPEED : 10,
 		TURNSPEED : 4 * Math.PI / 180,
 		WATER : 0.2,
@@ -41,10 +41,10 @@ var TANKS = {
 				 'wheels' : 'rgb(50,50,50)'
 				}
 	},
-	ARMORED : {
+	ARMOREDTANK : {
 		SIZE : 40,
 		HP : 250,
-		FRICTION : 0.72,
+		FRICTION : 0.28,
 		SPEED : 10,
 		TURNSPEED : 3 * Math.PI / 180,
 		WATER : 0.1,
@@ -57,7 +57,7 @@ var TANKS = {
 	SPIKEDTANK : {
 		SIZE : 35,
 		HP : 200,
-		FRICTION : 0.85,
+		FRICTION : 0.15,
 		SPEED : 7.5,
 		TURNSPEED : 3.3 * Math.PI / 180,
 		WATER : 0.3,
@@ -91,6 +91,7 @@ var Tank = function() {
 		}
 		for(var i=0;i<this.inits.length;i++)
 			this.inits[i].apply(this);
+		return this;
 	}
 	this.setupData = function(TDATA) {
 		this.hp = this.HP = TDATA.HP;
@@ -133,7 +134,7 @@ var Tank = function() {
 		this.v.addC(this.W.FF.getXVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER,
 		 			this.W.FF.getYVelocity(Math.floor(this.cp.x/6),Math.floor(this.cp.y/6))*this.WATER);
 		{
-			this.v.scale(this.FRICTION);
+			this.v.scale(1-this.FRICTION);
 			this.p.add(this.v);
 			var r = calculate(this.p, this.s, this.v, this.W, this.ID);
 			this.p.set(r.p);
@@ -152,8 +153,23 @@ var Tank = function() {
 	}
 	this.draws = [];
 	this.draws.push(function(g) {
-		g.save();
-			g.translate(this.cp.x, this.cp.y);
+		g.translate(this.cp.x, this.cp.y);
+			
+			g.save();
+				g.rotate(this.angle);
+					g.scale(this.s.x/32,this.s.y/32);
+						g.fillStyle = this.COLOR['body'];
+						g.strokeStyle = this.COLOR['body'];
+						g.fillRect(-12,-12,24,24);
+						g.strokeRect(-12,-12,24,24);
+						g.fillStyle = this.COLOR['wheels'];
+						g.strokeStyle = this.COLOR['wheels'];
+						g.fillRect(-16,-18,32,8);
+						g.fillRect(-16,10,32,8);
+						g.strokeRect(-16,-18,32,8);
+						g.strokeRect(-16,10,32,8);
+						if (this.weapon) this.weapon.draw(g);
+			g.restore();
 			
 			if (this.cp.y < 30) g.translate(0,50);
 			g.fillStyle = "rgb(251,68,68)";
@@ -162,20 +178,7 @@ var Tank = function() {
 			g.fillRect(-17,-27, 34 * this.hp / this.HP, 4);
 			if (this.cp.y < 30) g.translate(0,-50);
 			
-			g.rotate(this.angle);
-				g.scale(this.s.x/32,this.s.y/32);
-					g.fillStyle = this.COLOR['body'];
-					g.strokeStyle = this.COLOR['body'];
-					g.fillRect(-12,-12,24,24);
-					g.strokeRect(-12,-12,24,24);
-					g.fillStyle = this.COLOR['wheels'];
-					g.strokeStyle = this.COLOR['wheels'];
-					g.fillRect(-16,-18,32,8);
-					g.fillRect(-16,10,32,8);
-					g.strokeRect(-16,-18,32,8);
-					g.strokeRect(-16,10,32,8);
-					this.weapon.draw(g);
-		g.restore();
+		g.translate(-this.cp.x, -this.cp.y);
 	});
 	this.draw = function(g) {
 		for(var i in this.draws)
@@ -184,7 +187,7 @@ var Tank = function() {
 }
 
 var NormalTank = Tank.extend(function() {
-	this.setupData(TANKS.NORMAL);
+	this.setupData(TANKS.NORMALTANK);
 });
 
 var Scout = Tank.extend(function() {
@@ -196,7 +199,7 @@ var Heavy = Tank.extend(function() {
 });
 
 var ArmoredTank = Tank.extend(function() {
-	this.setupData(TANKS.ARMORED);
+	this.setupData(TANKS.ARMOREDTANK);
 });
 
 var SpikedTank = Tank.extend(function() {
@@ -224,7 +227,7 @@ var SpikedTank = Tank.extend(function() {
 			}
 		}
 	});
-	this.draws.push(function() {
+	this.draws.push(function(g) {
 		g.save();
 			g.translate(this.cp.x, this.cp.y);
 				g.rotate(this.angle);

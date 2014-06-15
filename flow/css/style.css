@@ -91,6 +91,7 @@ h1, h2, h3, h4, h5 {
 	height:100%;
 	width:50%;
 	white-space:normal;
+	color:#fff;
 }
 .tanks .p2 {
 	left:50%;
@@ -110,7 +111,7 @@ h1, h2, h3, h4, h5 {
 .tanks .class {
 	display:inline-block;
 	width:119px;
-	height:100px;
+	height:80px;
 	border:2px solid #fff;
 	cursor:pointer;
 }
@@ -120,15 +121,11 @@ h1, h2, h3, h4, h5 {
 .tanks .class.active {
 	border-color:#00f;
 }
-.tanks .info {
-	width:100%;
-	padding:10px;
-	color:#fff;
-}
-.tanks .info h3 {
+.tanks h3 {
 	font-size:25px;
 	width:100%;
 	text-align:center;
+	margin-top:7px;
 }
 .tanks .button {
 	left:302px;
@@ -138,6 +135,44 @@ h1, h2, h3, h4, h5 {
 	position:absolute;
 	top:0;
 	left:0;
+}
+.tanks .info {
+	width:100%;
+	padding:10px;
+}
+.tanks .info .stat {
+	width:340px;
+	height:15px;
+	margin-bottom:5px;
+}
+.tanks .info .stat .label {
+	width:90px;
+	display:inline-block;
+	vertical-align:middle;
+}
+.tanks .info .stat .value {
+	width:39px;
+	vertical-align:middle;
+	display:none;
+	text-align:right;
+}
+.tanks .info .stat.number .value {
+	display:inline-block;
+}
+.tanks .info .stat .bar {
+	width:240px;
+	height:5px;
+	margin-top:2px;
+	display:inline-block;
+	vertical-align:middle;
+	background:#f00;
+}
+.tanks .info .stat.number .bar {
+	width:200px;
+}
+.tanks .info .stat .green {
+	height:100%;
+	background:#0f0;
 }
 
 
