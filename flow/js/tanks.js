@@ -1,5 +1,6 @@
 var Win = 0;
 
+
 var TANKS = {
 	NORMAL : {
 		SIZE : 32,
@@ -43,7 +44,7 @@ var TANKS = {
 	ARMORED : {
 		SIZE : 40,
 		HP : 250,
-		FRICTION : 0.72	,
+		FRICTION : 0.72,
 		SPEED : 10,
 		TURNSPEED : 3 * Math.PI / 180,
 		WATER : 0.1,
@@ -134,7 +135,7 @@ var Tank = function() {
 		{
 			this.v.scale(this.FRICTION);
 			this.p.add(this.v);
-			var r = calculate(this.p, this.s, this.v, this.W);
+			var r = calculate(this.p, this.s, this.v, this.W, this.ID);
 			this.p.set(r.p);
 			this.v.set(r.v);
 		}

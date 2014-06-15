@@ -3,6 +3,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<title></title>
 		<script src="js/vendor/jmin.js"></script>
+		<script src="js/menu.js"></script>
 		<script src="js/fluid.js"></script>
 		<script src="js/maps.js"></script>
 		<script src="js/all.js"></script>
@@ -11,11 +12,31 @@
 		<script src="js/weapons.js"></script>
 		<script src="js/projectiles.js"></script>
 		<script src="js/events.js"></script>
+    </head>
+    <body>
+    	<div id="container">
+			<div id="sel">
+				<div class="map">
+					
+				</div>
+			</div>
+			<div id="game">
+				<canvas id="hid" width="120" height="80"></canvas>
+				<canvas id="cv" width="720" height="480"></canvas>
+			</div>
+		</div>
+		<div id="d" style="position:absolute;left:5px;top:525px;height:20px;background:#9cf;padding:3px;">
+			<div style="position:absolute;top:0;left:200px;width:2px;height:100%;background:#000;"></div>
+			<div id="dd"></div>
+		</div>
+		<div id="d2" style="position:absolute;left:5px;top:575px;height:20px;background:#fc9;padding:3px;">
+			
+		</div>
 		<script>
 			var VECTOR_DRAW = 0;
 			var g;
 			$(document).ready(function() {
-				
+				return;
 				var hid = $("#hid")[0],
 					hidg = hid.getContext("2d"),
 					cv = $("#cv")[0],
@@ -31,23 +52,7 @@
 					W.draw(cv, g, hid, hidg);
 
 				}, 25);
-
-
-
 			});
 		</script>
-    </head>
-    <body>
-    	<div id="container">
-			<canvas id="hid" width="120" height="80"></canvas>
-			<canvas id="cv" width="720" height="480" style="border:2px solid #9cf;position:absolute;top:5px;left:5px;"></canvas>
-		</div>
-		<div id="d" style="position:absolute;left:5px;top:525px;height:20px;background:#9cf;padding:3px;">
-			<div style="position:absolute;top:0;left:200px;width:2px;height:100%;background:#000;"></div>
-			<div id="dd"></div>
-		</div>
-		<div id="d2" style="position:absolute;left:5px;top:575px;height:20px;background:#fc9;padding:3px;">
-			
-		</div>
     </body>
 </html>

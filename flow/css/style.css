@@ -1,4 +1,8 @@
-
+body * {
+	box-sizing: border-box;
+	margin:0;
+	padding:0;
+}
 body {
 	font-family: "Quicksand",serif;
 }
@@ -8,7 +12,21 @@ h1, h2, h3, h4, h5 {
 	font-weight:none;
 }
 
+#container {
+	width:720px;
+	height:480px;
+	border:1px solid black;
+}
 
+#sel {
+	background:#000;
+	width:720px;
+	height:480px;
+}
+
+#game {
+	display:none;
+}
 #hid {
 	display:none;
 }
