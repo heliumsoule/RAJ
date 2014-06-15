@@ -86,8 +86,8 @@ function calculate(p,s,v,W) {
 	if (x > 720-w) {x = 720-w; vx = -Math.abs(vx) *we;}
 	if (y > 480-h) {y = 480-h; vy = -Math.abs(vy) *we;}
 	if (y < 0) {y = 0; vy = Math.abs(vy) *we;}
-	for(j in maps[0]["walls"]) {
-		var r = getResult(maps[0].walls[j][0],maps[0].walls[j][1],maps[0].walls[j][2],maps[0].walls[j][3],x,y,w,h,vx,vy);
+	for(j in W.walls) {
+		var r = getResult(W.walls[j].x,W.walls[j].y,W.walls[j].w,W.walls[j].h,x,y,w,h,vx,vy);
 		x = r[0]; y = r[1]; vx = r[2]; vy = r[3];
 	}
 	return {p:new Point(x,y),v:new Vector(vx,vy)};

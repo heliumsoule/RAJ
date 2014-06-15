@@ -2,7 +2,7 @@ var WEAPONS = {
 	TURRET : {
 		SPEED : 10,
 		SIZE : [6,3],
-		TIMER : 230,
+		TIMER : 270,
 		DAMAGE : 14,
 		NUMBER : 1,
 		COLOR : {
@@ -14,7 +14,7 @@ var WEAPONS = {
 		SPEED : 7,
 		SIZE : [7,3],
 		TIMER : 300,
-		DAMAGE : 4,
+		DAMAGE : 5,
 		NUMBER : 3,
 		SPREAD : Math.PI / 20,
 		COLOR : {
@@ -26,7 +26,7 @@ var WEAPONS = {
 		SPEED : 12,
 		SIZE : [3,2],
 		TIMER : 300,
-		DAMAGE : 2,
+		DAMAGE : 3,
 		NUMBER : 5,
 		SPREAD : Math.PI / 25,
 		COLOR : {
