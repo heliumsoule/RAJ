@@ -63,9 +63,10 @@ $(function() {
 		for(var tt=0;tt<Menu.Tanks.length;tt++) {
 			var t = Menu.Tanks[tt];
 			menutanks[i].push((new window[t[0]]()));
+			console.log(tt);
 			div.append(
 				$("<div></div>").addClass("class").addClass("nopad"+(tt?"":" active")).attr("t",tt).attr("i",i)
-				.attr("tank"+tt)
+				.addClass("tank"+tt)
 				.click(function() {
 					var t = parseInt($(this).attr("t"));
 					var i = parseInt($(this).attr("i"));
