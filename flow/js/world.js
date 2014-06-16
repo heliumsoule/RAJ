@@ -70,11 +70,15 @@ var World = function() {
 				h : map.lasers[i][3]
 			})
 		}
-		for(var i in map.tanks) {
-			this.tanks.push( ((i==1)?(new SpikedTank()):(new Scout()))
+		for(var i=0;i<map.tanks.length;i++) {
+			/*this.tanks.push( ((i==1)?(new SpikedTank()):(new Scout()))
 				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
 					(i==1)?([new Laser(), new Minigun()]):
 						([new Laser(), new Shotgun()])
+				));*/
+			this.tanks.push( (new window[Menu.Tanks[menu["p"+i]][0]]())
+				.setup(this, new Point(map.tanks[i][0],map.tanks[i][1]), map.tanks[i][2],
+					[new window[Menu.Weapons[menu["w"+i][0]][0]](), new window[Menu.Weapons[menu["w"+i][1]][0]]()]
 				));
 		}
 

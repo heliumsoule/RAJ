@@ -58,6 +58,7 @@ h1, h2, h3, h4, h5 {
 	height:480px;
 	display:inline-block;
 	background:#000;
+	vertical-align:top;
 }
 .map h2 {
 	position:absolute;
@@ -84,7 +85,7 @@ h1, h2, h3, h4, h5 {
 	border-color:#bbb;
 	background:#777;
 }
-.tanks .p1, .tanks .p2 {
+.boxes .p1, .boxes .p2 {
 	position:absolute;
 	top:0;
 	left:0;
@@ -93,10 +94,10 @@ h1, h2, h3, h4, h5 {
 	white-space:normal;
 	color:#fff;
 }
-.tanks .p2 {
+.boxes .p2 {
 	left:50%;
 }
-.tanks .vbar {
+.boxes .vbar {
 	position:absolute;
 	left:359px;
 	width:2px;
@@ -104,62 +105,76 @@ h1, h2, h3, h4, h5 {
 	height:395px;
 	background:#fff;
 }
-.tanks .classes {
+.boxes .classes {
 	width:100%;
 	height:auto;
 }
-.tanks .class {
+.boxes .class {
 	display:inline-block;
 	width:119px;
 	height:80px;
-	border:2px solid #fff;
+	border:3px solid #fff;
 	cursor:pointer;
 }
-.tanks .class:hover {
-	border-color:#0f0;
+.weapons .class {
+	width:89px;
+	height:60px;
 }
-.tanks .class.active {
-	border-color:#00f;
+.boxes .class:hover {
+	border-color:#090;
 }
-.tanks h3 {
+.boxes .class.active, .boxes .class.active0 {
+	border-color:#22f;
+}
+.boxes .class.active1 {
+	border-color:#66f;
+}
+.boxes h3 {
 	font-size:25px;
 	width:100%;
 	text-align:center;
 	margin-top:7px;
 }
-.tanks .button {
+.boxes .button {
 	left:302px;
 	top:410px;
 }
-.tanks canvas {
+.boxes canvas {
 	position:absolute;
 	top:0;
 	left:0;
 }
-.tanks .info {
+.boxes .info {
 	width:100%;
 	padding:10px;
 }
-.tanks .info .stat {
+.weapons .info {
+	padding-top:4px;
+	padding-bottom:6px;
+}
+.boxes .info .stat {
 	width:340px;
 	height:15px;
 	margin-bottom:5px;
 }
-.tanks .info .stat .label {
+.weapons .info .stat {
+	margin-bottom:1px;
+}
+.boxes .info .stat .label {
 	width:90px;
 	display:inline-block;
 	vertical-align:middle;
 }
-.tanks .info .stat .value {
+.boxes .info .stat .value {
 	width:39px;
 	vertical-align:middle;
 	display:none;
 	text-align:right;
 }
-.tanks .info .stat.number .value {
+.boxes .info .stat.number .value {
 	display:inline-block;
 }
-.tanks .info .stat .bar {
+.boxes .info .stat .bar {
 	width:240px;
 	height:5px;
 	margin-top:2px;
@@ -167,12 +182,15 @@ h1, h2, h3, h4, h5 {
 	vertical-align:middle;
 	background:#f00;
 }
-.tanks .info .stat.number .bar {
+.boxes .info .stat.number .bar {
 	width:200px;
 }
-.tanks .info .stat .green {
+.boxes .info .stat .green {
 	height:100%;
 	background:#0f0;
+}
+.tanks .info .blurb {
+	margin-bottom:5px;
 }
 
 

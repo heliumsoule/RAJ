@@ -1,15 +1,32 @@
 var Win = 0;
-
-
+Menu.TanksStats = {
+	hp : [0, 300],
+	speed : [4,16],
+	friction : [0, 0.4],
+	turnspeed : [2 * Math.PI / 180, 8 * Math.PI / 180],
+	weight : [0.6,1.5]
+};
+Menu.Tanks = [
+	["NormalTank", "Normal Tank",
+		"hp/Health/1;speed/0;friction/0;turnspeed/Handling/0;weight/0"],
+	["Scout", "Scout",
+		"hp/Health/1;speed/0;friction/0;turnspeed/Handling/0;weight/0"],
+	["Heavy", "Heavy",
+		"hp/Health/1;speed/0;friction/0;turnspeed/Handling/0;weight/0"],
+	["ArmoredTank", "Armored Tank",
+		"hp/Health/1;speed/0;friction/0;turnspeed/Handling/0;weight/0"],
+	["SpikedTank", "Spiked Tank",
+		"hp/Health/1;speed/0;friction/0;turnspeed/Handling/0;weight/0;When hit, sprays out spikes randomly that do 2.5x the amount of damage taken."]
+];
 var TANKS = {
 	NORMALTANK : {
-		SIZE : 32,
-		HP : 100,
-		FRICTION : 0.15,
-		SPEED : 10,
-		TURNSPEED : 5 * Math.PI / 180,
-		WATER : 0.3,
-		WEIGHT : 1,
+		SIZE : 32, // size of tank
+		HP : 100, // health
+		FRICTION : 0.15, // friction (amount removed per step)
+		SPEED : 10, // speed
+		TURNSPEED : 5 * Math.PI / 180, // turning speed
+		WATER : 0.3, // fluid influence
+		WEIGHT : 1, // weight
 		COLOR : {
 				 'body' : 'rgb(150,150,150)', 
 				 'wheels' : 'rgb(100,100,100)'
@@ -171,12 +188,14 @@ var Tank = function() {
 						if (this.weapon) this.weapon.draw(g);
 			g.restore();
 			
-			if (this.cp.y < 30) g.translate(0,50);
-			g.fillStyle = "rgb(251,68,68)";
-			g.fillRect(-17,-27, 34, 4);
-			g.fillStyle = "rgb(58,201,22)";
-			g.fillRect(-17,-27, 34 * this.hp / this.HP, 4);
-			if (this.cp.y < 30) g.translate(0,-50);
+			if (this.drawHealthbar !== false) {
+				if (this.p.y < 20) g.translate(0,50);
+				g.fillStyle = "rgb(251,68,68)";
+				g.fillRect(-17,-27, 34, 4);
+				g.fillStyle = "rgb(58,201,22)";
+				g.fillRect(-17,-27, 34 * this.hp / this.HP, 4);
+				if (this.p.y < 20) g.translate(0,-50);
+			}
 			
 		g.translate(-this.cp.x, -this.cp.y);
 	});

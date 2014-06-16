@@ -16,31 +16,45 @@
     </head>
     <body>
     	<div id="container">
+			<div id="game">
+				<canvas id="hid" width="120" height="80"></canvas>
+				<canvas id="cv" width="720" height="480"></canvas>
+			</div>
 			<div id="sel">
 				<div class="map">
 					<div class="button on left t2">&lt;</div>
 					<div class="button on right t2">&gt;</div>
 					<div class="button on next t2">&gt; &gt; &gt;</div>
 					<h2>Map 1</h2>
-				</div><div class="tanks">
+				</div><div class="boxes tanks">
 					<canvas width="720" height="480"></canvas>
 					<div class="p1">
 						<h3></h3>
-						<div class="info">
-						</div>
+						<div class="info"></div>
 					</div>
 					<div class="p2">
 						<h3></h3>
-						<div class="info">
-						</div>
+						<div class="info"></div>
+					</div>
+					<div class="vbar"></div>
+					<div class="button on next t2">&gt; &gt; &gt;</div>
+				</div><div class="boxes weapons">
+					<canvas width="720" height="480"></canvas>
+					<div class="p1">
+						<h3 class="a"></h3>
+						<div class="info a"></div>
+						<h3 class="b"></h3>
+						<div class="info b"></div>
+					</div>
+					<div class="p2">
+						<h3 class="a"></h3>
+						<div class="info a"></div>
+						<h3 class="b"></h3>
+						<div class="info b"></div>
 					</div>
 					<div class="vbar"></div>
 					<div class="button on next t2">&gt; &gt; &gt;</div>
 				</div>
-			</div>
-			<div id="game">
-				<canvas id="hid" width="120" height="80"></canvas>
-				<canvas id="cv" width="720" height="480"></canvas>
 			</div>
 		</div>
 		<div id="d" style="position:absolute;left:5px;top:525px;height:20px;background:#9cf;padding:3px;">
@@ -54,7 +68,13 @@
 			var VECTOR_DRAW = 0;
 			var g;
 			$(document).ready(function() {
-				return;
+				
+			});
+			function startGame() {
+				$("#game").css("opacity",0).css("display","block").animate({
+					opacity : 1
+				}, 500);
+				
 				var hid = $("#hid")[0],
 					hidg = hid.getContext("2d"),
 					cv = $("#cv")[0],
@@ -62,7 +82,7 @@
 				
 				window.W = new World();
 				W.init();
-				W.initMap(maps[1]);
+				W.initMap(maps[menu.map]);
 				window.g = g;
 				
 				setInterval(function() {	
@@ -70,7 +90,7 @@
 					W.draw(cv, g, hid, hidg);
 
 				}, 25);
-			});
+			}
 		</script>
     </body>
 </html>

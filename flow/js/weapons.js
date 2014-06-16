@@ -1,3 +1,24 @@
+Menu.WeaponsStats = {
+	speed : [6,15],
+	timer : [1200,0],
+	damage : [0,20]
+};
+Menu.Weapons = [
+	["Turret", "Turret",
+		"speed/1;damage/1;timer/Firing/0"],
+	["TripleTurret", "Triple Turret",
+		"speed/1;damage/1;timer/Firing/0;Fires three bullets"],
+	["SpreadTurret", "Spread Turret",
+		"speed/1;damage/1;timer/Firing/0;Fires five bullets"],
+	["Minigun", "Minigun",
+		"speed/1;damage/1;timer/Firing/0;Rapid fire weapon with some spread"],
+	["Shotgun", "Shotgun",
+		"speed/1;damage/1;timer/Firing/0;Fires clump of bullets with spread"],
+	["Laser", "Laser",
+		"damage/1;timer/Firing/0;Line of fire, instant hit weapon"],
+];
+
+
 var WEAPONS = {
 	TURRET : {
 		SPEED : 10,
